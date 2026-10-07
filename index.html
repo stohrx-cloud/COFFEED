@@ -3,453 +3,597 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Coffeed, Roastery and Coffee Bar, Oakville</title>
-<meta name="description" content="Sweet, vibrant, balanced specialty coffee, roasted in house at our roastery and coffee bar on Rebecca Street in Oakville. Whole bean, shipped across Canada and the US.">
+<title>Coffeed | It Starts on a Mountain</title>
+<meta name="description" content="Specialty coffee from producers we know by name, roasted in small batches on Rebecca Street in Oakville. Follow a coffee from a Colombian hillside to your kitchen.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='32' cy='32' rx='30' ry='22' transform='rotate(-14 32 32)' fill='%23202020'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Impact,sans-serif' font-size='26' fill='%23fff'%3EC%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="images/story/mountain-wide.webp" media="(min-width: 761px)">
 <style>
 :root{
-  --black:#202020;--paper:#ffffff;--foil:#ecebe8;--foil-2:#dddcd8;--grey:#6b6964;--grey-2:#a3a19c;
-  --rule:rgba(32,32,32,.14);--rule-inv:rgba(255,255,255,.2);--ok:#2f6b3f;--err:#b3261e;--err-inv:#ff9b8f;
-  --display:'Bebas Neue','Oswald',Impact,sans-serif;--sans:'Inter',system-ui,-apple-system,sans-serif;
-  --ease:cubic-bezier(.22,.61,.36,1);
+  --black:#1d1d1c;--ink:#1d1d1c;--paper:#ffffff;--stone:#f1f0ec;--stone-2:#e2e0da;--grey:#686660;--grey-2:#a4a29c;
+  --rule:rgba(29,29,28,.14);--rule-inv:rgba(255,255,255,.18);--ok:#2f6b3f;--err:#b3261e;
+  --display:'Bebas Neue','Oswald',Impact,sans-serif;--serif:'Newsreader',Georgia,'Times New Roman',serif;
+  --ease:cubic-bezier(.22,.61,.36,1);--slow:cubic-bezier(.16,1,.3,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 [hidden]{display:none!important}
-html{scroll-behavior:smooth;scroll-padding-top:5rem;overflow-x:clip}
+html{scroll-behavior:smooth;scroll-padding-top:4.5rem;overflow-x:clip}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{font-family:var(--sans);font-size:1rem;color:var(--black);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+body{font-family:var(--serif);font-size:1.125rem;color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip;font-optical-sizing:auto}
 img{display:block;max-width:100%}
 a{color:inherit}
 button{font:inherit;color:inherit}
-h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.92;letter-spacing:.01em}
-:focus-visible{outline:2px solid var(--black);outline-offset:3px}
-.inv :focus-visible,.inv:focus-visible{outline-color:#fff}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.9;letter-spacing:.01em}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 .skip{position:absolute;left:1rem;top:-4rem;background:var(--black);color:#fff;padding:.6rem 1rem;z-index:1000;text-decoration:none}
 .skip:focus{top:1rem}
-.wrap{width:min(1240px,100% - 2rem);margin-inline:auto}
+.wrap{width:min(1280px,100% - 2rem);margin-inline:auto}
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.lede{font-size:clamp(1.05rem,1.4vw,1.2rem);color:var(--grey);max-width:36rem}
+.small{font-size:.92rem}
+.muted{color:var(--grey)}
 
-/* buttons: pill = the bag's oval, flattened */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:var(--black);color:#fff;font-weight:500;font-size:.95rem;padding:.95rem 1.7rem;border-radius:999px;border:1.5px solid var(--black);text-decoration:none;cursor:pointer;transition:background .25s,color .25s}
-.btn:hover{background:#fff;color:var(--black)}
+/* quiet controls: brand ovals, flattened */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:var(--black);color:#fff;font-family:var(--serif);font-size:1rem;padding:.8rem 1.6rem;border-radius:999px;border:1px solid var(--black);text-decoration:none;cursor:pointer;transition:background .3s,color .3s}
+.btn:hover{background:transparent;color:var(--black)}
 .btn.ghost{background:transparent;color:var(--black)}
 .btn.ghost:hover{background:var(--black);color:#fff}
-.btn.sm{padding:.55rem 1.1rem;font-size:.88rem}
-.btn[disabled]{background:var(--foil-2);border-color:var(--foil-2);color:var(--grey);cursor:not-allowed}
-.inv .btn{background:#fff;color:var(--black);border-color:#fff}
-.inv .btn:hover{background:transparent;color:#fff}
+.btn.sm{padding:.5rem 1.05rem;font-size:.92rem}
+.btn[disabled]{background:var(--stone-2);border-color:var(--stone-2);color:var(--grey);cursor:not-allowed}
+.dark .btn{background:#fff;color:var(--black);border-color:#fff}
+.dark .btn:hover{background:transparent;color:#fff}
+.tlink{background:none;border:0;padding:.2rem 0;cursor:pointer;font-family:var(--serif);font-size:1rem;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.3em;transition:text-underline-offset .3s}
+.tlink:hover{text-underline-offset:.45em}
+.tlink[disabled]{color:var(--grey-2);text-decoration:none;cursor:default}
 
-/* announcement */
-.announce{background:var(--black);color:#fff;font-size:.84rem;text-align:center;padding:.55rem 1rem}
-
-/* nav */
-#nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);transition:box-shadow .3s}
-#nav.scrolled{box-shadow:0 1px 0 var(--rule)}
-#nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:.7rem 0}
-.brand img{height:54px;width:auto;transition:height .3s var(--ease)}
-#nav.scrolled .brand img{height:42px}
-#links{display:flex;gap:2rem;list-style:none;margin-left:auto}
-#links a{text-decoration:none;font-size:.95rem;font-weight:500;padding:.3rem 0;border-bottom:1.5px solid transparent;transition:border-color .2s}
-#links a:hover{border-color:var(--black)}
-.cart-btn{display:inline-flex;align-items:center;gap:.55rem;background:var(--black);color:#fff;border:0;border-radius:999px;padding:.55rem .6rem .55rem 1.1rem;cursor:pointer;font-weight:500;font-size:.92rem}
-.cart-btn b{display:grid;place-items:center;min-width:1.9rem;height:1.45rem;padding:0 .4rem;border-radius:50%;background:#fff;color:var(--black);font-size:.8rem;font-weight:600}
-.cart-btn.bump b{animation:bump .45s var(--ease)}
-@keyframes bump{40%{transform:scale(1.35)}}
+/* ============ nav: transparent over the opening, paper once you scroll ============ */
+#nav{position:fixed;top:0;left:0;right:0;z-index:100;color:#fff;transition:background .5s var(--ease),color .5s var(--ease),box-shadow .5s}
+#nav.solid{background:rgba(255,255,255,.97);color:var(--ink);box-shadow:0 1px 0 var(--rule)}
+#nav .wrap{display:flex;align-items:center;gap:2rem;padding:1rem 0;transition:padding .4s var(--ease)}
+#nav.solid .wrap{padding:.6rem 0}
+.brand img{height:46px;width:auto;filter:invert(1);transition:filter .5s,height .4s var(--ease)}
+#nav.solid .brand img{filter:none;height:38px}
+#links{display:flex;gap:2.2rem;list-style:none;margin-left:auto}
+#links a,.bag-btn{display:inline-block;line-height:1.6;text-decoration:none;font-size:1rem;background:none;border:0;cursor:pointer;padding:.3rem 0;border-bottom:1px solid transparent;transition:border-color .3s}
+#links a:hover,.bag-btn:hover{border-bottom-color:currentColor}
+.bag-btn b{font-weight:400;font-variant-numeric:tabular-nums}
+.bag-btn.bump b{display:inline-block;animation:bump .45s var(--ease)}
+@keyframes bump{40%{transform:scale(1.4)}}
 #burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;position:relative;z-index:102}
-#burger span{position:absolute;left:10px;right:10px;height:2px;background:var(--black);transition:transform .35s var(--ease),opacity .25s}
-#burger span:nth-child(1){top:15px}#burger span:nth-child(2){top:21px}#burger span:nth-child(3){top:27px}
+#burger span{position:absolute;left:10px;right:10px;height:1.5px;background:currentColor;transition:transform .35s var(--ease),opacity .25s}
+#burger span:nth-child(1){top:16px}#burger span:nth-child(2){top:22px}#burger span:nth-child(3){top:28px}
 #nav.open #burger span:nth-child(1){transform:translateY(6px) rotate(45deg)}
 #nav.open #burger span:nth-child(2){opacity:0}
 #nav.open #burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
 #sheet{display:none}
 @media(max-width:860px){
   #links{display:none}#burger{display:block}
-  .cart-btn{margin-left:auto}
-  #sheet{display:flex;position:fixed;inset:0;background:var(--black);color:#fff;flex-direction:column;justify-content:center;padding:2rem 1.5rem;gap:.4rem;z-index:101;opacity:0;visibility:hidden;transition:opacity .35s var(--ease),visibility .35s}
+  .bag-btn{margin-left:auto}
+  #sheet{display:flex;position:fixed;inset:0;background:var(--black);color:#fff;flex-direction:column;justify-content:center;padding:2rem 1.5rem;gap:.3rem;z-index:101;opacity:0;visibility:hidden;transition:opacity .35s var(--ease),visibility .35s}
+  #nav.open{color:#fff}
   #nav.open #sheet{opacity:1;visibility:visible}
-  #nav.open #burger span{background:#fff}
   #sheet a{font-family:var(--display);font-size:3.4rem;line-height:1.05;text-decoration:none;color:#fff}
-  #sheet small{display:block;margin-top:2rem;color:var(--grey-2);font-size:.9rem}
+  #sheet small{display:block;margin-top:2rem;color:var(--grey-2);font-size:1rem}
 }
 
-/* hero: the ovals from the pouch */
-.hero{display:grid;grid-template-columns:repeat(12,1fr);align-items:center;gap:2rem;padding:3rem 0 5rem}
-.hero-copy{grid-column:1/7}
-.hero h1{font-size:clamp(4.6rem,10.5vw,10rem);line-height:.84;margin-bottom:1.75rem}
-.hero h1 span{display:block}
-.hero .lede{margin-bottom:2rem}
-.cta{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
-.rating{margin-top:2.2rem;display:flex;align-items:center;gap:.7rem;font-size:.92rem;color:var(--grey)}
-.rating b{font-family:var(--display);font-size:2rem;font-weight:400;color:var(--black);line-height:1}
-.rating a{color:var(--grey)}
-.ovals{grid-column:7/-1;position:relative;aspect-ratio:1/1.02}
-.ov{position:absolute;border-radius:50%;overflow:hidden}
-.ov-photo{inset:6% 2% 14% 4%;transform:rotate(-14deg)}
-.ov-photo img{position:absolute;inset:-14%;width:128%;height:128%;max-width:none;object-fit:cover;transform:rotate(14deg)}
-.ov-a{width:58%;height:26%;right:-4%;top:-2%;background:var(--black);transform:rotate(-14deg)}
-.ov-b{width:54%;height:24%;left:-2%;bottom:0;background:var(--foil);transform:rotate(-14deg)}
-.ov-label{position:absolute;right:3%;bottom:8%;width:46%;aspect-ratio:2.1/1;background:var(--black);color:#fff;border-radius:50%;transform:rotate(-14deg);display:grid;place-items:center;text-align:center;font-family:var(--display);font-size:clamp(1.1rem,1.9vw,1.7rem);line-height:.95;padding:0 10%}
+/* ============ opening ============ */
+.opening{position:relative;height:100svh;min-height:560px;color:#fff;background:#111;overflow:hidden;display:flex;align-items:flex-end}
+.opening picture,.opening img{position:absolute;inset:0;width:100%;height:100%}
+.opening img{object-fit:cover;object-position:center 40%;filter:grayscale(1) contrast(1.08) brightness(.82)}
+.opening::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 45%,rgba(0,0,0,.65) 100%)}
+.opening .wrap{position:relative;z-index:1;padding-bottom:clamp(2.5rem,7vh,5rem)}
+.opening .place{font-style:italic;font-size:1.05rem;opacity:.85;margin-bottom:1rem}
+.opening h1{font-size:clamp(4.2rem,11vw,11.5rem);line-height:.84;max-width:10ch}
+.opening .lead{font-size:clamp(1.15rem,1.6vw,1.4rem);max-width:34rem;margin-top:1.75rem;line-height:1.5}
+.cue{display:inline-flex;align-items:center;gap:.9rem;margin-top:2.5rem;color:#fff;text-decoration:none;font-size:1rem}
+.cue i{display:block;width:1px;height:2.6rem;background:rgba(255,255,255,.35);position:relative;overflow:hidden}
+.cue i::after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:#fff}
 @media(prefers-reduced-motion:no-preference){
-  .hero h1 span{opacity:0;transform:translateY(.25em);animation:rise .8s var(--ease) forwards}
-  .hero h1 span:nth-child(2){animation-delay:.12s}.hero h1 span:nth-child(3){animation-delay:.24s}
-  .ov{opacity:0;animation:drop 1s var(--ease) forwards}
-  .ov-a{animation-delay:.15s}.ov-photo{animation-delay:.3s}.ov-b{animation-delay:.45s}.ov-label{animation-delay:.6s;opacity:0;animation:drop 1s var(--ease) .6s forwards}
+  .opening img{animation:drift 22s var(--ease) forwards}
+  .opening .place,.opening h1,.opening .lead,.cue{opacity:0;transform:translateY(16px);animation:rise 1.2s var(--slow) forwards}
+  .opening h1{animation-delay:.15s}.opening .lead{animation-delay:.45s}.cue{animation-delay:.8s}
+  .cue i::after{animation:fall 2.2s var(--ease) 1.6s infinite}
 }
+@keyframes drift{from{transform:scale(1.12)}to{transform:scale(1)}}
 @keyframes rise{to{opacity:1;transform:none}}
-@keyframes drop{from{opacity:0;translate:0 -2.5rem}to{opacity:1;translate:0 0}}
+@keyframes fall{to{top:110%}}
 
-/* sections */
-section{padding:6.5rem 0}
-.head{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:end;margin-bottom:2.75rem}
+/* ============ the story: sticky picture, scrolling chapters ============ */
+.story{display:grid;grid-template-columns:1fr 1fr}
+.story.dark{background:var(--black);color:#fff}
+.story.flip .media{order:2}
+.media{position:sticky;top:0;align-self:start;height:100vh;height:100svh;overflow:hidden;background:#0f0f0e}
+.mi{position:absolute;inset:0;opacity:0;transition:opacity 1.1s var(--ease)}
+.mi.on{opacity:1}
+.mi img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 6s var(--ease)}
+.mi.on img{transform:scale(1)}
+.mi.mono img{filter:grayscale(1) contrast(1.05)}
+.mi.oval{display:grid;place-items:center;background:#0f0f0e}
+.mi.oval .frame{width:min(78%,30rem);aspect-ratio:1/1.12;border-radius:50%;overflow:hidden;transform:rotate(-10deg)}
+.mi.oval img{width:125%;height:125%;max-width:none;margin:-12.5% 0 0 -12.5%;transform:rotate(10deg)}
+.mi.oval.on img{transform:rotate(10deg)}
+.chapters{padding:0 clamp(1.5rem,6vw,7rem)}
+.chap{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:6rem 0;max-width:34rem}
+.chap .where{font-style:italic;color:var(--grey);display:flex;align-items:center;gap:.7rem}
+.dark .chap .where{color:var(--grey-2)}
+.chap .where::before{content:"";width:1.7rem;height:.8rem;border-radius:50%;background:currentColor;transform:rotate(-14deg);flex:none}
+.chap .stat{font-family:var(--display);font-size:clamp(5rem,9vw,8.5rem);line-height:.85;margin:1.5rem 0 .25rem;color:var(--stone-2)}
+.dark .chap .stat{color:#3a3a38}
+.chap h2{font-size:clamp(2.8rem,4.6vw,4.4rem);margin:.4rem 0 1.5rem}
+.chap p{font-size:1.2rem;line-height:1.65}
+.chap p+p{margin-top:1.1rem}
+.chap blockquote{margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--rule-inv);font-style:italic;font-size:1.45rem;line-height:1.45}
+.chap blockquote footer{font-style:normal;font-size:.95rem;color:var(--grey-2);margin-top:.75rem}
+.chap .next{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.75rem;margin-top:2.5rem}
+.chap-fig{display:none}
+
+/* ============ the taste: the only colour moment ============ */
+.taste{padding:clamp(6rem,14vh,10rem) 0;text-align:center;overflow:hidden}
+.taste h2{font-size:clamp(3.2rem,7.5vw,7rem);max-width:17ch;margin:0 auto}
+.taste .sub{max-width:34rem;margin:1.5rem auto 0;font-size:1.2rem;color:var(--grey)}
+.flavours{list-style:none;display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem;margin-top:clamp(3.5rem,8vh,6rem)}
+.flavours li:nth-child(even){transform:translateY(2.75rem)}
+.fl{display:grid;justify-items:center;gap:1.1rem;background:none;border:0;cursor:pointer;width:100%;font:inherit;color:inherit}
+.fl .ov{width:100%;aspect-ratio:1.55/1;border-radius:50%;background:var(--c);color:var(--k);display:grid;place-items:center;transform:rotate(-14deg);font-family:var(--display);font-size:clamp(1.6rem,2.5vw,2.4rem);line-height:.95;padding:0 12%;transition:transform .6s var(--slow)}
+.fl .ov span{transform:rotate(14deg)}
+.fl:hover .ov{transform:rotate(-8deg) scale(1.04)}
+.fl .who{font-size:.98rem}
+.fl .who em{display:block;color:var(--grey);font-size:.9rem}
+@media(prefers-reduced-motion:no-preference){
+  .js .flavours .ov{background:var(--stone-2);color:transparent;transform:rotate(-14deg) scale(.82);transition:background-color 1s var(--ease),color .6s var(--ease) .3s,transform 1s var(--slow)}
+  .js .flavours.lit .ov{background:var(--c);color:var(--k);transform:rotate(-14deg)}
+  .js .flavours.lit li:nth-child(2) .ov{transition-delay:.12s,.42s,.12s}
+  .js .flavours.lit li:nth-child(3) .ov{transition-delay:.24s,.54s,.24s}
+  .js .flavours.lit li:nth-child(4) .ov{transition-delay:.36s,.66s,.36s}
+  .js .flavours.lit li:nth-child(5) .ov{transition-delay:.48s,.78s,.48s}
+  .js .flavours.lit .fl:hover .ov{transform:rotate(-8deg) scale(1.04);transition-delay:0s}
+}
+.taste .fine{margin-top:clamp(4rem,9vh,6rem);font-style:italic;color:var(--grey)}
+
+/* ============ voices ============ */
+.voices{background:var(--stone);padding:clamp(5rem,12vh,8rem) 0}
+.voices .top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem 2rem;flex-wrap:wrap;margin-bottom:3rem}
+.voices h2{font-size:clamp(2.6rem,4.4vw,4rem)}
+.voices .score{font-style:italic;color:var(--grey)}
+.voices .score b{font-family:var(--display);font-weight:400;font-style:normal;font-size:2.4rem;color:var(--ink);margin-right:.35rem;vertical-align:-.1em}
+.quotes{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:3rem}
+.quotes blockquote{font-size:1.45rem;line-height:1.45;font-style:italic}
+.quotes cite{display:block;font-style:normal;color:var(--grey);font-size:.95rem;margin-top:1.1rem}
+
+/* ============ section heads ============ */
+.sec{padding:clamp(5rem,12vh,8rem) 0}
+.head{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem 3rem;align-items:end;margin-bottom:3rem}
 .head h2{font-size:clamp(3.2rem,6vw,5.6rem)}
-.head .lede{justify-self:end}
+.head p{color:var(--grey);font-size:1.15rem;max-width:32rem;justify-self:end}
 
-/* shop */
-.shop{background:var(--foil)}
-.deal{display:flex;align-items:center;justify-content:space-between;gap:1rem 2rem;flex-wrap:wrap;background:var(--black);color:#fff;border-radius:999px;padding:1.1rem 2.2rem;margin-bottom:2.25rem}
-.deal p{font-family:var(--display);font-size:clamp(1.5rem,2.4vw,2.1rem);line-height:1}
-.deal small{color:var(--grey-2);font-size:.9rem}
-.tools{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.75rem}
-.filters{display:flex;gap:.5rem;flex-wrap:wrap}
-.filters button{background:transparent;border:1.5px solid var(--black);border-radius:999px;padding:.5rem 1.05rem;cursor:pointer;font-size:.9rem;font-weight:500;transition:background .2s,color .2s}
-.filters button:hover{background:rgba(32,32,32,.06)}
-.filters button[aria-pressed="true"]{background:var(--black);color:#fff}
-.filters button span{color:var(--grey);font-weight:400;margin-left:.25rem}
-.filters button[aria-pressed="true"] span{color:var(--grey-2)}
-.sort{display:flex;align-items:center;gap:.5rem;font-size:.9rem;color:var(--grey)}
-.sort select{font:inherit;color:var(--black);background:transparent;border:0;border-bottom:1.5px solid var(--black);padding:.3rem 1.4rem .3rem 0;appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23202020' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right center}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:1.25rem;list-style:none}
-.card{background:#fff;display:flex;flex-direction:column}
-.card .pic{display:block;width:100%;border:0;background:#fff;cursor:pointer;aspect-ratio:4/5;overflow:hidden;position:relative;padding:0}
-.card .pic img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
-.card .pic:hover img{transform:scale(1.035)}
-.badge{position:absolute;left:.9rem;top:.9rem;background:var(--black);color:#fff;font-size:.78rem;font-weight:500;padding:.35rem .8rem;border-radius:50%}
-.card .body{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;gap:.25rem;flex:1;border-top:1px solid var(--rule)}
-.card .origin{font-size:.84rem;color:var(--grey)}
-.card h3{font-size:1.85rem}
-.card h3 button{background:none;border:0;cursor:pointer;text-align:left;font:inherit;line-height:inherit;letter-spacing:inherit}
-.card h3 button:hover{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:.12em}
-.card .notes{font-size:.88rem;color:var(--grey);line-height:1.45}
-.card .buy{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-top:auto;padding-top:.85rem}
-.price{font-weight:600;font-variant-numeric:tabular-nums}
-.card.out .pic img{opacity:.45}
-.empty-grid{grid-column:1/-1;padding:3rem 0;text-align:center;color:var(--grey)}
+/* ============ find your coffee ============ */
+.quiz-box{border-top:1px solid var(--rule);padding-top:2rem;max-width:62rem}
+.quiz-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1.25rem;color:var(--grey);font-size:.95rem;font-style:italic}
+.progress{display:flex;gap:.4rem}
+.progress i{width:1.6rem;height:.75rem;border-radius:50%;border:1px solid var(--ink);transform:rotate(-14deg)}
+.progress i.on{background:var(--ink)}
+.q h3{font-size:clamp(2.2rem,4vw,3.2rem);margin-bottom:1.75rem}
+.q h3:focus{outline:none}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));border-top:1px solid var(--rule)}
+.opt{text-align:left;background:none;border:0;border-bottom:1px solid var(--rule);padding:1.25rem 1.5rem 1.25rem 0;cursor:pointer;display:grid;gap:.15rem;transition:padding .35s var(--ease)}
+.opt:hover{padding-left:.6rem}
+.opt b{font-family:var(--display);font-weight:400;font-size:1.65rem;line-height:1}
+.opt span{color:var(--grey);font-size:.98rem;font-style:italic}
+.result{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:3rem;align-items:center}
+.result .pic{background:var(--t,var(--stone));border-radius:50%;aspect-ratio:1/1.08;width:100%;max-width:22rem;justify-self:center;display:flex;align-items:center;justify-content:center;transform:rotate(-8deg)}
+.result .pic img{width:62%;height:auto;mix-blend-mode:multiply;transform:rotate(8deg)}
+.result .tag{font-style:italic;color:var(--grey)}
+.result h3{font-size:clamp(2.6rem,4.6vw,3.8rem);margin:.3rem 0 .9rem}
+.result h3:focus{outline:none}
+.result .why{font-size:1.2rem;margin-bottom:1rem}
+.result .notes{font-style:italic;color:var(--grey);margin-bottom:1.5rem}
+.result .buyrow{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1.5rem}
+.runner{margin-top:2rem;padding-top:1.25rem;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1.25rem;color:var(--grey)}
 
-/* coffee bar */
-.tabs{display:flex;gap:2rem;border-bottom:1px solid var(--rule);margin-bottom:2.5rem}
-.tabs button{background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:var(--display);font-size:2rem;padding:.4rem 0;cursor:pointer;color:var(--grey-2);transition:color .2s,border-color .2s}
-.tabs button[aria-selected="true"]{color:var(--black);border-bottom-color:var(--black)}
-.tabs button:hover{color:var(--black)}
+/* ============ the shelf ============ */
+.shelf{background:var(--stone)}
+.shelf .head{margin-bottom:2rem}
+.terms{color:var(--grey);font-style:italic;margin-bottom:2.5rem}
+.tools{display:flex;justify-content:space-between;align-items:end;gap:1rem 2rem;flex-wrap:wrap;border-bottom:1px solid var(--rule);margin-bottom:2.75rem}
+.filters{display:flex;gap:2rem;flex-wrap:wrap}
+.filters button{background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;padding:.6rem 0;cursor:pointer;font-family:var(--display);font-size:1.6rem;line-height:1;color:var(--grey-2);transition:color .25s,border-color .25s}
+.filters button:hover{color:var(--ink)}
+.filters button[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.sort{display:flex;align-items:center;gap:.5rem;color:var(--grey);font-size:.95rem;padding-bottom:.6rem}
+.sort select{font:inherit;color:var(--ink);background:transparent;border:0;padding:.2rem 1.3rem .2rem 0;appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%231d1d1c' stroke-width='1.3'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right center}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:3.5rem 1.5rem;list-style:none}
+.item{display:flex;flex-direction:column}
+.item .pic{display:block;width:100%;border:0;padding:0;cursor:pointer;aspect-ratio:4/5;background:#e8e6e0;position:relative;overflow:hidden}
+.item .pic img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;transition:transform .9s var(--slow)}
+.item .pic:hover img{transform:scale(1.04)}
+.item.out .pic img{opacity:.4}
+.tag-best,.tag-out{position:absolute;left:.9rem;top:.9rem;z-index:1;background:var(--ink);color:#fff;font-family:var(--serif);font-size:.82rem;font-style:italic;padding:.32rem .85rem .36rem;border-radius:50%;transform:rotate(-6deg);pointer-events:none}
+.tag-out{background:var(--paper);color:var(--ink);border:1px solid var(--ink)}
+.item .meta{padding-top:1.1rem;display:grid;gap:.2rem}
+.item .origin{font-size:.92rem;font-style:italic;color:var(--grey);display:flex;align-items:center;gap:.5rem}
+.item .origin i{width:1.05rem;height:.55rem;border-radius:50%;background:var(--c);transform:rotate(-14deg);flex:none}
+.item h3{font-size:1.6rem}
+.item h3 button{background:none;border:0;padding:0;cursor:pointer;text-align:left;font:inherit;line-height:inherit;letter-spacing:inherit}
+.item .notes{font-size:.98rem;color:var(--grey);line-height:1.45}
+.item .buy{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-top:.6rem}
+.price{font-variant-numeric:tabular-nums}
+.empty-grid{grid-column:1/-1;padding:3rem 0;text-align:center;color:var(--grey);font-style:italic}
+
+/* ============ the bar ============ */
+.tabs{display:flex;gap:2rem;border-bottom:1px solid var(--rule);margin-bottom:2rem}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:var(--display);font-size:1.9rem;padding:.4rem 0;cursor:pointer;color:var(--grey-2);transition:color .2s,border-color .2s}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabs button:hover{color:var(--ink)}
 .menu{display:grid;grid-template-columns:1fr 1fr;gap:0 4.5rem;list-style:none}
-.menu li{display:grid;grid-template-columns:1fr auto;gap:.15rem 1.25rem;padding:1.3rem 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.menu li{display:grid;grid-template-columns:1fr auto;gap:.15rem 1.25rem;padding:1.25rem 0;border-bottom:1px solid var(--rule);align-items:baseline}
 .menu li.has-th{grid-template-columns:auto 1fr auto}
-.menu h3{font-size:1.75rem}
-.menu .price{font-weight:500}
-.menu p{grid-column:1/-1;color:var(--grey);font-size:.95rem}
+.menu h3{font-size:1.7rem}
+.menu p{grid-column:1/-1;color:var(--grey);font-style:italic}
 .menu li.has-th p{grid-column:2/-1}
 .th{display:block;width:72px;height:72px;border:0;padding:0;background:none;cursor:zoom-in;border-radius:50%;overflow:hidden;grid-row:1/3;align-self:start}
 .th img{width:100%;height:100%;object-fit:cover}
-.bar-note{margin-top:2.5rem;display:flex;align-items:center;gap:1.25rem;font-size:1rem;max-width:44rem}
-.bar-note::before{content:"";flex:none;width:3.4rem;height:1.6rem;border-radius:50%;background:var(--black);transform:rotate(-14deg)}
 
-/* roastery */
-.roastery{background:var(--black);color:#fff;padding-top:0}
-.store{position:relative;overflow:hidden;aspect-ratio:21/9;max-height:620px;width:100%}
-.store img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
-.story{display:grid;grid-template-columns:5fr 7fr;gap:4rem;margin-top:5rem}
-.story h2{font-size:clamp(3.2rem,6vw,5.6rem)}
-.story p{color:#d6d5d1;font-size:1.08rem;max-width:40rem}
-.story p+p{margin-top:1.1rem}
-.sig{margin-top:1.6rem;color:#fff}
-.sig b{font-family:var(--display);font-weight:400;font-size:1.8rem;display:block;line-height:1}
-.sig span{color:var(--grey-2);font-size:.9rem}
-.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--rule-inv)}
-.facts dt{font-family:var(--display);font-size:3.2rem;line-height:1}
-.facts dd{font-size:.9rem;color:var(--grey-2)}
-.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:5rem;list-style:none}
-.reviews li{border:1px solid var(--rule-inv);padding:1.75rem;display:flex;flex-direction:column;gap:1.25rem}
-.reviews blockquote{font-size:1.05rem;line-height:1.55}
-.reviews cite{font-style:normal;color:var(--grey-2);font-size:.9rem;margin-top:auto}
-.reviews-src{margin-top:1.25rem;font-size:.9rem;color:var(--grey-2)}
-
-/* workshop */
+/* ============ workshop ============ */
+.workshop{background:var(--black);color:#fff}
 .workshop .wrap{display:grid;grid-template-columns:6fr 5fr;gap:5rem;align-items:start}
-.workshop h2{font-size:clamp(3.2rem,5.6vw,5.2rem);margin-bottom:1rem}
-.workshop .lede{margin-bottom:2rem}
-.wfacts{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem 2rem;padding:1.5rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-bottom:2rem}
-.wfacts dt{font-size:.85rem;color:var(--grey)}
-.wfacts dd{font-weight:500}
-.exps{list-style:none;counter-reset:x;display:grid;gap:1.5rem}
-.exps li{counter-increment:x;display:grid;grid-template-columns:3.6rem 1fr;gap:1rem}
-.exps li::before{content:counter(x);display:grid;place-items:center;width:3.6rem;height:2.4rem;border-radius:50%;background:var(--black);color:#fff;font-family:var(--display);font-size:1.5rem;transform:rotate(-14deg)}
+.workshop h2{font-size:clamp(3.2rem,5.6vw,5.2rem);margin-bottom:1.25rem}
+.workshop .lede{font-size:1.25rem;color:#d8d6d0;margin-bottom:2rem;max-width:36rem}
+.wfacts{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem 2rem;padding:1.5rem 0;border-top:1px solid var(--rule-inv);border-bottom:1px solid var(--rule-inv);margin-bottom:2rem}
+.wfacts dt{font-size:.92rem;font-style:italic;color:var(--grey-2)}
+.exps{list-style:none;display:grid;gap:1.5rem}
 .exps b{font-family:var(--display);font-weight:400;font-size:1.7rem;display:block;line-height:1;margin-bottom:.3rem}
-.exps span{color:var(--grey);font-size:.95rem}
-.reserve{background:var(--foil);padding:2.25rem}
+.exps span{color:#cfcdc7}
+.reserve{background:var(--paper);color:var(--ink);padding:2.25rem}
 .reserve h3{font-size:2.3rem;margin-bottom:.35rem}
-.reserve > p{color:var(--grey);font-size:.95rem;margin-bottom:1.5rem}
+.reserve > p{color:var(--grey);margin-bottom:1.5rem;font-style:italic}
+.reserve .btn{background:var(--black);color:#fff;border-color:var(--black)}
+.reserve .btn:hover{background:transparent;color:var(--ink)}
 
 /* forms */
 .form{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem 1.5rem}
 .f{display:flex;flex-direction:column;gap:.35rem}
 .f.full{grid-column:1/-1}
-label,.lbl{font-size:.85rem;font-weight:500}
-input,select,textarea{font:inherit;color:var(--black);background:#fff;border:1.5px solid var(--foil-2);border-radius:10px;padding:.7rem .85rem;width:100%;transition:border-color .2s}
-input:focus,select:focus,textarea:focus{outline:0;border-color:var(--black)}
-input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--err)}
-select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23202020' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .85rem center;padding-right:2.2rem;cursor:pointer}
-textarea{resize:vertical;min-height:4.5rem}
-.err{font-size:.82rem;color:var(--err);min-height:1.1em}
-.f-act{grid-column:1/-1;display:flex;flex-direction:column;align-items:flex-start;gap:.75rem;margin-top:.25rem}
-.f-act small{color:var(--grey);font-size:.84rem}
-.added{display:none;border:1.5px solid var(--black);padding:1.5rem;background:#fff}
-.added h4{font-family:var(--display);font-weight:400;font-size:1.9rem;line-height:1;margin-bottom:.5rem}
+label,.lbl{font-size:.92rem}
+input,select,textarea{font:inherit;font-size:1rem;color:var(--ink);background:#fff;border:0;border-bottom:1px solid var(--grey-2);border-radius:0;padding:.6rem 0;width:100%;transition:border-color .2s}
+input:focus,select:focus,textarea:focus{outline:0;border-bottom-color:var(--ink)}
+input[aria-invalid="true"],select[aria-invalid="true"]{border-bottom-color:var(--err)}
+select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%231d1d1c' stroke-width='1.3'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .2rem center;padding-right:1.6rem;cursor:pointer}
+.err{font-size:.88rem;color:var(--err);min-height:1.1em}
+.f-act{grid-column:1/-1;display:flex;flex-direction:column;align-items:flex-start;gap:.75rem;margin-top:.5rem}
+.f-act small{color:var(--grey);font-size:.9rem;font-style:italic}
+.added{display:none;border-top:1px solid var(--ink);padding-top:1.5rem}
+.added h4{font-family:var(--display);font-weight:400;font-size:2rem;line-height:1;margin-bottom:.5rem}
 .added p{color:var(--grey);margin-bottom:1rem}
 
 /* visit */
-.visit{background:var(--foil)}
 .visit .cols{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:3rem}
-.visit h2{font-size:clamp(3.2rem,6vw,5.6rem);margin-bottom:2.5rem}
-.visit h3{font-size:1.9rem;margin-bottom:.6rem}
-#status{font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
-#status::before{content:"";width:.9rem;height:.6rem;border-radius:50%;background:var(--grey-2)}
+.visit h3{font-size:1.9rem;margin-bottom:.7rem}
+#status{margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;font-style:italic}
+#status::before{content:"";width:.9rem;height:.55rem;border-radius:50%;background:var(--grey-2)}
 #status.open::before{background:var(--ok)}
-#hours{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1.5rem;font-size:.95rem}
+#hours{display:grid;grid-template-columns:auto 1fr;gap:.3rem 1.5rem}
 #hours dt{color:var(--grey)}
-#hours .today{font-weight:600;color:var(--black)}
-.hours-note{margin-top:1rem;font-size:.82rem;color:var(--grey)}
+#hours .today{color:var(--ink);font-weight:500}
+.hours-note{margin-top:1rem;font-size:.9rem;color:var(--grey);font-style:italic}
 .addr{font-style:normal;line-height:1.8}
-.addr a{text-decoration:none;border-bottom:1.5px solid var(--black)}
-.map{border-radius:50% / 42%;overflow:hidden;aspect-ratio:1.35/1;background:var(--foil-2);transform:rotate(-4deg)}
+.map{border-radius:50% / 42%;overflow:hidden;aspect-ratio:1.35/1;background:var(--stone-2);transform:rotate(-4deg)}
 .map iframe{width:118%;height:118%;margin:-9% 0 0 -9%;border:0;filter:grayscale(1) contrast(1.05);transform:rotate(4deg)}
 
 /* footer */
-footer{background:var(--black);color:var(--grey-2);padding:5rem 0 2.5rem}
-footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3.5rem}
-footer .brand img{height:64px;filter:invert(1)}
-footer h4{font-family:var(--display);font-weight:400;font-size:1.5rem;color:#fff;margin-bottom:.7rem;line-height:1}
-footer ul{list-style:none}
-footer li{margin-bottom:.45rem;font-size:.95rem}
-footer a{text-decoration:none;color:#d6d5d1}
-footer a:hover{color:#fff;text-decoration:underline}
-footer .base{border-top:1px solid var(--rule-inv);padding-top:1.5rem;font-size:.85rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+footer.site{background:var(--black);color:var(--grey-2);padding:5rem 0 2.5rem}
+footer.site .cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3.5rem}
+footer.site .brand img{height:60px;filter:invert(1)}
+footer.site h4{font-family:var(--display);font-weight:400;font-size:1.5rem;color:#fff;margin-bottom:.7rem;line-height:1}
+footer.site ul{list-style:none}
+footer.site li{margin-bottom:.4rem}
+footer.site a{text-decoration:none;color:#d8d6d0}
+footer.site a:hover{color:#fff;text-decoration:underline}
+footer.site .base{border-top:1px solid var(--rule-inv);padding-top:1.5rem;font-size:.92rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
 
-/* dialogs */
-dialog{border:0;padding:0;color:var(--black);background:#fff}
-dialog::backdrop{background:rgba(32,32,32,.55)}
-.x{position:absolute;top:.75rem;right:.75rem;z-index:3;width:44px;height:44px;border:0;border-radius:50%;background:var(--foil);font-size:1.5rem;line-height:1;cursor:pointer}
-.x:hover{background:var(--foil-2)}
-
-/* product sheet */
-#product{width:min(1000px,100vw - 2rem);max-width:none;max-height:min(92vh,900px);margin:auto}
+/* ============ dialogs ============ */
+dialog{border:0;padding:0;color:var(--ink);background:#fff}
+dialog::backdrop{background:rgba(20,20,19,.5)}
+.x{position:absolute;top:.75rem;right:.75rem;z-index:3;width:44px;height:44px;border:0;border-radius:50%;background:transparent;font-size:1.6rem;line-height:1;cursor:pointer}
+.x:hover{background:var(--stone)}
+.notes-list{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none}
+.notes-list li{border:1px solid var(--ink);border-radius:50%;padding:.3rem .95rem;font-size:.95rem;font-style:italic}
+#product{width:min(1040px,100vw - 2rem);max-width:none;max-height:min(92vh,900px);margin:auto}
 #product .pd{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-#product .pd-img{background:#fff;border-right:1px solid var(--rule);aspect-ratio:4/5;position:sticky;top:0}
-#product .pd-img img{width:100%;height:100%;object-fit:cover}
-#product .pd-info{padding:2.5rem 2.25rem 2.25rem;display:flex;flex-direction:column;gap:1.1rem}
-#product .origin{color:var(--grey);font-size:.9rem}
+#product .pd-img{background:var(--pt,var(--stone));aspect-ratio:4/5;position:sticky;top:0;display:grid;place-items:center}
+#product .pd-img img{width:80%;height:auto;mix-blend-mode:multiply}
+#product .pd-img.photo img{width:100%;height:100%;object-fit:cover;mix-blend-mode:normal}
+#product .pd-info{padding:2.75rem 2.5rem 2.5rem;display:flex;flex-direction:column;gap:1.15rem}
+#product .origin{color:var(--grey);font-style:italic}
 #product h2{font-size:clamp(2.6rem,4vw,3.6rem)}
-#product .pd-price{font-size:1.25rem;font-weight:600}
-#product .pd-price small{font-weight:400;color:var(--grey);font-size:.9rem;margin-left:.4rem}
-.chips{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none}
-.chips li{border:1.5px solid var(--black);border-radius:50%;padding:.35rem .95rem;font-size:.86rem;font-weight:500}
-.spec{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1.25rem;font-size:.92rem;border-top:1px solid var(--rule);padding-top:1rem}
-.spec dt{color:var(--grey)}
-.pd-story{color:var(--grey);font-size:.95rem}
-.pd-buy{display:flex;gap:.75rem;align-items:flex-end;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:1.25rem}
+#product .pd-price{font-size:1.25rem}
+#product .pd-price small{color:var(--grey);font-size:.95rem;margin-left:.5rem;font-style:italic}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1.25rem;font-size:1rem;border-top:1px solid var(--rule);padding-top:1rem}
+.spec dt{color:var(--grey);font-style:italic}
+.pd-story{color:var(--grey)}
+.pd-buy{display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:1.25rem}
 .pd-buy .f{min-width:9rem}
 .pd-buy .btn{flex:1;min-width:12rem}
-.pd-note{font-size:.85rem;color:var(--grey)}
-.qty{display:inline-flex;align-items:center;border:1.5px solid var(--black);border-radius:999px;height:2.6rem}
+.pd-note{font-size:.95rem;color:var(--grey);font-style:italic}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--ink);border-radius:999px;height:2.6rem}
 .qty button{width:2.4rem;height:100%;border:0;background:none;cursor:pointer;font-size:1.1rem;border-radius:999px}
-.qty button:hover{background:var(--foil)}
-.qty output{min-width:1.6rem;text-align:center;font-variant-numeric:tabular-nums;font-weight:500}
+.qty button:hover{background:var(--stone)}
+.qty output{min-width:1.6rem;text-align:center;font-variant-numeric:tabular-nums}
 .qty.sm{height:2.1rem}.qty.sm button{width:2rem}
 
-/* cart drawer */
-#cart{margin:0 0 0 auto;width:min(440px,100vw);height:100dvh;max-height:none;max-width:none}
+#cart{margin:0 0 0 auto;width:min(460px,100vw);height:100dvh;max-height:none;max-width:none}
 #cart[open]{display:flex;flex-direction:column}
-@media(prefers-reduced-motion:no-preference){#cart[open]{animation:slide .35s var(--ease)}}
+@media(prefers-reduced-motion:no-preference){#cart[open]{animation:slide .45s var(--slow)}}
 @keyframes slide{from{transform:translateX(100%)}}
 .c-head{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--rule)}
 .c-head h2{font-size:2.4rem}
 .c-head .x{position:static}
-.meters{padding:1rem 1.5rem;display:grid;gap:.85rem;border-bottom:1px solid var(--rule);background:var(--foil)}
-.meter p{font-size:.88rem;margin-bottom:.35rem}
-.meter .bar{height:.5rem;border-radius:999px;background:var(--foil-2);overflow:hidden}
-.meter .bar i{display:block;height:100%;background:var(--black);border-radius:999px;transition:width .4s var(--ease)}
+.meters{padding:1rem 1.5rem;display:grid;gap:.85rem;border-bottom:1px solid var(--rule);background:var(--stone)}
+.meter p{font-size:.95rem;margin-bottom:.4rem;font-style:italic}
+.meter .barx{height:3px;background:var(--stone-2);overflow:hidden}
+.meter .barx i{display:block;height:100%;background:var(--ink);transition:width .5s var(--ease)}
 .lines{flex:1;overflow-y:auto;list-style:none;padding:0 1.5rem}
 .line{display:grid;grid-template-columns:72px 1fr auto;gap:.4rem 1rem;padding:1.1rem 0;border-bottom:1px solid var(--rule);align-items:start}
-.line .im{width:72px;height:90px;background:#fff;border:1px solid var(--rule);grid-row:1/3;overflow:hidden}
-.line .im img{width:100%;height:100%;object-fit:cover}
+.line .im{width:72px;height:90px;background:var(--stone);grid-row:1/3;overflow:hidden}
+.line .im img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply}
 .ph{display:grid;place-items:center;width:100%;height:100%;background:var(--black);color:#fff;font-family:var(--display);font-size:1.1rem;text-align:center;line-height:1;padding:.3rem}
-.line h3{font-size:1.35rem}
-.line .meta{font-size:.82rem;color:var(--grey);display:block}
-.line .ctl{display:flex;align-items:center;gap:.75rem;grid-column:2/-1}
-.line .rm{background:none;border:0;font-size:.82rem;color:var(--grey);text-decoration:underline;cursor:pointer;padding:.4rem 0}
-.line .rm:hover{color:var(--black)}
-.c-empty{padding:3rem 1.5rem;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
-.c-empty p{color:var(--grey);max-width:18rem}
+.line h3{font-size:1.4rem}
+.line .meta{font-size:.9rem;color:var(--grey);display:block;font-style:italic}
+.line .ctl{display:flex;align-items:center;gap:.9rem;grid-column:2/-1}
+.line .rm{background:none;border:0;font-size:.9rem;color:var(--grey);text-decoration:underline;text-underline-offset:.25em;cursor:pointer;padding:.4rem 0}
+.c-empty{padding:3rem 1.5rem;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem}
+.c-empty p{color:var(--grey);max-width:20rem;font-style:italic}
 .c-foot{padding:1.25rem 1.5rem 1.5rem;border-top:1px solid var(--rule);display:grid;gap:.4rem}
-.sum{display:flex;justify-content:space-between;font-size:.95rem;font-variant-numeric:tabular-nums}
+.sum{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
 .sum.disc{color:var(--ok)}
-.sum.total{font-weight:600;font-size:1.1rem;padding-top:.5rem;border-top:1px solid var(--rule);margin-top:.3rem}
-.c-foot small{color:var(--grey);font-size:.82rem;margin-bottom:.6rem}
+.sum.total{font-size:1.2rem;padding-top:.5rem;border-top:1px solid var(--rule);margin-top:.3rem}
+.c-foot small{color:var(--grey);font-size:.9rem;margin-bottom:.6rem;font-style:italic}
 .c-foot .btn{width:100%}
 
-/* checkout */
-#checkout{width:min(980px,100vw - 2rem);max-width:none;max-height:94vh;margin:auto}
+#checkout{width:min(1000px,100vw - 2rem);max-width:none;max-height:94vh;margin:auto}
 .co{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
-.co-main{padding:2.25rem}
+.co-main{padding:2.5rem}
 .co-main h2{font-size:3rem;margin-bottom:1.5rem}
-.co-main fieldset{border:0;margin-bottom:1.75rem}
+.co-main fieldset{border:0;margin-bottom:2rem}
 .co-main legend{font-family:var(--display);font-size:1.7rem;line-height:1;margin-bottom:.85rem}
-.methods{display:grid;gap:.6rem}
-.method{display:flex;align-items:center;gap:.85rem;border:1.5px solid var(--foil-2);border-radius:12px;padding:.85rem 1rem;cursor:pointer;font-size:.95rem}
-.method:has(input:checked){border-color:var(--black)}
-.method input{width:auto;accent-color:var(--black)}
+.methods{display:grid}
+.method{display:flex;align-items:center;gap:.85rem;border-bottom:1px solid var(--rule);padding:.85rem 0;cursor:pointer}
+.method input{width:auto;accent-color:var(--ink)}
 .method span{flex:1}
-.method em{font-style:normal;color:var(--grey);font-size:.88rem}
-.pay{border:1.5px dashed var(--grey-2);border-radius:12px;padding:1.1rem 1.2rem;font-size:.9rem;color:var(--grey)}
-.co-side{background:var(--foil);padding:2.25rem 2rem}
+.method em{color:var(--grey)}
+.pay{border-left:2px solid var(--ink);padding:.25rem 0 .25rem 1rem;color:var(--grey);font-style:italic}
+.co-side{background:var(--stone);padding:2.5rem 2rem}
 .co-side h3{font-size:1.9rem;margin-bottom:1rem}
 .co-lines{list-style:none;margin-bottom:1.25rem}
-.co-lines li{display:grid;grid-template-columns:52px 1fr auto;gap:.85rem;align-items:center;padding:.55rem 0;font-size:.9rem}
-.co-lines .im{width:52px;height:64px;background:#fff;overflow:hidden;position:relative}
-.co-lines .im img{width:100%;height:100%;object-fit:cover}
-.co-lines .im b{position:absolute;top:2px;right:2px;background:var(--black);color:#fff;font-size:.7rem;min-width:1.2rem;height:1.2rem;border-radius:50%;display:grid;place-items:center}
-.co-lines .meta{display:block;color:var(--grey);font-size:.8rem}
-.co-err{color:var(--err);font-size:.9rem;margin:.5rem 0 1rem;font-weight:500}
-.co-done{padding:3rem 2.5rem;text-align:center;display:grid;justify-items:center;gap:1rem}
-.co-done .oval{width:7rem;height:4.4rem;border-radius:50%;background:var(--black);color:#fff;display:grid;place-items:center;font-family:var(--display);font-size:1.6rem;transform:rotate(-14deg)}
+.co-lines li{display:grid;grid-template-columns:52px 1fr auto;gap:.85rem;align-items:center;padding:.55rem 0;font-size:.98rem}
+.co-lines .im{width:52px;height:64px;background:var(--paper);overflow:hidden;position:relative}
+.co-lines .im img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply}
+.co-lines .im b{position:absolute;top:2px;right:2px;background:var(--ink);color:#fff;font-size:.72rem;font-weight:400;min-width:1.2rem;height:1.2rem;border-radius:50%;display:grid;place-items:center;font-family:system-ui,sans-serif}
+.co-lines .meta{display:block;color:var(--grey);font-size:.88rem;font-style:italic}
+.co-err{color:var(--err);margin:.5rem 0 1rem}
+.co-done{padding:3.5rem 2.5rem;text-align:center;display:grid;justify-items:center;gap:1rem}
+.co-done .oval{width:7rem;height:4.4rem;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:var(--display);font-size:1.6rem;transform:rotate(-14deg)}
 .co-done h2{font-size:3.4rem}
 .co-done p{color:var(--grey);max-width:30rem}
 
-/* zoom + toast */
 #zoom{max-width:min(92vw,46rem);margin:auto;background:var(--black);color:#fff}
 #zoom img{max-height:70vh;width:auto;margin-inline:auto}
 #zoom .cap{padding:1.1rem 1.4rem 1.4rem}
 #zoom .cap h3{font-size:1.9rem}
-#zoom .cap p{color:var(--grey-2)}
-#toast{position:fixed;left:50%;bottom:1.25rem;transform:translate(-50%,150%);background:var(--black);color:#fff;border-radius:999px;padding:.7rem .7rem .7rem 1.4rem;display:flex;align-items:center;gap:1rem;z-index:200;font-size:.92rem;transition:transform .35s var(--ease);max-width:calc(100vw - 2rem)}
-#toast{visibility:hidden;transition:transform .35s var(--ease),visibility .35s}#toast.show{transform:translate(-50%,0);visibility:visible}
-#toast button{background:#fff;color:var(--black);border:0;border-radius:999px;padding:.45rem 1rem;font-weight:500;cursor:pointer;white-space:nowrap}
+#zoom .cap p{color:var(--grey-2);font-style:italic}
+#zoom .x{color:#fff}
+#toast{position:fixed;left:50%;bottom:1.25rem;transform:translate(-50%,150%);background:var(--ink);color:#fff;border-radius:999px;padding:.65rem .65rem .65rem 1.4rem;display:flex;align-items:center;gap:1rem;z-index:200;max-width:calc(100vw - 2rem);visibility:hidden;transition:transform .45s var(--slow),visibility .45s}
+#toast.show{transform:translate(-50%,0);visibility:visible}
+#toast button{background:#fff;color:var(--ink);border:0;border-radius:999px;padding:.4rem 1rem;cursor:pointer;white-space:nowrap;font-family:var(--serif)}
 
 @media(max-width:1000px){
-  .workshop .wrap,.story{grid-template-columns:1fr;gap:3rem}
+  .workshop .wrap{grid-template-columns:1fr;gap:3rem}
   .visit .cols{grid-template-columns:1fr 1fr}
   .visit .map-col{grid-column:1/-1}
-  .reviews{grid-template-columns:1fr}
-  footer .cols{grid-template-columns:1fr 1fr}
+  .quotes{grid-template-columns:1fr;gap:2.5rem}
+  footer.site .cols{grid-template-columns:1fr 1fr}
   .co{grid-template-columns:1fr}
+  .flavours{grid-template-columns:repeat(3,1fr);row-gap:4rem}
+  .flavours li:nth-child(even){transform:none}
 }
 @media(max-width:860px){
-  .hero{grid-template-columns:1fr;padding:2rem 0 4rem;gap:2.5rem}
-  .hero-copy,.ovals{grid-column:1}
-  .ovals{width:min(100%,30rem);justify-self:center}
-  section{padding:4.5rem 0}
+  .story{grid-template-columns:1fr}
+  .media{display:none}
+  .chapters{padding:0}
+  .chap{min-height:0;padding:0 0 4.5rem;max-width:none}
+  .chap > :not(.chap-fig){margin-left:1rem;margin-right:1rem}
+  .chap-fig{display:block;margin-bottom:2.25rem;aspect-ratio:4/5;overflow:hidden;background:#0f0f0e}
+  .chap-fig img{width:100%;height:100%;object-fit:cover}
+  .chap-fig.mono img{filter:grayscale(1) contrast(1.05)}
+  .chap-fig.oval{aspect-ratio:auto;padding:3rem 0;display:grid;place-items:center}
+  .chap-fig.oval .frame{width:78%;aspect-ratio:1/1.12;border-radius:50%;overflow:hidden;transform:rotate(-10deg)}
+  .chap-fig.oval img{width:125%;height:125%;max-width:none;margin:-12.5% 0 0 -12.5%;transform:rotate(10deg)}
+  .story .chap:first-child{padding-top:0}
   .head{grid-template-columns:1fr;gap:1rem}
-  .head .lede{justify-self:start}
+  .head p{justify-self:start}
   .menu{grid-template-columns:1fr}
-  .deal{border-radius:28px;padding:1.25rem 1.5rem}
   #product .pd{grid-template-columns:1fr}
-  #product .pd-img{position:static;border-right:0;border-bottom:1px solid var(--rule);aspect-ratio:1/1}
-  .store{aspect-ratio:4/3}
-  .story{margin-top:3.5rem}
+  #product .pd-img{position:static;aspect-ratio:1/1}
+  .result{grid-template-columns:1fr;gap:2rem}
+  .result .pic{max-width:15rem}
+  .filters{gap:1.4rem}
 }
 @media(max-width:560px){
+  body{font-size:1.06rem}
   .form{grid-template-columns:1fr}
-  .grid{grid-template-columns:1fr 1fr;gap:.75rem}
-  .card .body{padding:.85rem .8rem 1rem}
-  .card h3{font-size:1.5rem}
-  .card .notes{display:none}
-  .card .buy{flex-direction:column;align-items:flex-start;gap:.5rem}
-  .card .buy .btn{width:100%}
-  .facts{grid-template-columns:1fr 1fr}
+  .grid{grid-template-columns:1fr 1fr;gap:2.5rem 1rem}
+  .item h3{font-size:1.45rem}
+  .item .notes{display:none}
+  .item .buy{flex-direction:column;gap:.2rem}
+  .flavours{grid-template-columns:1fr 1fr;gap:3rem 1rem}
+  .flavours li:last-child{grid-column:1/-1;justify-self:center;width:50%}
   .visit .cols{grid-template-columns:1fr}
-  footer .cols{grid-template-columns:1fr}
+  footer.site .cols{grid-template-columns:1fr}
   .reserve,.co-main,.co-side{padding:1.5rem}
   #product .pd-info{padding:1.75rem 1.25rem 1.5rem}
-  .tabs{gap:1.4rem}.tabs button{font-size:1.7rem}
   .wfacts{grid-template-columns:1fr}
   #product,#checkout{width:100vw;max-width:100vw;max-height:100dvh;height:100dvh}
+  .filters button{font-size:1.4rem}
 }
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<p class="announce">Free shipping across Canada on orders over $65, and across the USA over $80.</p>
-
 <nav id="nav" aria-label="Main">
   <div class="wrap">
     <a class="brand" href="#top"><img src="images/logo.png" alt="Coffeed" width="600" height="447"></a>
     <ul id="links">
-      <li><a href="#shop">Shop</a></li>
-      <li><a href="#bar">Coffee bar</a></li>
-      <li><a href="#roastery">Roastery</a></li>
-      <li><a href="#workshop">Workshop</a></li>
+      <li><a href="#story">The story</a></li>
+      <li><a href="#shelf">Shop</a></li>
+      <li><a href="#bar">The bar</a></li>
       <li><a href="#visit">Visit</a></li>
     </ul>
-    <button class="cart-btn" id="cart-open" type="button" aria-haspopup="dialog">Cart <b id="cart-count">0</b><span class="vh"> items</span></button>
+    <button class="bag-btn" id="cart-open" type="button" aria-haspopup="dialog">Bag (<b id="cart-count">0</b>)<span class="vh"> items</span></button>
     <button id="burger" aria-expanded="false" aria-controls="sheet" aria-label="Open menu"><span></span><span></span><span></span></button>
     <div id="sheet">
-      <a href="#shop">Shop</a>
-      <a href="#bar">Coffee bar</a>
-      <a href="#roastery">Roastery</a>
+      <a href="#story">The story</a>
+      <a href="#shelf">Shop</a>
+      <a href="#bar">The bar</a>
       <a href="#workshop">Workshop</a>
       <a href="#visit">Visit</a>
-      <small>3420 Rebecca Street, Oakville. 647-206-7157</small>
+      <small>3420 Rebecca Street, Oakville</small>
     </div>
   </div>
 </nav>
 
 <main id="main">
-<header class="wrap hero" id="top">
-  <div class="hero-copy">
-    <h1><span>Sweet.</span><span>Vibrant.</span><span>Balanced.</span></h1>
-    <p class="lede">Specialty coffee roasted in house at our roastery and coffee bar on Rebecca Street in Oakville. Whole bean, shipped across Canada and the US.</p>
-    <div class="cta">
-      <a class="btn" href="#shop">Shop beans</a>
-      <a class="btn ghost" href="#bar">See the bar menu</a>
-    </div>
-    <p class="rating"><b>4.9</b><span>on Google, from <a href="https://maps.google.com/?cid=3589123961031788574" rel="noopener" target="_blank">284 reviews</a></span></p>
-  </div>
-  <div class="ovals" aria-hidden="false">
-    <span class="ov ov-a" aria-hidden="true"></span>
-    <div class="ov ov-photo"><img src="images/hero-roasting.webp" alt="Freshly roasted beans pouring from the roaster into the cooling tray at Coffeed" width="567" height="423" fetchpriority="high"></div>
-    <span class="ov ov-b" aria-hidden="true"></span>
-    <span class="ov-label" aria-hidden="true">Roasted on Rebecca Street</span>
+
+<!-- The opening: a place, not a product -->
+<header class="opening" id="top">
+  <picture>
+    <source media="(max-width: 760px)" srcset="images/story/mountain-tall.webp">
+    <img src="images/story/mountain-wide.webp" alt="Mist over the green mountains of Colombia's coffee country" width="1733" height="1083" fetchpriority="high">
+  </picture>
+  <div class="wrap">
+    <p class="place">Colombia, 1,900 metres above the sea</p>
+    <h1>It starts on a mountain.</h1>
+    <p class="lead">Before it was coffee, it was a cherry on a hillside, picked by hand by someone we know by name. This is how it finds its way to your cup.</p>
+    <a class="cue" href="#story"><i aria-hidden="true"></i>Begin the story</a>
   </div>
 </header>
 
-<!-- Shop -->
-<section id="shop" class="shop" aria-labelledby="shop-h">
+<!-- Part one: origin, in black and white -->
+<section class="story" id="story" aria-label="Where it comes from">
+  <div class="media" aria-hidden="true">
+    <div class="mi mono on" data-mi="0"><img src="images/story/cherries.webp" alt="" width="1200" height="1800" loading="lazy"></div>
+    <div class="mi mono" data-mi="1"><img src="images/story/drying.webp" alt="" width="1600" height="1066" loading="lazy"></div>
+  </div>
+  <div class="chapters">
+    <article class="chap" data-chap="0">
+      <figure class="chap-fig mono"><img src="images/story/cherries.webp" alt="Two hands holding a heap of ripe red coffee cherries" width="1200" height="1800" loading="lazy"></figure>
+      <p class="where">Granja Paraiso 92, Cauca, Colombia</p>
+      <p class="stat" aria-hidden="true">1,900 m</p>
+      <h2>Grown by someone with a name</h2>
+      <p>Wilton Benitez farms the slopes above Piendamó. He picks only the ripest cherries, sorts them by size and density, and washes them in ozonated water and ultraviolet light before anything else happens.</p>
+      <p>Most coffee is sold as "100% Arabica" from somewhere. Ours arrives with a farm, a family and an altitude.</p>
+    </article>
+    <article class="chap" data-chap="1">
+      <figure class="chap-fig mono"><img src="images/story/drying.webp" alt="Coffee beans, still in their parchment, drying in the sun" width="1600" height="1066" loading="lazy"></figure>
+      <p class="where">The fermentation tanks</p>
+      <p class="stat" aria-hidden="true">116 hrs</p>
+      <h2>Patience, then a shock</h2>
+      <p>The cherries ferment without oxygen, in a double ferment that runs 116 hours. Then they are rinsed hot, then cold. The thermal shock locks the flavour in place.</p>
+      <p>It is slow and risky, and few farms attempt it. It is also the reason a coffee can taste like something you would never expect.</p>
+    </article>
+  </div>
+</section>
+
+<!-- The turn: colour arrives with flavour -->
+<section class="taste" id="taste" aria-labelledby="taste-h">
+  <div class="wrap">
+    <h2 id="taste-h">And this is what it tastes like.</h2>
+    <p class="sub">Nothing is added after roasting. Every note comes from the farm, the fermentation and the roast.</p>
+    <ul class="flavours" id="flavours"></ul>
+    <p class="fine">Five coffees on our shelf right now.</p>
+  </div>
+</section>
+
+<!-- Part two: roastery and home -->
+<section class="story dark flip" aria-label="How it reaches you">
+  <div class="media" aria-hidden="true">
+    <div class="mi oval on" data-mi="0"><div class="frame"><img src="images/hero-roasting.webp" alt="" width="567" height="423" loading="lazy"></div></div>
+    <div class="mi" data-mi="1"><img src="images/story/morning.webp" alt="" width="1200" height="1800" loading="lazy"></div>
+  </div>
+  <div class="chapters">
+    <article class="chap" data-chap="0">
+      <figure class="chap-fig oval"><div class="frame"><img src="images/hero-roasting.webp" alt="A fresh batch pouring from the roaster into the cooling tray at Coffeed" width="567" height="423" loading="lazy"></div></figure>
+      <p class="where">3420 Rebecca Street, Oakville</p>
+      <h2>Roasted so you can taste the farm</h2>
+      <p>Rare coffee is easy to ruin. Take it too dark and the fruit turns to bitterness, and you are left with the same cup as everywhere else.</p>
+      <p>So we roast in small batches, in our own shop, each lot to show what makes it different. Then we taste it before it goes on the shelf.</p>
+      <blockquote>"We source intentionally, roast deliberately and quality-control relentlessly. Not out of habit, but out of care."<footer>Joseph, founder and roaster</footer></blockquote>
+    </article>
+    <article class="chap" data-chap="1">
+      <figure class="chap-fig"><img src="images/story/morning.webp" alt="A cup of coffee on a dark kitchen counter in early light" width="1200" height="1800" loading="lazy"></figure>
+      <p class="where">Your kitchen, tomorrow morning</p>
+      <h2>Then it is yours</h2>
+      <p>It arrives whole bean, so it is still at its best when you grind it. Pour slowly and the room fills with it.</p>
+      <p>A bag makes about fifteen cups, a little over two dollars each. A mountain in Colombia, a farmer with a name, and a roaster down the street, every morning.</p>
+      <div class="next">
+        <a class="btn" href="#find">Find your coffee</a>
+        <a class="tlink" href="#shelf">See the shelf</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- Voices -->
+<section class="voices" aria-labelledby="voices-h">
+  <div class="wrap">
+    <div class="top">
+      <h2 id="voices-h">Overheard at the bar</h2>
+      <p class="score"><b>4.9</b>from 284 Google reviews</p>
+    </div>
+    <ul class="quotes">
+      <li><blockquote>"It really feels like a serious coffee place. They roast their own beans in house and even have a roasting machine on site."</blockquote><cite>Siting C.</cite></li>
+      <li><blockquote>"A wonderful local café with rich, flavourful coffee and unique varieties you do not often find elsewhere."</blockquote><cite>Fleurette</cite></li>
+      <li><blockquote>"They know their stuff here and are happy to share."</blockquote><cite>Niraj P.</cite></li>
+    </ul>
+  </div>
+</section>
+
+<!-- Find your coffee -->
+<section class="sec" id="find" aria-labelledby="find-h">
   <div class="wrap">
     <div class="head">
-      <h2 id="shop-h">On the shelf</h2>
-      <p class="lede">Every coffee here is roasted in small batches at the shop and shipped whole bean, so it is as fresh as possible when you grind it.</p>
+      <h2 id="find-h">Find your coffee</h2>
+      <p>Tell us how you brew and what you like. We will point you to the bag on our shelf that suits you best.</p>
     </div>
-    <div class="deal">
-      <p>Spend $180 on beans, save 10%. Spend $450, save 20%.</p>
-      <small>Applied automatically in your cart.</small>
+    <div class="quiz-box" id="quiz">
+      <div class="quiz-top"><span class="progress" id="q-prog" aria-hidden="true"><i></i><i></i><i></i></span><span id="q-step">Question 1 of 3</span><button class="tlink" type="button" id="q-back" hidden>Back</button></div>
+      <div class="q" id="q-body" aria-live="polite"></div>
     </div>
+  </div>
+</section>
+
+<!-- The shelf -->
+<section class="sec shelf" id="shelf" aria-labelledby="shelf-h">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="shelf-h">The shelf</h2>
+      <p>Every coffee we are roasting right now, and the few things we would brew it with.</p>
+    </div>
+    <p class="terms">Free shipping across Canada over $65 and the USA over $80. Spend $180 on beans and 10% comes off on its own.</p>
     <div class="tools">
-      <div class="filters" role="group" aria-label="Filter products" id="filters"></div>
+      <div class="filters" role="group" aria-label="Filter the shelf" id="filters"></div>
       <label class="sort">Sort <select id="sort"><option value="feat">Featured</option><option value="lo">Price, low to high</option><option value="hi">Price, high to low</option></select></label>
     </div>
     <ul class="grid" id="grid" aria-live="polite"></ul>
   </div>
 </section>
 
-<!-- Coffee bar -->
-<section id="bar" aria-labelledby="bar-h">
+<!-- The bar -->
+<section class="sec" id="bar" aria-labelledby="bar-h">
   <div class="wrap">
     <div class="head">
-      <h2 id="bar-h">At the coffee bar</h2>
-      <p class="lede">Every bean on the shelf can be brewed by the cup. Here is what else is on this fall.</p>
+      <h2 id="bar-h">Taste it first at the bar</h2>
+      <p>Every bean on the shelf can be brewed by the cup on Rebecca Street. Here is what else is on this fall.</p>
     </div>
     <div class="tabs" role="tablist" aria-label="Coffee bar menu">
       <button role="tab" id="tab-fall" aria-selected="true" aria-controls="panel-fall">Fall menu</button>
@@ -472,57 +616,29 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
         <li class="has-th"><button class="th" type="button" data-src="images/products/whole-banana-loaf.webp" aria-label="Enlarge photo of Banana bread"><img src="images/products/whole-banana-loaf.webp" alt="A loaf of banana bread, sliced" loading="lazy" width="800" height="1000"></button><h3>Banana bread, whole loaf</h3><span class="price">$30.00</span><p>Moist and dense. Order the whole loaf online for pickup.</p></li>
       </ul>
     </div>
-    <p class="bar-note">Ask the bar what is on espresso today, or bring a bag home and we will grind it for your brewer.</p>
-  </div>
-</section>
-
-<!-- Roastery -->
-<section id="roastery" class="roastery inv" aria-labelledby="roast-h">
-  <figure class="store"><img src="images/storefront.webp" alt="The Coffeed storefront at dusk, signed Roastery, Coffee Bar, Bottle Shop, Store" loading="lazy" width="1800" height="1030"></figure>
-  <div class="wrap">
-    <div class="story">
-      <h2 id="roast-h">The coffee comes first</h2>
-      <div>
-        <p>It really comes down to one thing: the coffee. Everything else flows from it. The community, the experience, the moments people share. When the coffee is great, those moments become more memorable.</p>
-        <p>That is why we source intentionally, roast deliberately and quality-control relentlessly. Not out of habit, but out of care. The drinks, the baked goods, the workshops and the community all exist because the coffee comes first.</p>
-        <p class="sig"><b>Joseph</b><span>Founder and roaster</span></p>
-        <dl class="facts">
-          <div><dt>4.9</dt><dd>Google rating</dd></div>
-          <div><dt>284</dt><dd>Google reviews</dd></div>
-          <div><dt id="bean-count">13</dt><dd>Coffees on the shelf</dd></div>
-        </dl>
-      </div>
-    </div>
-    <ul class="reviews">
-      <li><blockquote>It really feels like a serious coffee place. They roast their own beans in house and even have a roasting machine on site.</blockquote><cite>Siting C.</cite></li>
-      <li><blockquote>Excellent, personable service and equally excellent coffee options. They know their stuff here and are happy to share.</blockquote><cite>Niraj P.</cite></li>
-      <li><blockquote>A wonderful local café with rich, flavourful coffee and unique varieties you do not often find elsewhere.</blockquote><cite>Fleurette</cite></li>
-    </ul>
-    <p class="reviews-src">From Google reviews of Coffeed, 3420 Rebecca Street.</p>
   </div>
 </section>
 
 <!-- Workshop -->
-<section id="workshop" class="workshop" aria-labelledby="ws-h">
+<section class="sec workshop dark" id="workshop" aria-labelledby="ws-h">
   <div class="wrap">
     <div>
       <h2 id="ws-h">Brewing Better Coffee, Vol. 1</h2>
-      <p class="lede">Stop following recipes. Start building them. A 90-minute, small-group workshop at the roastery, built on side-by-side brewing experiments. No advanced coffee knowledge needed. Come curious.</p>
+      <p class="lede">Stop following recipes. Start building them. Ninety minutes at the roastery, ten people, side-by-side brewing experiments. No coffee knowledge needed. Come curious.</p>
       <dl class="wfacts">
-        <div><dt>Length</dt><dd>90 minutes, Saturdays 4:30 to 6 pm</dd></div>
-        <div><dt>Group size</dt><dd>Up to 10 people</dd></div>
-        <div><dt>Price</dt><dd>$99 + HST per seat</dd></div>
-        <div><dt>You take home</dt><dd>100 g each of the two workshop coffees</dd></div>
+        <div><dt>When</dt><dd>Saturdays, 4:30 to 6 pm</dd></div>
+        <div><dt>Group</dt><dd>Up to 10 people</dd></div>
+        <div><dt>Seat</dt><dd>$99 + HST</dd></div>
+        <div><dt>You take home</dt><dd>100 g each of both workshop coffees</dd></div>
       </dl>
-      <ol class="exps">
-        <li><div><b>Strength and extraction</b><span>On the V60, we change grind, ratio and bypass water to taste the difference between how much we extract and how strong the cup is. Brewed with Ethiopia Kokose.</span></div></li>
-        <li><div><b>Water and flavour</b><span>Same coffee, same method, different water, to show how much water composition changes what is in the cup. Brewed with Wilton Benitez Geisha.</span></div></li>
-      </ol>
+      <ul class="exps">
+        <li><b>Strength and extraction</b><span>Change grind, ratio and bypass water on the V60, and taste the difference between how much you extract and how strong the cup is. With Ethiopia Kokose.</span></li>
+        <li><b>Water and flavour</b><span>Same coffee, same method, different water. You will not believe how much it changes. With Wilton Benitez Geisha.</span></li>
+      </ul>
     </div>
-
     <div class="reserve">
       <h3>Reserve seats</h3>
-      <p>Seats go in your cart. Check out to confirm them.</p>
+      <p>Seats go in your bag. Check out to confirm them.</p>
       <form class="form" id="ws-form" novalidate>
         <div class="f full">
           <label for="ws-session">Session</label>
@@ -544,23 +660,26 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
           <span class="err" id="ws-name-err" aria-live="polite"></span>
         </div>
         <div class="f-act">
-          <button class="btn" type="submit">Add seats to cart</button>
-          <small>Registrations are non-refundable, but you can transfer your seat to someone else.</small>
+          <button class="btn" type="submit">Add seats to bag</button>
+          <small>Registrations are non-refundable, but you can pass your seat to someone else.</small>
         </div>
       </form>
       <div class="added" id="ws-added" tabindex="-1">
         <h4>Seats added</h4>
         <p id="ws-added-msg"></p>
-        <button class="btn sm" type="button" id="ws-view">View cart</button>
+        <button class="btn sm" type="button" id="ws-view">View bag</button>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Visit -->
-<section id="visit" class="visit" aria-labelledby="visit-h">
+<section class="sec visit" id="visit" aria-labelledby="visit-h">
   <div class="wrap">
-    <h2 id="visit-h">Visit the roastery</h2>
+    <div class="head">
+      <h2 id="visit-h">Come by the roastery</h2>
+      <p>Roastery, coffee bar, bottle shop and store, all under one roof in Oakville.</p>
+    </div>
     <div class="cols">
       <div>
         <h3>Hours</h3>
@@ -571,7 +690,7 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
       <div>
         <h3>Find us</h3>
         <address class="addr">3420 Rebecca Street<br>Oakville, Ontario L6L 6W2<br><a href="tel:+16472067157">647-206-7157</a><br><a href="mailto:sales@coffeed.ca">sales@coffeed.ca</a></address>
-        <p style="margin-top:1.25rem"><a class="btn sm ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Coffeed&amp;query_place_id=ChIJE86GGm9fK4gRHogkADohzzE" target="_blank" rel="noopener">Get directions</a></p>
+        <p style="margin-top:1.25rem"><a class="tlink" href="https://www.google.com/maps/search/?api=1&amp;query=Coffeed&amp;query_place_id=ChIJE86GGm9fK4gRHogkADohzzE" target="_blank" rel="noopener">Get directions</a></p>
       </div>
       <div class="map-col">
         <div class="map"><iframe title="Map showing Coffeed at 3420 Rebecca Street, Oakville" src="https://maps.google.com/maps?q=Coffeed%2C%203420%20Rebecca%20St%2C%20Oakville%2C%20ON&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
@@ -581,16 +700,16 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
 </section>
 </main>
 
-<footer class="inv">
+<footer class="site">
   <div class="wrap">
     <div class="cols">
       <div>
         <a class="brand" href="#top"><img src="images/logo.png" alt="Coffeed" width="600" height="447"></a>
-        <p style="margin-top:1.25rem;max-width:26rem">Roastery, coffee bar, bottle shop and store on Rebecca Street in Oakville. Sweet, vibrant, balanced coffee, roasted right.</p>
+        <p style="margin-top:1.25rem;max-width:24rem;font-style:italic">Sweet, vibrant, balanced coffee, roasted right on Rebecca Street in Oakville.</p>
       </div>
       <div>
         <h4>Shop</h4>
-        <ul><li><a href="#shop" data-filter="beans">Coffee beans</a></li><li><a href="#shop" data-filter="gear">Brew gear</a></li><li><a href="#shop" data-filter="pantry">Pantry and collabs</a></li><li><a href="#shop" data-filter="gifts">Gift cards</a></li></ul>
+        <ul><li><a href="#shelf" data-filter="best">Bestsellers</a></li><li><a href="#shelf" data-filter="beans">Coffee</a></li><li><a href="#shelf" data-filter="gear">Brew gear</a></li><li><a href="#shelf" data-filter="gifts">Gift cards</a></li></ul>
       </div>
       <div>
         <h4>Visit</h4>
@@ -598,12 +717,12 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
       </div>
       <div>
         <h4>Follow</h4>
-        <ul><li><a href="https://instagram.com/coffeedshop" target="_blank" rel="noopener">Instagram, @coffeedshop</a></li><li><a href="#workshop">Workshops</a></li></ul>
+        <ul><li><a href="https://instagram.com/coffeedshop" target="_blank" rel="noopener">Instagram</a></li><li><a href="#workshop">Workshops</a></li><li><a href="#story">Our story</a></li></ul>
       </div>
     </div>
     <div class="base">
       <span>&copy; 2026 <a href="https://www.stohrx.ca/">STOHRX</a>. Sample concept site for Coffeed.</span>
-      <span>Products and prices from coffeed.ca, October 2026.</span>
+      <span>Story photography from Pexels, to be replaced with Coffeed's own.</span>
     </div>
   </div>
 </footer>
@@ -612,16 +731,16 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
 <dialog id="product" aria-labelledby="pd-name">
   <button class="x" type="button" data-close aria-label="Close">&times;</button>
   <div class="pd">
-    <div class="pd-img"><img id="pd-img" src="" alt="" width="800" height="1000"></div>
+    <div class="pd-img" id="pd-img-wrap"><img id="pd-img" src="" alt="" width="800" height="1000"></div>
     <div class="pd-info">
       <div>
         <p class="origin" id="pd-origin"></p>
         <h2 id="pd-name"></h2>
       </div>
       <p class="pd-price" id="pd-price"></p>
-      <ul class="chips" id="pd-notes" aria-label="Tasting notes"></ul>
-      <dl class="spec" id="pd-spec"></dl>
+      <ul class="notes-list" id="pd-notes" aria-label="Tasting notes"></ul>
       <p class="pd-story" id="pd-story"></p>
+      <dl class="spec" id="pd-spec"></dl>
       <div class="pd-buy">
         <div class="f" id="pd-var-wrap" hidden>
           <label for="pd-var" id="pd-var-label">Option</label>
@@ -631,27 +750,27 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
           <span class="lbl" id="pd-qty-l">Quantity</span>
           <div class="qty" role="group" aria-labelledby="pd-qty-l"><button type="button" id="pd-minus" aria-label="Decrease quantity">&minus;</button><output id="pd-qty">1</output><button type="button" id="pd-plus" aria-label="Increase quantity">+</button></div>
         </div>
-        <button class="btn" type="button" id="pd-add">Add to cart</button>
+        <button class="btn" type="button" id="pd-add">Add to bag</button>
       </div>
       <p class="pd-note" id="pd-note"></p>
     </div>
   </div>
 </dialog>
 
-<!-- Cart drawer -->
+<!-- Bag drawer -->
 <dialog id="cart" aria-labelledby="cart-h">
-  <div class="c-head"><h2 id="cart-h">Your cart</h2><button class="x" type="button" data-close aria-label="Close cart">&times;</button></div>
+  <div class="c-head"><h2 id="cart-h">Your bag</h2><button class="x" type="button" data-close aria-label="Close bag">&times;</button></div>
   <div class="meters" id="meters"></div>
   <ul class="lines" id="lines"></ul>
   <div class="c-empty" id="c-empty" hidden>
-    <p>Your cart is empty. Start with this month's beans.</p>
-    <a class="btn" href="#shop" data-close>Shop beans</a>
+    <p>Your bag is empty. Three questions will find the coffee for you.</p>
+    <a class="btn" href="#find" data-close>Find your coffee</a>
   </div>
   <div class="c-foot" id="c-foot">
     <div class="sum"><span>Subtotal</span><span id="c-sub"></span></div>
     <div class="sum disc" id="c-disc-row" hidden><span id="c-disc-l"></span><span id="c-disc"></span></div>
     <div class="sum total"><span>Total</span><span id="c-total"></span></div>
-    <small>Shipping and tax are calculated at checkout.</small>
+    <small>Shipping and tax are worked out at checkout.</small>
     <button class="btn" type="button" id="to-checkout">Check out</button>
   </div>
 </dialog>
@@ -717,57 +836,60 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
   <div class="cap"><h3 id="zoom-h"></h3><p></p></div>
 </dialog>
 
-<div id="toast" role="status" aria-live="polite"><span id="toast-msg"></span><button type="button" id="toast-view">View cart</button></div>
+<div id="toast" role="status" aria-live="polite"><span id="toast-msg"></span><button type="button" id="toast-view">View bag</button></div>
 
 <script>
+document.documentElement.classList.add('js');
 (function(){
   var $=function(s,c){return (c||document).querySelector(s)};
   var $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
   var money=function(n){return '$'+n.toFixed(2)};
   var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var reduced=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- catalogue (from coffeed.ca, October 2026) ---------- */
+  /* ---------- catalogue (from coffeed.ca, October 2026). c = oval colour on the bag, t = light tint.
+     best = bestseller tag. SAMPLE: these five are placeholders until Coffeed shares real sales data. ---------- */
   var PARAISO='Granja Paraiso 92, run by Wilton Benitez, uses an intensive washed process: hand harvesting, size and density sorting, sterilising with ozonated water and UV light, then a thermal shock and an anaerobic fermentation.';
-  var QUEBRADITAS='Quebraditas is a family-run farm in the highlands of Oporapa, Huila. Lots are fermented with yeast inoculation and co-fermented with fruit, with a strong focus on soil health and shade management.';
+  var QUEBRADITAS='Quebraditas is a family-run farm in the highlands of Oporapa, Huila. Lots are fermented with yeast and co-fermented with real fruit, with a strong focus on soil health and shade management.';
   var P=[
-    {id:'coffeed-special-blend',cat:'beans',roast:'espresso',origin:'House blend',name:'Coffeed Special Blend',price:25,size:'250 g',notes:['Fruit-forward','Chocolate','Medium roast'],spec:{Blend:'Brazil Imaculada Barbosa and Ethiopia Kokose',Process:'Natural',Roast:'Medium, built for espresso'},story:'A pre-roast blend designed for a unique cup. Made for espresso, and a great choice if you like a more developed filter coffee.'},
-    {id:'kenya-inoi-kerugoya-aa',cat:'beans',roast:'filter',origin:'Kenya',name:'Inoi Kerugoya AA',price:30,size:'250 g',notes:['Blood orange','Cane sugar','Red currant','Toffee'],spec:{Region:'Kirinyaga',Producers:'Smallholders',Varietal:'Batian, SL-34, Ruiru 11, SL-28',Process:'Washed, 8 to 12 hour ferment',Altitude:'1,650 to 1,800 masl',Harvest:'2025/26'},story:'Kirinyaga sits about 190 km northeast of Nairobi on mineral-rich red volcanic soil. Every cherry is hand-picked by smallholders between December and February.'},
-    {id:'ethiopia-kokose',cat:'beans',roast:'filter',origin:'Ethiopia',name:'Kokose',price:30,size:'250 g',notes:['Blood orange','Dark chocolate','Concord grape','Caramelized apple'],spec:{Region:'Sidama',Varietal:'Landrace',Process:'Natural, special prep',Grade:'1',Altitude:'1,800 to 1,960 masl',Harvest:'2025'},story:'About 500 smallholders in Kokose grow organic, sugar-rich cherries on one- to two-hectare plots, at high elevation in nutrient-rich soil.'},
-    {id:'colombia-diego-bermudez',cat:'beans',roast:'filter',origin:'Colombia',name:'Diego Bermudez',price:37,size:'250 g',notes:['Peach','Lychee','Creamy'],spec:{Farm:'Finca El Paraiso, Cauca',Varietal:'Castillo',Process:'Double anaerobic, thermal shock','Cup score':'91',Altitude:'1,960 masl',Harvest:'2024'},story:'Fermented 36 hours in cherry, then 12 hours out of cherry with microorganism inoculation, and finished with a thermal shock that alternates hot and cold water to lock in flavour.'},
-    {id:'colombia-wilton-benitez-geisha',cat:'beans',roast:'filter',origin:'Colombia',name:'Wilton Benitez Geisha',price:44,notes:['Passion fruit','Pineapple','Honey','Lemon'],spec:{Farm:'Granja Paraiso 92, Piendamó, Cauca',Process:'Washed, thermal shock',Fermentation:'Anaerobic',Altitude:'1,900 masl',Harvest:'2025'},story:PARAISO},
-    {id:'colombia-wilton-benitez-java',cat:'beans',roast:'filter',origin:'Colombia',name:'Wilton Benitez Java',price:44,notes:['Orange creamsicle','Lemonade','Lavender'],spec:{Farm:'Granja Paraiso 92, Piendamó, Cauca',Varietal:'Java P-14',Process:'Washed, thermal shock',Fermentation:'Anaerobic',Altitude:'1,900 masl',Harvest:'2025'},story:PARAISO},
-    {id:'colombia-el-paraiso-92-bourbon',cat:'beans',roast:'filter',origin:'Colombia',name:'Wilton Benitez Red Bourbon',price:30,size:'250 g',notes:['Berries','Orange','Passion fruit','Honey'],spec:{Farm:'El Paraiso 92, Cauca',Varietal:'Red Bourbon',Process:'Washed, thermal shock',Fermentation:'Double anaerobic','Cup score':'88',Altitude:'1,900 masl',Harvest:'2026'},story:PARAISO},
-    {id:'colombia-i-edinson-argote-watermelon-co-ferment',cat:'beans',roast:'filter',origin:'Colombia',name:'Edinson Argote, Watermelon',price:32,size:'250 g',notes:['Sweet watermelon'],spec:{Farm:'Quebraditas, Oporapa, Huila',Varietal:'Caturra',Process:'Washed',Fermentation:'Watermelon co-ferment with yeast',Altitude:'1,600 to 1,850 masl',Harvest:'2025/26'},story:QUEBRADITAS},
-    {id:'colombia-i-edinson-argote-strawberry-co-ferment',cat:'beans',roast:'filter',origin:'Colombia',name:'Edinson Argote, Strawberry',price:32,size:'250 g',notes:['Strawberry'],spec:{Farm:'Quebraditas, Oporapa, Huila',Varietal:'Caturra',Process:'Washed',Fermentation:'Strawberry co-ferment with yeast',Altitude:'1,600 to 1,850 masl',Harvest:'2025/26'},story:QUEBRADITAS},
-    {id:'brazil-i-imaculada-barbosa',cat:'beans',roast:'filter',origin:'Brazil',name:'Imaculada Barbosa',price:24,size:'250 g',notes:['Dark chocolate','Red fruit','Caramel'],spec:{Region:'Cerrado Mineiro',Farm:'Bravinhos',Varietal:'Yellow Catuai',Process:'Natural',Altitude:'1,100 masl',Harvest:'2025/26'},story:'The Barbosa family has farmed in Brazil since the 1900s, with a mission to grow the Cerrado Mineiro region sustainably through exceptional coffee.'},
-    {id:'brazil-i-sucuri-farm',cat:'beans',roast:'espresso',origin:'Brazil',name:'Sucuri Farm',price:19,size:'250 g',notes:[],spec:{Farm:'Sucuri',Process:'Natural',Harvest:'2025'},story:'Our everyday espresso. Natural process, roasted for milk drinks and straight shots alike.'},
-    {id:'mexico-i-esmeralda-ea-decaf',cat:'beans',roast:'espresso',origin:'Mexico, decaf',name:'Esmeralda',price:24,size:'250 g',notes:['Caramel chocolate','Orange cream','Vanilla'],spec:{Region:'Oaxaca',Varietal:'Field blend',Process:'Natural, ethyl acetate decaf',Harvest:'2024/25'},story:'Decaffeinated with ethyl acetate, a natural process that keeps the sweetness intact.'},
-    {id:'burundi-longmilescoffee',cat:'beans',roast:'filter',origin:'Burundi',name:'Long Miles Coffee',price:30,size:'250 g',soldOut:true,notes:['Citrus','Caramel','Plum'],spec:{Region:'Gaharo Hill, Gitega',Producers:'814 farmers',Varietal:'Bourbon',Process:'Natural',Harvest:'2025'},story:'Cherries are delivered by 814 farmers to the Long Miles station, floated and hand-sorted for ripeness on arrival.'},
+    {id:'coffeed-special-blend',cat:'beans',best:true,origin:'House blend',name:'Coffeed Special Blend',price:25,size:'250 g',c:'#1d1d1c',t:'#f1f0ec',notes:['Fruit-forward','Chocolate','Medium roast'],spec:{Blend:'Brazil Imaculada Barbosa and Ethiopia Kokose',Process:'Natural',Roast:'Medium, built for espresso'},story:'A pre-roast blend designed for a unique cup. Made for espresso, and a great choice if you like a more developed filter coffee.'},
+    {id:'colombia-diego-bermudez',cat:'beans',best:true,origin:'Colombia',name:'Diego Bermudez',price:37,size:'250 g',c:'#f6926a',t:'#fde0d3',notes:['Peach','Lychee','Creamy'],spec:{Farm:'Finca El Paraiso, Cauca',Varietal:'Castillo',Process:'Double anaerobic, thermal shock','Cup score':'91',Altitude:'1,960 masl',Harvest:'2024'},story:'Fermented 36 hours in cherry, then 12 hours out of cherry with microorganism inoculation, and finished with a thermal shock that alternates hot and cold water to lock in flavour.'},
+    {id:'ethiopia-kokose',cat:'beans',best:true,origin:'Ethiopia',name:'Kokose',price:30,size:'250 g',c:'#7b518a',t:'#e6daea',notes:['Blood orange','Dark chocolate','Concord grape','Caramelized apple'],spec:{Region:'Sidama',Varietal:'Landrace',Process:'Natural, special prep',Grade:'1',Altitude:'1,800 to 1,960 masl',Harvest:'2025'},story:'About 500 smallholders in Kokose grow organic, sugar-rich cherries on one- to two-hectare plots, at high elevation in nutrient-rich soil.'},
+    {id:'colombia-i-edinson-argote-watermelon-co-ferment',cat:'beans',best:true,origin:'Colombia',name:'Edinson Argote, Watermelon',price:32,size:'250 g',c:'#e0456f',t:'#fbd6df',notes:['Sweet watermelon'],spec:{Farm:'Quebraditas, Oporapa, Huila',Varietal:'Caturra',Process:'Washed',Fermentation:'Watermelon co-ferment with yeast',Altitude:'1,600 to 1,850 masl',Harvest:'2025/26'},story:QUEBRADITAS},
+    {id:'colombia-wilton-benitez-geisha',cat:'beans',origin:'Colombia',name:'Wilton Benitez Geisha',price:44,c:'#2aa3b8',t:'#cdeef3',notes:['Passion fruit','Pineapple','Honey','Lemon'],spec:{Farm:'Granja Paraiso 92, Piendamó, Cauca',Process:'Washed, thermal shock',Fermentation:'Anaerobic',Altitude:'1,900 masl',Harvest:'2025'},story:PARAISO},
+    {id:'kenya-inoi-kerugoya-aa',cat:'beans',origin:'Kenya',name:'Inoi Kerugoya AA',price:30,size:'250 g',c:'#c7c85e',t:'#f0f0cf',notes:['Blood orange','Cane sugar','Red currant','Toffee'],spec:{Region:'Kirinyaga',Producers:'Smallholders',Varietal:'Batian, SL-34, Ruiru 11, SL-28',Process:'Washed, 8 to 12 hour ferment',Altitude:'1,650 to 1,800 masl',Harvest:'2025/26'},story:'Kirinyaga sits about 190 km northeast of Nairobi on mineral-rich red volcanic soil. Every cherry is hand-picked by smallholders between December and February.'},
+    {id:'colombia-wilton-benitez-java',cat:'beans',origin:'Colombia',name:'Wilton Benitez Java',price:44,c:'#ddb08b',t:'#f6e8dc',notes:['Orange creamsicle','Lemonade','Lavender'],spec:{Farm:'Granja Paraiso 92, Piendamó, Cauca',Varietal:'Java P-14',Process:'Washed, thermal shock',Fermentation:'Anaerobic',Altitude:'1,900 masl',Harvest:'2025'},story:PARAISO},
+    {id:'colombia-el-paraiso-92-bourbon',cat:'beans',origin:'Colombia',name:'Wilton Benitez Red Bourbon',price:30,size:'250 g',c:'#b03c8e',t:'#f0d3e7',notes:['Berries','Orange','Passion fruit','Honey'],spec:{Farm:'El Paraiso 92, Cauca',Varietal:'Red Bourbon',Process:'Washed, thermal shock',Fermentation:'Double anaerobic','Cup score':'88',Altitude:'1,900 masl',Harvest:'2026'},story:PARAISO},
+    {id:'colombia-i-edinson-argote-strawberry-co-ferment',cat:'beans',origin:'Colombia',name:'Edinson Argote, Strawberry',price:32,size:'250 g',c:'#cd2352',t:'#f7d0da',notes:['Strawberry'],spec:{Farm:'Quebraditas, Oporapa, Huila',Varietal:'Caturra',Process:'Washed',Fermentation:'Strawberry co-ferment with yeast',Altitude:'1,600 to 1,850 masl',Harvest:'2025/26'},story:QUEBRADITAS},
+    {id:'brazil-i-imaculada-barbosa',cat:'beans',origin:'Brazil',name:'Imaculada Barbosa',price:24,size:'250 g',c:'#ce7273',t:'#f5d9d9',notes:['Dark chocolate','Red fruit','Caramel'],spec:{Region:'Cerrado Mineiro',Farm:'Bravinhos',Varietal:'Yellow Catuai',Process:'Natural',Altitude:'1,100 masl',Harvest:'2025/26'},story:'The Barbosa family has farmed in Brazil since the 1900s, with a mission to grow the Cerrado Mineiro region sustainably through exceptional coffee.'},
+    {id:'brazil-i-sucuri-farm',cat:'beans',origin:'Brazil',name:'Sucuri Farm',price:19,size:'250 g',c:'#8a6a4a',t:'#ede3d8',notes:[],spec:{Farm:'Sucuri',Process:'Natural',Harvest:'2025'},story:'Our everyday espresso. Natural process, roasted for milk drinks and straight shots alike.'},
+    {id:'mexico-i-esmeralda-ea-decaf',cat:'beans',origin:'Mexico, decaf',name:'Esmeralda',price:24,size:'250 g',c:'#6e4c3d',t:'#e9e0da',notes:['Caramel chocolate','Orange cream','Vanilla'],spec:{Region:'Oaxaca',Varietal:'Field blend',Process:'Natural, ethyl acetate decaf',Harvest:'2024/25'},story:'Decaffeinated with ethyl acetate, a natural process that keeps the sweetness intact.'},
+    {id:'burundi-longmilescoffee',cat:'beans',origin:'Burundi',name:'Long Miles Coffee',price:30,size:'250 g',soldOut:true,c:'#bfc936',t:'#eef0c8',notes:['Citrus','Caramel','Plum'],spec:{Region:'Gaharo Hill, Gitega',Producers:'814 farmers',Varietal:'Bourbon',Process:'Natural',Harvest:'2025'},story:'Cherries are delivered by 814 farmers to the Long Miles station, floated and hand-sorted for ripeness on arrival.'},
 
+    {id:'hario-v60-02-dripper-white',cat:'gear',best:true,origin:'Dripper',name:'Hario V60-02, clear',price:18,story:'The classic cone dripper, size 02, for one to four cups. The one we use at the bar.'},
     {id:'timemore-chestnut-c3s',cat:'gear',origin:'Hand grinder',name:'Timemore Chestnut C3s Pro',price:135,story:'Stepless adjustment, a folding handle and the upgraded S2C 660 burr set for fast, consistent grinding.'},
     {id:'nuttii-goosey-hand-coffee-grinder',cat:'gear',origin:'Hand grinder',name:'NUTTII Goosey',price:59.95,story:'24 clicks of adjustment for AeroPress, pour over, moka pot and Clever. Stainless steel burrs for a sweet, clean cup.'},
     {id:'aeropress',cat:'gear',origin:'Brewer',name:'AeroPress, clear',price:70,story:'The travel-proof brewer. Fast, forgiving and endlessly tweakable.'},
-    {id:'kalita-wave-stainless-steel-dripper-1-2-cups',cat:'gear',origin:'Dripper',name:'Kalita Wave, stainless',price:51,story:'A flat-bottom dripper that makes even extraction easy. Brews one to two cups.'},
+    {id:'kalita-wave-stainless-steel-dripper-1-2-cups',cat:'gear',origin:'Dripper',name:'Kalita Wave, stainless',price:51,photo:true,story:'A flat-bottom dripper that makes even extraction easy. Brews one to two cups.'},
     {id:'hario-v60-suiren-dripper',cat:'gear',origin:'Dripper',name:'Hario V60 Suiren',price:47,story:'The V60 without walls. An open, all-flow design for more control over extraction.'},
-    {id:'hario-v60-02-dripper-white',cat:'gear',origin:'Dripper',name:'Hario V60-02, clear',price:18,story:'The classic cone dripper, size 02, for one to four cups.'},
     {id:'hario-v60-01-dripper-plastic',cat:'gear',origin:'Dripper',name:'Hario V60-01, white',price:16,story:'The classic cone dripper, size 01, for one to two cups.'},
-    {id:'timemore-coffee-server',cat:'gear',origin:'Server',name:'Timemore coffee server',price:22,story:'A glass server to brew into and pour from.'},
+    {id:'timemore-coffee-server',cat:'gear',origin:'Server',name:'Timemore coffee server',price:22,photo:true,story:'A glass server to brew into and pour from.'},
     {id:'hario-v60-02-filters-100-pack',cat:'gear',origin:'Filters',name:'Hario V60-02 filters, 100',price:14.5},
-    {id:'v60-01-100-pack',cat:'gear',origin:'Filters',name:'Hario V60-01 filters, 100',price:13.5},
+    {id:'v60-01-100-pack',cat:'gear',origin:'Filters',name:'Hario V60-01 filters, 100',price:13.5,photo:true},
     {id:'aeropress-micro-filters-white-350-pack',cat:'gear',origin:'Filters',name:'AeroPress micro-filters, 350',price:13},
     {id:'timemore-black-mirror-basic-2',cat:'gear',origin:'Scale',name:'Timemore Black Mirror Basic 2',price:86.5,soldOut:true,story:'Auto-timer, grams or ounces, and flow-rate monitoring.'},
     {id:'hario-mugen-switch-immersion-dripper-200ml',cat:'gear',origin:'Dripper',name:'Hario Mugen Switch',price:39,soldOut:true,story:'Switch between pour over and immersion halfway through a brew.'},
 
-    {id:'coffeed-x-tijuana-toms-hot-sauce-v4',cat:'pantry',origin:"Collab with Tijuana Tom's",name:'Hot sauce, V4',price:12,notes:['Heat 6/10'],story:'Applewood-smoked jalapeño, guajillo and morita peppers with a cold brew of Brazil Deyvid and Ethiopia Yaye.'},
-    {id:'coffeed-x-tijuana-toms-hot-sauce-v3',cat:'pantry',origin:"Collab with Tijuana Tom's",name:'Ghost and Reaper hot sauce',price:12,notes:['Heat 7/10'],story:'Ghost and Reaper peppers balanced by cold brew coffee. Fruity, chocolatey, and hot without knocking you over.'},
-    {id:'jamison-savage-geisha-cascara-tea',cat:'pantry',origin:'Jamison Savage, Panama',name:'Geisha cascara tea',price:17,size:'100 g',notes:['Cherry compote','Hibiscus','Blood orange'],story:'Tea made from dried natural Geisha coffee cherries. Sweet, aromatic and complex.'},
+    {id:'coffeed-x-tijuana-toms-hot-sauce-v4',cat:'pantry',origin:"With Tijuana Tom's",name:'Hot sauce, V4',price:12,notes:['Heat 6/10'],story:'Applewood-smoked jalapeño, guajillo and morita peppers with a cold brew of Brazil Deyvid and Ethiopia Yaye.'},
+    {id:'coffeed-x-tijuana-toms-hot-sauce-v3',cat:'pantry',origin:"With Tijuana Tom's",name:'Ghost and Reaper hot sauce',price:12,notes:['Heat 7/10'],story:'Ghost and Reaper peppers balanced by cold brew coffee. Fruity, chocolatey, and hot without knocking you over.'},
+    {id:'jamison-savage-geisha-cascara-tea',cat:'pantry',origin:'Jamison Savage, Panama',name:'Geisha cascara tea',price:17,size:'100 g',photo:true,notes:['Cherry compote','Hibiscus','Blood orange'],story:'Tea made from dried natural Geisha coffee cherries. Sweet, aromatic and complex.'},
     {id:'wildflower-honey',cat:'pantry',origin:'Rosewood Estates, Niagara',name:'Wildflower honey, 1 kg',price:20,story:'Natural, unpasteurised honey from a multi-generational beekeeping family in Niagara.'},
     {id:'dryk-barista-oat-milk',cat:'pantry',origin:'Barista milk',name:'Dryk oat milk',price:7,story:'The oat milk we use at the bar, for the same latte at home.'},
     {id:'pacific-foods-barista-almond-milk',cat:'pantry',origin:'Barista milk',name:'Pacific almond milk',price:7,story:'The almond milk we use at the bar.'},
-    {id:'whole-brewnie',cat:'pantry',origin:'Bake case, pickup only',name:'Brewnie, whole tray',price:32,pickup:true,story:'Our coffee brownie, by the whole tray. Pickup only.'},
-    {id:'whole-banana-loaf',cat:'pantry',origin:'Bake case, pickup only',name:'Banana bread, whole loaf',price:30,pickup:true,story:'The whole loaf. Pickup only.'},
+    {id:'whole-brewnie',cat:'pantry',origin:'Bake case, pickup only',name:'Brewnie, whole tray',price:32,pickup:true,photo:true,story:'Our coffee brownie, by the whole tray. Pickup only.'},
+    {id:'whole-banana-loaf',cat:'pantry',origin:'Bake case, pickup only',name:'Banana bread, whole loaf',price:30,pickup:true,photo:true,story:'The whole loaf. Pickup only.'},
     {id:'coffeed-rub',cat:'pantry',origin:'Made in house',name:'Coffeed Rub',price:10.75,soldOut:true,story:'Guatemala dark roast and Colombia Bourbon with ancho, chipotle, guajillo and árbol chilli.'},
-    {id:'coffee-scented-candle',cat:'pantry',origin:'Candle',name:'Coffee scented candle',price:23,soldOut:true,variants:['Espresso','Coffee caramel'],story:'Espresso, or coffee caramel.'},
+    {id:'coffee-scented-candle',cat:'pantry',origin:'Candle',name:'Coffee scented candle',price:23,soldOut:true,photo:true,variants:['Espresso','Coffee caramel'],story:'Espresso, or coffee caramel.'},
 
     {id:'gift-card',cat:'gifts',origin:'Gift card',name:'Coffeed gift card',price:10,variants:[['$10',10],['$25',25],['$50',50],['$100',100]],digital:true,story:'Sent by email, and good for beans, gear and drinks at the bar.'},
 
@@ -775,13 +897,16 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
   ];
   var byId={};P.forEach(function(p){byId[p.id]=p});
   var img=function(p){return p.id==='workshop'?'':'images/products/'+p.id+'.webp'};
-  var CATS=[['beans','Coffee beans'],['gear','Brew gear'],['pantry','Pantry and collabs'],['gifts','Gift cards']];
+  var perCup=function(p){return p.cat==='beans'&&p.size==='250 g'?p.price/15:0};
+  var CATS=[['best','Bestsellers'],['beans','Coffee'],['gear','Brew gear'],['pantry','Pantry'],['gifts','Gifts']];
+  var inCat=function(p,c){return !p.hidden&&(c==='best'?p.best:p.cat===c)};
+  var inkOn=function(hex){var n=parseInt(hex.slice(1),16),r=n>>16&255,g=n>>8&255,b=n&255;var L=function(v){v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)};var l=.2126*L(r)+.7152*L(g)+.0722*L(b);return (l+.05)/(.012+.05)>=4.5?'#1d1d1c':'#ffffff'};
 
   /* ---------- store rules (placeholders where Coffeed's real rates are unknown) ---------- */
   var FREE_CA=65,FREE_US=80,SHIP_CA=12,SHIP_US=18,HST=.13;
   var beanDiscount=function(beans){return beans>=450?.2:beans>=180?.1:0};
 
-  /* ---------- cart state ---------- */
+  /* ---------- bag state ---------- */
   var KEY='coffeed-cart-v1',cart=[];
   try{cart=JSON.parse(localStorage.getItem(KEY))||[]}catch(e){cart=[]}
   cart=cart.filter(function(l){return byId[l.id]});
@@ -793,12 +918,13 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
     var rate=beanDiscount(beans),disc=Math.round(beans*rate*100)/100;
     return {sub:sub,beans:beans,rate:rate,disc:disc,total:sub-disc,shippable:ship-disc,taxable:taxable-disc,count:cart.reduce(function(n,l){return n+l.qty},0)};
   };
-  var add=function(id,variant,qty,meta){
+  var add=function(id,variant,qty,meta,quiet){
     var key=id+'|'+(variant||'')+'|'+(meta||'');
     var l=cart.filter(function(l){return l.key===key})[0];
     if(l)l.qty=Math.min(99,l.qty+qty);else cart.push({key:key,id:id,variant:variant||'',meta:meta||'',qty:qty});
     save();renderCart();
     var b=$('#cart-open');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump');
+    if(!quiet)toast(byId[id].name+' is in your bag.');
   };
 
   /* ---------- dialogs ---------- */
@@ -806,24 +932,93 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
   var openDlg=function(d){opener=document.activeElement;if(!d.open)d.showModal()};
   $$('dialog').forEach(function(d){
     d.addEventListener('click',function(e){if(e.target===d||e.target.closest('[data-close]'))d.close()});
-    d.addEventListener('close',function(){document.body.style.overflow='';if(opener&&document.contains(opener)&&!$('dialog[open]'))opener.focus()});
+    d.addEventListener('close',function(){if(opener&&document.contains(opener)&&!$('dialog[open]'))opener.focus()});
   });
 
-  /* ---------- shop grid ---------- */
-  var filter='beans',sortBy='feat';
+  /* ---------- nav: transparent over the opening ---------- */
+  var nav=$('#nav'),burger=$('#burger'),openH=$('.opening');
+  var onScroll=function(){nav.classList.toggle('solid',window.scrollY>openH.offsetHeight-80)};
+  window.addEventListener('scroll',onScroll,{passive:true});window.addEventListener('resize',onScroll);onScroll();
+  var setMenu=function(open){nav.classList.toggle('open',open);burger.setAttribute('aria-expanded',String(open));burger.setAttribute('aria-label',open?'Close menu':'Open menu');document.body.style.overflow=open?'hidden':''};
+  burger.addEventListener('click',function(){setMenu(!nav.classList.contains('open'))});
+  $$('#sheet a').forEach(function(a){a.addEventListener('click',function(){setMenu(false)})});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('open')){setMenu(false);burger.focus()}});
+
+  /* ---------- story: swap the sticky picture as each chapter takes the screen ---------- */
+  if('IntersectionObserver' in window){
+    $$('.story').forEach(function(block){
+      var items=$$('.mi',block);
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=+e.target.dataset.chap;items.forEach(function(m,j){m.classList.toggle('on',j===i)})}})},{rootMargin:'-45% 0px -45% 0px'});
+      $$('.chap',block).forEach(function(c){io.observe(c)});
+    });
+  }
+
+  /* ---------- the taste: colour arrives ---------- */
+  var FLAV=[['colombia-diego-bermudez','Peach and lychee'],['colombia-wilton-benitez-geisha','Passion fruit'],['colombia-i-edinson-argote-watermelon-co-ferment','Watermelon'],['ethiopia-kokose','Concord grape'],['brazil-i-imaculada-barbosa','Dark chocolate']];
+  $('#flavours').innerHTML=FLAV.map(function(f){var p=byId[f[0]];return '<li><button class="fl" type="button" data-open="'+p.id+'" style="--c:'+p.c+';--k:'+inkOn(p.c)+'"><span class="ov"><span>'+esc(f[1])+'</span></span><span class="who">'+esc(p.name)+'<em>'+esc(p.origin)+'</em></span></button></li>'}).join('');
+  $('#flavours').addEventListener('click',function(e){var b=e.target.closest('[data-open]');if(b)openProduct(b.dataset.open)});
+  if('IntersectionObserver' in window&&!reduced){
+    var fio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('lit');fio.disconnect()}})},{threshold:.35});
+    fio.observe($('#flavours'));
+  }else $('#flavours').classList.add('lit');
+
+  /* ---------- find your coffee ---------- */
+  var QS=[
+    {k:'brew',q:'How do you make coffee at home?',o:[['espresso','Espresso machine','Shots, lattes, flat whites'],['filter','Pour over or drip','V60, Chemex, Kalita, a drip machine'],['immersion','AeroPress or French press','Steeped, full-bodied cups'],['filter','Not sure yet','We will pick something forgiving']]},
+    {k:'taste',q:'Which of these sounds best?',o:[['choc','Chocolate and caramel','Comforting, sweet, round'],['fruit','Bright and juicy','Citrus, berries, stone fruit'],['wild','Something new','Surprising, tropical, unusual']]},
+    {k:'caf',q:'Caffeine?',o:[['yes','Yes, please','Regular coffee'],['decaf','Decaf','All the flavour, none of the jitters']]}
+  ];
+  var PICKS={
+    'espresso|choc':['brazil-i-sucuri-farm','coffeed-special-blend','Our everyday espresso: sweet, round and easy in milk.'],
+    'espresso|fruit':['coffeed-special-blend','brazil-i-sucuri-farm','Built for espresso, with a lot of fruit from its Ethiopian half.'],
+    'espresso|wild':['coffeed-special-blend','colombia-diego-bermudez','Start here for everyday shots. Feeling brave? Diego Bermudez pulls a peach-and-lychee espresso.'],
+    'filter|choc':['brazil-i-imaculada-barbosa','ethiopia-kokose','Dark chocolate, red fruit and caramel. Sweet, forgiving and very easy to love.'],
+    'filter|fruit':['kenya-inoi-kerugoya-aa','ethiopia-kokose','Blood orange and red currant with a clean, tea-like body. A classic bright cup.'],
+    'filter|wild':['colombia-i-edinson-argote-watermelon-co-ferment','colombia-diego-bermudez','Co-fermented with real watermelon. It tastes like summer, and nothing like ordinary coffee.'],
+    'immersion|choc':['brazil-i-imaculada-barbosa','ethiopia-kokose','Steeping brings out the chocolate and caramel. Full-bodied and sweet.'],
+    'immersion|fruit':['ethiopia-kokose','kenya-inoi-kerugoya-aa','A jammy body and concord grape. Immersion makes it taste like fruit preserves.'],
+    'immersion|wild':['colombia-diego-bermudez','colombia-wilton-benitez-geisha','Peach and lychee with a creamy body, which an AeroPress shows off beautifully.']
+  };
+  var ans={},step=0;
+  var renderQ=function(){
+    $('#q-back').hidden=step===0;
+    $$('#q-prog i').forEach(function(i,j){i.className=j<=Math.min(step,2)?'on':''});
+    if(step<3){
+      var q=QS[step];$('#q-step').textContent='Question '+(step+1)+' of 3';
+      $('#q-body').innerHTML='<h3 tabindex="-1">'+esc(q.q)+'</h3><div class="opts">'+q.o.map(function(o){return '<button class="opt" type="button" data-v="'+o[0]+'"><b>'+esc(o[1])+'</b><span>'+esc(o[2])+'</span></button>'}).join('')+'</div>';
+      return;
+    }
+    var pick=ans.caf==='decaf'?['mexico-i-esmeralda-ea-decaf','','Our decaf keeps the sweetness: caramel chocolate, orange cream and vanilla. Works for espresso and filter.']:PICKS[ans.brew+'|'+ans.taste];
+    var p=byId[pick[0]],r=pick[1]?byId[pick[1]]:null;
+    $('#q-step').textContent='Your coffee';
+    $('#q-body').innerHTML='<div class="result"><div class="pic" style="--t:'+p.t+'"><img src="'+img(p)+'" alt="" width="800" height="1000"></div><div>'+
+      '<p class="tag">Your coffee, from '+esc(p.origin)+'</p><h3 tabindex="-1">'+esc(p.name)+'</h3><p class="why">'+esc(pick[2])+'</p>'+
+      (p.notes.length?'<p class="notes">'+esc(p.notes.join(', '))+'</p>':'')+
+      '<div class="buyrow"><span class="price">'+money(p.price)+'</span><button class="btn" type="button" data-add="'+p.id+'">Add to bag</button><button class="tlink" type="button" data-open="'+p.id+'">Read more</button></div>'+
+      '<p class="runner">'+(r?'Also worth a try: <button class="tlink" type="button" data-open="'+r.id+'">'+esc(r.name)+'</button>':'')+'<button class="tlink" type="button" data-restart>Start over</button></p>'+
+      '</div></div>';
+  };
+  $('#quiz').addEventListener('click',function(e){
+    var o=e.target.closest('.opt'),a=e.target.closest('[data-add]'),d=e.target.closest('[data-open]'),rs=e.target.closest('[data-restart]');
+    if(o){ans[QS[step].k]=o.dataset.v;step++;renderQ();$('#q-body h3').focus({preventScroll:true})}
+    else if(a)add(a.dataset.add,'',1);
+    else if(d)openProduct(d.dataset.open);
+    else if(rs){ans={};step=0;renderQ();$('#q-body h3').focus({preventScroll:true})}
+  });
+  $('#q-back').addEventListener('click',function(){if(step>0){step--;renderQ();$('#q-body h3').focus({preventScroll:true})}});
+  renderQ();
+
+  /* ---------- the shelf ---------- */
+  var filter='best',sortBy='feat';
   var fwrap=$('#filters');
-  fwrap.innerHTML=CATS.map(function(c){
-    var n=P.filter(function(p){return p.cat===c[0]}).length;
-    return '<button type="button" data-cat="'+c[0]+'" aria-pressed="'+(c[0]===filter)+'">'+c[1]+'<span>'+n+'</span></button>';
-  }).join('');
+  fwrap.innerHTML=CATS.map(function(c){return '<button type="button" data-cat="'+c[0]+'" aria-pressed="'+(c[0]===filter)+'">'+c[1]+'</button>'}).join('');
   var setFilter=function(c){filter=c;$$('button',fwrap).forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.cat===c))});renderGrid()};
   fwrap.addEventListener('click',function(e){var b=e.target.closest('button');if(b)setFilter(b.dataset.cat)});
   $$('[data-filter]').forEach(function(a){a.addEventListener('click',function(){setFilter(a.dataset.filter)})});
   $('#sort').addEventListener('change',function(e){sortBy=e.target.value;renderGrid()});
-  $('#bean-count').textContent=P.filter(function(p){return p.cat==='beans'&&!p.soldOut}).length;
 
   var renderGrid=function(){
-    var list=P.filter(function(p){return p.cat===filter&&!p.hidden});
+    var list=P.filter(function(p){return inCat(p,filter)});
     list=list.slice().sort(function(a,b){
       if(!!a.soldOut!==!!b.soldOut)return a.soldOut?1:-1;
       return sortBy==='lo'?a.price-b.price:sortBy==='hi'?b.price-a.price:0;
@@ -831,31 +1026,29 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
     $('#grid').innerHTML=list.length?list.map(function(p){
       var from=p.variants&&Array.isArray(p.variants[0])?'From ':'';
       var notes=(p.notes&&p.notes.length)?p.notes.join(', '):(p.size||'');
-      var size=p.size&&p.notes&&p.notes.length?' <span class="vh">'+p.size+'</span>':'';
-      return '<li class="card'+(p.soldOut?' out':'')+'">'+
-        '<button class="pic" type="button" data-open="'+p.id+'" aria-label="View '+esc(p.name)+'"><img src="'+img(p)+'" alt="" loading="lazy" width="800" height="1000">'+(p.soldOut?'<span class="badge">Sold out</span>':p.pickup?'<span class="badge">Pickup</span>':'')+'</button>'+
-        '<div class="body"><span class="origin">'+esc(p.origin)+'</span><h3><button type="button" data-open="'+p.id+'">'+esc(p.name)+'</button></h3>'+
-        (notes?'<p class="notes">'+esc(notes)+size+'</p>':'')+
-        '<div class="buy"><span class="price">'+from+money(p.price)+'</span>'+
-        (p.soldOut?'<button class="btn sm" type="button" disabled>Sold out</button>':
-          (p.variants?'<button class="btn sm" type="button" data-open="'+p.id+'">Choose</button>':'<button class="btn sm" type="button" data-add="'+p.id+'" aria-label="Add '+esc(p.name)+' to cart">Add</button>'))+
-        '</div></div></li>';
+      var tag=p.soldOut?'<span class="tag-out">Sold out</span>':p.best?'<span class="tag-best">Bestseller</span>':'';
+      var action=p.soldOut?'<span class="muted small">Sold out</span>':p.variants?'<button class="tlink" type="button" data-open="'+p.id+'">Choose</button>':'<button class="tlink" type="button" data-add="'+p.id+'" aria-label="Add '+esc(p.name)+' to bag">Add to bag</button>';
+      return '<li class="item'+(p.soldOut?' out':'')+'"'+(p.c?' style="--c:'+p.c+'"':'')+'>'+
+        '<button class="pic" type="button" data-open="'+p.id+'" aria-label="'+esc(p.name)+(p.best?', bestseller':'')+(p.soldOut?', sold out':'')+'">'+tag+'<img src="'+img(p)+'" alt="" loading="lazy" width="800" height="1000"></button>'+
+        '<div class="meta"><span class="origin">'+(p.c?'<i aria-hidden="true"></i>':'')+esc(p.origin)+'</span><h3><button type="button" data-open="'+p.id+'">'+esc(p.name)+'</button></h3>'+
+        (notes?'<p class="notes">'+esc(notes)+'</p>':'')+
+        '<div class="buy"><span class="price">'+from+money(p.price)+'</span>'+action+'</div></div></li>';
     }).join(''):'<li class="empty-grid">Nothing here right now.</li>';
   };
   $('#grid').addEventListener('click',function(e){
     var o=e.target.closest('[data-open]'),a=e.target.closest('[data-add]');
-    if(a){var p=byId[a.dataset.add];add(p.id,'',1);toast(p.name+' added to your cart.')}
-    else if(o)openProduct(o.dataset.open);
+    if(a)add(a.dataset.add,'',1);else if(o)openProduct(o.dataset.open);
   });
 
   /* ---------- product sheet ---------- */
   var pd=$('#product'),pdQty=1,pdId=null;
   var openProduct=function(id){
     var p=byId[id];pdId=id;pdQty=1;$('#pd-qty').textContent='1';
+    var w=$('#pd-img-wrap');w.style.setProperty('--pt',p.t||'#f1f0ec');w.classList.toggle('photo',!!p.photo);
     $('#pd-img').src=img(p);$('#pd-img').alt=p.name;
-    $('#pd-origin').textContent=p.origin;$('#pd-name').textContent=p.name;
-    var from=p.variants&&Array.isArray(p.variants[0]);
-    $('#pd-price').innerHTML=(from?'From ':'')+money(p.price)+(p.size?'<small>'+p.size+'</small>':'');
+    $('#pd-origin').textContent=(p.best?'Bestseller. ':'')+p.origin;$('#pd-name').textContent=p.name;
+    var from=p.variants&&Array.isArray(p.variants[0]),pc=perCup(p);
+    $('#pd-price').innerHTML=(from?'From ':'')+money(p.price)+(p.size?'<small>'+p.size+(pc?', about '+money(pc)+' a cup':'')+'</small>':'');
     $('#pd-notes').innerHTML=(p.notes||[]).map(function(n){return '<li>'+esc(n)+'</li>'}).join('');
     $('#pd-notes').hidden=!(p.notes&&p.notes.length);
     var spec=p.spec||{};
@@ -866,7 +1059,7 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
     if(p.variants){vw.hidden=false;$('#pd-var-label').textContent=from?'Amount':'Scent';
       $('#pd-var').innerHTML=p.variants.map(function(v){var n=Array.isArray(v)?v[0]:v;return '<option>'+esc(n)+'</option>'}).join('')}
     else vw.hidden=true;
-    var addB=$('#pd-add');addB.disabled=!!p.soldOut;addB.textContent=p.soldOut?'Sold out':'Add to cart';
+    var addB=$('#pd-add');addB.disabled=!!p.soldOut;addB.textContent=p.soldOut?'Sold out':'Add to bag';
     $('#pd-note').textContent=p.cat==='beans'?'Shipped whole bean. Visit the shop and we will grind it for your brewer.':p.pickup?'Pickup only, at 3420 Rebecca Street.':p.digital?'Delivered by email.':'';
     openDlg(pd);pd.scrollTop=0;
   };
@@ -874,16 +1067,16 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
   $('#pd-plus').addEventListener('click',function(){pdQty=Math.min(20,pdQty+1);$('#pd-qty').textContent=pdQty});
   $('#pd-var').addEventListener('change',function(){var p=byId[pdId];if(Array.isArray(p.variants[0])){var v=p.variants[this.selectedIndex];$('#pd-price').textContent=money(v[1])}});
   $('#pd-add').addEventListener('click',function(){
-    var p=byId[pdId];add(p.id,p.variants?$('#pd-var').value:'',pdQty);
+    var p=byId[pdId];add(p.id,p.variants?$('#pd-var').value:'',pdQty,'',true);
     pd.close();openCart();
   });
 
-  /* ---------- cart drawer ---------- */
+  /* ---------- bag drawer ---------- */
   var cartD=$('#cart');
-  var openCart=function(){renderCart();openDlg(cartD)};
+  var openCart=function(){$('#toast').classList.remove('show');renderCart();openDlg(cartD)};
   $('#cart-open').addEventListener('click',openCart);
   var thumb=function(p){return p.id==='workshop'?'<span class="ph">Work-<br>shop</span>':'<img src="'+img(p)+'" alt="" width="800" height="1000">'};
-  var meter=function(label,now,goal){return '<div class="meter"><p>'+label+'</p><div class="bar"><i style="width:'+Math.min(100,now/goal*100)+'%"></i></div></div>'};
+  var meter=function(label,now,goal){return '<div class="meter"><p>'+label+'</p><div class="barx"><i style="width:'+Math.min(100,now/goal*100)+'%"></i></div></div>'};
   var renderCart=function(){
     var t=totals();
     $('#cart-count').textContent=t.count;
@@ -891,8 +1084,8 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
     $('#c-empty').hidden=!empty;$('#c-foot').hidden=empty;$('#meters').hidden=empty;$('#lines').hidden=empty;
     if(empty)return;
     var m='';
-    if(t.shippable>0)m+=meter(t.shippable>=FREE_CA?'Free shipping across Canada unlocked.':'You are '+money(FREE_CA-t.shippable)+' away from free shipping in Canada.',t.shippable,FREE_CA);
-    m+=meter(t.beans>=450?'20% off beans unlocked.':t.beans>=180?'10% off beans. Spend '+money(450-t.beans)+' more on beans for 20%.':'Spend '+money(180-t.beans)+' more on beans to save 10%.',t.beans,t.beans>=180?450:180);
+    if(t.shippable>0)m+=meter(t.shippable>=FREE_CA?'Free shipping across Canada.':money(FREE_CA-t.shippable)+' more for free shipping in Canada.',t.shippable,FREE_CA);
+    m+=meter(t.beans>=450?'20% off your beans.':t.beans>=180?'10% off your beans. '+money(450-t.beans)+' more for 20%.':money(180-t.beans)+' more in beans for 10% off.',t.beans,t.beans>=180?450:180);
     $('#meters').innerHTML=m;
     $('#lines').innerHTML=cart.map(function(l,i){
       var p=byId[l.id];var meta=[p.size,l.variant,l.meta,p.pickup?'Pickup only':''].filter(Boolean).join(', ');
@@ -913,12 +1106,11 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
     save();renderCart();
     var again=$('#lines [data-'+(b.dataset.inc?'inc':'dec')+'="'+i+'"]')||$('#c-empty .btn')||$('#cart .x');if(again)again.focus();
   });
-  $('#c-empty .btn').addEventListener('click',function(){setFilter('beans')});
 
   /* ---------- toast ---------- */
   var tt;
   var toast=function(msg){$('#toast-msg').textContent=msg;var t=$('#toast');t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},3800)};
-  $('#toast-view').addEventListener('click',function(){$('#toast').classList.remove('show');openCart()});
+  $('#toast-view').addEventListener('click',openCart);
 
   /* ---------- checkout ---------- */
   var co=$('#checkout');
@@ -940,7 +1132,7 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
     var total=t.total+ship+tax;$('#co-total').textContent=money(total);
     $('#co-place').textContent='Place order, '+money(total);
     var pick=cart.filter(function(l){return byId[l.id].pickup});
-    $('#co-err').textContent=m!=='pickup'&&pick.length?pick.map(function(l){return byId[l.id].name}).join(' and ')+(pick.length>1?' are':' is')+' pickup only. Choose pickup, or remove '+(pick.length>1?'them':'it')+' from your cart.':'';
+    $('#co-err').textContent=m!=='pickup'&&pick.length?pick.map(function(l){return byId[l.id].name}).join(' and ')+(pick.length>1?' are':' is')+' pickup only. Choose pickup, or remove '+(pick.length>1?'them':'it')+' from your bag.':'';
     return total;
   };
   $$('input[name="method"]').forEach(function(r){r.addEventListener('change',renderCheckout)});
@@ -957,10 +1149,9 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
     }
     var bad=$$('#co-form [aria-invalid="true"]').filter(function(el){return !el.closest('[hidden]')});
     if(ok.indexOf(false)>-1){if(bad[0])bad[0].focus();return}
-    var no='CF-'+(1040+Math.floor(Math.random()*900));
-    var m=method();
+    var no='CF-'+(1040+Math.floor(Math.random()*900)),m=method();
     $('#co-done-h').textContent='Order '+no+' placed';
-    $('#co-done-msg').textContent='Total '+money(total)+'. A receipt is on its way to '+$('#co-email').value.trim()+'. '+(m==='pickup'?'We will email you when your order is ready to pick up at 3420 Rebecca Street.':'Beans are roasted and shipped within a few days, and we will email tracking when it leaves the shop.')+' This is a sample order, so nothing was charged.';
+    $('#co-done-msg').textContent='Total '+money(total)+'. A receipt is on its way to '+$('#co-email').value.trim()+'. '+(m==='pickup'?'We will email you when your order is ready to pick up at 3420 Rebecca Street.':'Your coffee is roasted and shipped within a few days, and we will email tracking when it leaves the shop.')+' This is a sample order, so nothing was charged.';
     cart=[];save();renderCart();
     $('#co').hidden=true;var d=$('#co-done');d.hidden=false;d.focus();
   });
@@ -972,20 +1163,11 @@ dialog::backdrop{background:rgba(32,32,32,.55)}
     var b=ferr('ws-name',$('#ws-name').value.trim()?'':'Enter the name to put on the guest list.');
     if(!a){$('#ws-session').focus();return}if(!b){$('#ws-name').focus();return}
     var seats=+$('#ws-seats').value,s=$('#ws-session').value;
-    add('workshop','',seats,s.replace(/^Saturday, /,'')+', 4:30 pm, for '+$('#ws-name').value.trim());
+    add('workshop','',seats,s.replace(/^Saturday, /,'')+', 4:30 pm, for '+$('#ws-name').value.trim(),true);
     $('#ws-added-msg').textContent=seats+(seats===1?' seat':' seats')+' for '+s+', under '+$('#ws-name').value.trim()+'. Check out to confirm them.';
     $('#ws-form').style.display='none';var d=$('#ws-added');d.style.display='block';d.focus();
   });
   $('#ws-view').addEventListener('click',openCart);
-
-  /* ---------- nav ---------- */
-  var nav=$('#nav'),burger=$('#burger');
-  var onScroll=function(){nav.classList.toggle('scrolled',window.scrollY>40)};
-  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-  var setMenu=function(open){nav.classList.toggle('open',open);burger.setAttribute('aria-expanded',String(open));burger.setAttribute('aria-label',open?'Close menu':'Open menu');document.body.style.overflow=open?'hidden':''};
-  burger.addEventListener('click',function(){setMenu(!nav.classList.contains('open'))});
-  $$('#sheet a').forEach(function(a){a.addEventListener('click',function(){setMenu(false)})});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('open')){setMenu(false);burger.focus()}});
 
   /* ---------- bar tabs ---------- */
   var tabs=$$('[role="tab"]');

@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coffeed, Roastery and Coffee Bar, Oakville</title>
+<meta name="description" content="Sweet, vibrant, balanced specialty coffee, roasted in house at our roastery and coffee bar on Rebecca Street in Oakville. Whole bean, shipped across Canada and the US.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='32' cy='32' rx='30' ry='22' transform='rotate(-14 32 32)' fill='%23202020'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Impact,sans-serif' font-size='26' fill='%23fff'%3EC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#202020;--paper:#ffffff;--foil:#ecebe8;--foil-2:#dddcd8;--grey:#6b6964;--grey-2:#a3a19c;
+  --rule:rgba(32,32,32,.14);--rule-inv:rgba(255,255,255,.2);--ok:#2f6b3f;--err:#b3261e;--err-inv:#ff9b8f;
+  --display:'Bebas Neue','Oswald',Impact,sans-serif;--sans:'Inter',system-ui,-apple-system,sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:5rem;overflow-x:clip}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{font-family:var(--sans);font-size:1rem;color:var(--black);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:.92;letter-spacing:.01em}
+:focus-visible{outline:2px solid var(--black);outline-offset:3px}
+.inv :focus-visible,.inv:focus-visible{outline-color:#fff}
+.skip{position:absolute;left:1rem;top:-4rem;background:var(--black);color:#fff;padding:.6rem 1rem;z-index:1000;text-decoration:none}
+.skip:focus{top:1rem}
+.wrap{width:min(1240px,100% - 2rem);margin-inline:auto}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.lede{font-size:clamp(1.05rem,1.4vw,1.2rem);color:var(--grey);max-width:36rem}
+
+/* buttons: pill = the bag's oval, flattened */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:var(--black);color:#fff;font-weight:500;font-size:.95rem;padding:.95rem 1.7rem;border-radius:999px;border:1.5px solid var(--black);text-decoration:none;cursor:pointer;transition:background .25s,color .25s}
+.btn:hover{background:#fff;color:var(--black)}
+.btn.ghost{background:transparent;color:var(--black)}
+.btn.ghost:hover{background:var(--black);color:#fff}
+.btn.sm{padding:.55rem 1.1rem;font-size:.88rem}
+.btn[disabled]{background:var(--foil-2);border-color:var(--foil-2);color:var(--grey);cursor:not-allowed}
+.inv .btn{background:#fff;color:var(--black);border-color:#fff}
+.inv .btn:hover{background:transparent;color:#fff}
+
+/* announcement */
+.announce{background:var(--black);color:#fff;font-size:.84rem;text-align:center;padding:.55rem 1rem}
+
+/* nav */
+#nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);transition:box-shadow .3s}
+#nav.scrolled{box-shadow:0 1px 0 var(--rule)}
+#nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:.7rem 0}
+.brand img{height:54px;width:auto;transition:height .3s var(--ease)}
+#nav.scrolled .brand img{height:42px}
+#links{display:flex;gap:2rem;list-style:none;margin-left:auto}
+#links a{text-decoration:none;font-size:.95rem;font-weight:500;padding:.3rem 0;border-bottom:1.5px solid transparent;transition:border-color .2s}
+#links a:hover{border-color:var(--black)}
+.cart-btn{display:inline-flex;align-items:center;gap:.55rem;background:var(--black);color:#fff;border:0;border-radius:999px;padding:.55rem .6rem .55rem 1.1rem;cursor:pointer;font-weight:500;font-size:.92rem}
+.cart-btn b{display:grid;place-items:center;min-width:1.9rem;height:1.45rem;padding:0 .4rem;border-radius:50%;background:#fff;color:var(--black);font-size:.8rem;font-weight:600}
+.cart-btn.bump b{animation:bump .45s var(--ease)}
+@keyframes bump{40%{transform:scale(1.35)}}
+#burger{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;position:relative;z-index:102}
+#burger span{position:absolute;left:10px;right:10px;height:2px;background:var(--black);transition:transform .35s var(--ease),opacity .25s}
+#burger span:nth-child(1){top:15px}#burger span:nth-child(2){top:21px}#burger span:nth-child(3){top:27px}
+#nav.open #burger span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+#nav.open #burger span:nth-child(2){opacity:0}
+#nav.open #burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+#sheet{display:none}
+@media(max-width:860px){
+  #links{display:none}#burger{display:block}
+  .cart-btn{margin-left:auto}
+  #sheet{display:flex;position:fixed;inset:0;background:var(--black);color:#fff;flex-direction:column;justify-content:center;padding:2rem 1.5rem;gap:.4rem;z-index:101;opacity:0;visibility:hidden;transition:opacity .35s var(--ease),visibility .35s}
+  #nav.open #sheet{opacity:1;visibility:visible}
+  #nav.open #burger span{background:#fff}
+  #sheet a{font-family:var(--display);font-size:3.4rem;line-height:1.05;text-decoration:none;color:#fff}
+  #sheet small{display:block;margin-top:2rem;color:var(--grey-2);font-size:.9rem}
+}
+
+/* hero: the ovals from the pouch */
+.hero{display:grid;grid-template-columns:repeat(12,1fr);align-items:center;gap:2rem;padding:3rem 0 5rem}
+.hero-copy{grid-column:1/7}
+.hero h1{font-size:clamp(4.6rem,10.5vw,10rem);line-height:.84;margin-bottom:1.75rem}
+.hero h1 span{display:block}
+.hero .lede{margin-bottom:2rem}
+.cta{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center}
+.rating{margin-top:2.2rem;display:flex;align-items:center;gap:.7rem;font-size:.92rem;color:var(--grey)}
+.rating b{font-family:var(--display);font-size:2rem;font-weight:400;color:var(--black);line-height:1}
+.rating a{color:var(--grey)}
+.ovals{grid-column:7/-1;position:relative;aspect-ratio:1/1.02}
+.ov{position:absolute;border-radius:50%;overflow:hidden}
+.ov-photo{inset:6% 2% 14% 4%;transform:rotate(-14deg)}
+.ov-photo img{position:absolute;inset:-14%;width:128%;height:128%;max-width:none;object-fit:cover;transform:rotate(14deg)}
+.ov-a{width:58%;height:26%;right:-4%;top:-2%;background:var(--black);transform:rotate(-14deg)}
+.ov-b{width:54%;height:24%;left:-2%;bottom:0;background:var(--foil);transform:rotate(-14deg)}
+.ov-label{position:absolute;right:3%;bottom:8%;width:46%;aspect-ratio:2.1/1;background:var(--black);color:#fff;border-radius:50%;transform:rotate(-14deg);display:grid;place-items:center;text-align:center;font-family:var(--display);font-size:clamp(1.1rem,1.9vw,1.7rem);line-height:.95;padding:0 10%}
+@media(prefers-reduced-motion:no-preference){
+  .hero h1 span{opacity:0;transform:translateY(.25em);animation:rise .8s var(--ease) forwards}
+  .hero h1 span:nth-child(2){animation-delay:.12s}.hero h1 span:nth-child(3){animation-delay:.24s}
+  .ov{opacity:0;animation:drop 1s var(--ease) forwards}
+  .ov-a{animation-delay:.15s}.ov-photo{animation-delay:.3s}.ov-b{animation-delay:.45s}.ov-label{animation-delay:.6s;opacity:0;animation:drop 1s var(--ease) .6s forwards}
+}
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes drop{from{opacity:0;translate:0 -2.5rem}to{opacity:1;translate:0 0}}
+
+/* sections */
+section{padding:6.5rem 0}
+.head{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:end;margin-bottom:2.75rem}
+.head h2{font-size:clamp(3.2rem,6vw,5.6rem)}
+.head .lede{justify-self:end}
+
+/* shop */
+.shop{background:var(--foil)}
+.deal{display:flex;align-items:center;justify-content:space-between;gap:1rem 2rem;flex-wrap:wrap;background:var(--black);color:#fff;border-radius:999px;padding:1.1rem 2.2rem;margin-bottom:2.25rem}
+.deal p{font-family:var(--display);font-size:clamp(1.5rem,2.4vw,2.1rem);line-height:1}
+.deal small{color:var(--grey-2);font-size:.9rem}
+.tools{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.75rem}
+.filters{display:flex;gap:.5rem;flex-wrap:wrap}
+.filters button{background:transparent;border:1.5px solid var(--black);border-radius:999px;padding:.5rem 1.05rem;cursor:pointer;font-size:.9rem;font-weight:500;transition:background .2s,color .2s}
+.filters button:hover{background:rgba(32,32,32,.06)}
+.filters button[aria-pressed="true"]{background:var(--black);color:#fff}
+.filters button span{color:var(--grey);font-weight:400;margin-left:.25rem}
+.filters button[aria-pressed="true"] span{color:var(--grey-2)}
+.sort{display:flex;align-items:center;gap:.5rem;font-size:.9rem;color:var(--grey)}
+.sort select{font:inherit;color:var(--black);background:transparent;border:0;border-bottom:1.5px solid var(--black);padding:.3rem 1.4rem .3rem 0;appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23202020' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right center}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:1.25rem;list-style:none}
+.card{background:#fff;display:flex;flex-direction:column}
+.card .pic{display:block;width:100%;border:0;background:#fff;cursor:pointer;aspect-ratio:4/5;overflow:hidden;position:relative;padding:0}
+.card .pic img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
+.card .pic:hover img{transform:scale(1.035)}
+.badge{position:absolute;left:.9rem;top:.9rem;background:var(--black);color:#fff;font-size:.78rem;font-weight:500;padding:.35rem .8rem;border-radius:50%}
+.card .body{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;gap:.25rem;flex:1;border-top:1px solid var(--rule)}
+.card .origin{font-size:.84rem;color:var(--grey)}
+.card h3{font-size:1.85rem}
+.card h3 button{background:none;border:0;cursor:pointer;text-align:left;font:inherit;line-height:inherit;letter-spacing:inherit}
+.card h3 button:hover{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:.12em}
+.card .notes{font-size:.88rem;color:var(--grey);line-height:1.45}
+.card .buy{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-top:auto;padding-top:.85rem}
+.price{font-weight:600;font-variant-numeric:tabular-nums}
+.card.out .pic img{opacity:.45}
+.empty-grid{grid-column:1/-1;padding:3rem 0;text-align:center;color:var(--grey)}
+
+/* coffee bar */
+.tabs{display:flex;gap:2rem;border-bottom:1px solid var(--rule);margin-bottom:2.5rem}
+.tabs button{background:none;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;font-family:var(--display);font-size:2rem;padding:.4rem 0;cursor:pointer;color:var(--grey-2);transition:color .2s,border-color .2s}
+.tabs button[aria-selected="true"]{color:var(--black);border-bottom-color:var(--black)}
+.tabs button:hover{color:var(--black)}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:0 4.5rem;list-style:none}
+.menu li{display:grid;grid-template-columns:1fr auto;gap:.15rem 1.25rem;padding:1.3rem 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.menu li.has-th{grid-template-columns:auto 1fr auto}
+.menu h3{font-size:1.75rem}
+.menu .price{font-weight:500}
+.menu p{grid-column:1/-1;color:var(--grey);font-size:.95rem}
+.menu li.has-th p{grid-column:2/-1}
+.th{display:block;width:72px;height:72px;border:0;padding:0;background:none;cursor:zoom-in;border-radius:50%;overflow:hidden;grid-row:1/3;align-self:start}
+.th img{width:100%;height:100%;object-fit:cover}
+.bar-note{margin-top:2.5rem;display:flex;align-items:center;gap:1.25rem;font-size:1rem;max-width:44rem}
+.bar-note::before{content:"";flex:none;width:3.4rem;height:1.6rem;border-radius:50%;background:var(--black);transform:rotate(-14deg)}
+
+/* roastery */
+.roastery{background:var(--black);color:#fff;padding-top:0}
+.store{position:relative;overflow:hidden;aspect-ratio:21/9;max-height:620px;width:100%}
+.store img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
+.story{display:grid;grid-template-columns:5fr 7fr;gap:4rem;margin-top:5rem}
+.story h2{font-size:clamp(3.2rem,6vw,5.6rem)}
+.story p{color:#d6d5d1;font-size:1.08rem;max-width:40rem}
+.story p+p{margin-top:1.1rem}
+.sig{margin-top:1.6rem;color:#fff}
+.sig b{font-family:var(--display);font-weight:400;font-size:1.8rem;display:block;line-height:1}
+.sig span{color:var(--grey-2);font-size:.9rem}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--rule-inv)}
+.facts dt{font-family:var(--display);font-size:3.2rem;line-height:1}
+.facts dd{font-size:.9rem;color:var(--grey-2)}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:5rem;list-style:none}
+.reviews li{border:1px solid var(--rule-inv);padding:1.75rem;display:flex;flex-direction:column;gap:1.25rem}
+.reviews blockquote{font-size:1.05rem;line-height:1.55}
+.reviews cite{font-style:normal;color:var(--grey-2);font-size:.9rem;margin-top:auto}
+.reviews-src{margin-top:1.25rem;font-size:.9rem;color:var(--grey-2)}
+
+/* workshop */
+.workshop .wrap{display:grid;grid-template-columns:6fr 5fr;gap:5rem;align-items:start}
+.workshop h2{font-size:clamp(3.2rem,5.6vw,5.2rem);margin-bottom:1rem}
+.workshop .lede{margin-bottom:2rem}
+.wfacts{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem 2rem;padding:1.5rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-bottom:2rem}
+.wfacts dt{font-size:.85rem;color:var(--grey)}
+.wfacts dd{font-weight:500}
+.exps{list-style:none;counter-reset:x;display:grid;gap:1.5rem}
+.exps li{counter-increment:x;display:grid;grid-template-columns:3.6rem 1fr;gap:1rem}
+.exps li::before{content:counter(x);display:grid;place-items:center;width:3.6rem;height:2.4rem;border-radius:50%;background:var(--black);color:#fff;font-family:var(--display);font-size:1.5rem;transform:rotate(-14deg)}
+.exps b{font-family:var(--display);font-weight:400;font-size:1.7rem;display:block;line-height:1;margin-bottom:.3rem}
+.exps span{color:var(--grey);font-size:.95rem}
+.reserve{background:var(--foil);padding:2.25rem}
+.reserve h3{font-size:2.3rem;margin-bottom:.35rem}
+.reserve > p{color:var(--grey);font-size:.95rem;margin-bottom:1.5rem}
+
+/* forms */
+.form{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem 1.5rem}
+.f{display:flex;flex-direction:column;gap:.35rem}
+.f.full{grid-column:1/-1}
+label,.lbl{font-size:.85rem;font-weight:500}
+input,select,textarea{font:inherit;color:var(--black);background:#fff;border:1.5px solid var(--foil-2);border-radius:10px;padding:.7rem .85rem;width:100%;transition:border-color .2s}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--black)}
+input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--err)}
+select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23202020' stroke-width='1.6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .85rem center;padding-right:2.2rem;cursor:pointer}
+textarea{resize:vertical;min-height:4.5rem}
+.err{font-size:.82rem;color:var(--err);min-height:1.1em}
+.f-act{grid-column:1/-1;display:flex;flex-direction:column;align-items:flex-start;gap:.75rem;margin-top:.25rem}
+.f-act small{color:var(--grey);font-size:.84rem}
+.added{display:none;border:1.5px solid var(--black);padding:1.5rem;background:#fff}
+.added h4{font-family:var(--display);font-weight:400;font-size:1.9rem;line-height:1;margin-bottom:.5rem}
+.added p{color:var(--grey);margin-bottom:1rem}
+
+/* visit */
+.visit{background:var(--foil)}
+.visit .cols{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:3rem}
+.visit h2{font-size:clamp(3.2rem,6vw,5.6rem);margin-bottom:2.5rem}
+.visit h3{font-size:1.9rem;margin-bottom:.6rem}
+#status{font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+#status::before{content:"";width:.9rem;height:.6rem;border-radius:50%;background:var(--grey-2)}
+#status.open::before{background:var(--ok)}
+#hours{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1.5rem;font-size:.95rem}
+#hours dt{color:var(--grey)}
+#hours .today{font-weight:600;color:var(--black)}
+.hours-note{margin-top:1rem;font-size:.82rem;color:var(--grey)}
+.addr{font-style:normal;line-height:1.8}
+.addr a{text-decoration:none;border-bottom:1.5px solid var(--black)}
+.map{border-radius:50% / 42%;overflow:hidden;aspect-ratio:1.35/1;background:var(--foil-2);transform:rotate(-4deg)}
+.map iframe{width:118%;height:118%;margin:-9% 0 0 -9%;border:0;filter:grayscale(1) contrast(1.05);transform:rotate(4deg)}
+
+/* footer */
+footer{background:var(--black);color:var(--grey-2);padding:5rem 0 2.5rem}
+footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3.5rem}
+footer .brand img{height:64px;filter:invert(1)}
+footer h4{font-family:var(--display);font-weight:400;font-size:1.5rem;color:#fff;margin-bottom:.7rem;line-height:1}
+footer ul{list-style:none}
+footer li{margin-bottom:.45rem;font-size:.95rem}
+footer a{text-decoration:none;color:#d6d5d1}
+footer a:hover{color:#fff;text-decoration:underline}
+footer .base{border-top:1px solid var(--rule-inv);padding-top:1.5rem;font-size:.85rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+
+/* dialogs */
+dialog{border:0;padding:0;color:var(--black);background:#fff}
+dialog::backdrop{background:rgba(32,32,32,.55)}
+.x{position:absolute;top:.75rem;right:.75rem;z-index:3;width:44px;height:44px;border:0;border-radius:50%;background:var(--foil);font-size:1.5rem;line-height:1;cursor:pointer}
+.x:hover{background:var(--foil-2)}
+
+/* product sheet */
+#product{width:min(1000px,100vw - 2rem);max-width:none;max-height:min(92vh,900px);margin:auto}
+#product .pd{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+#product .pd-img{background:#fff;border-right:1px solid var(--rule);aspect-ratio:4/5;position:sticky;top:0}
+#product .pd-img img{width:100%;height:100%;object-fit:cover}
+#product .pd-info{padding:2.5rem 2.25rem 2.25rem;display:flex;flex-direction:column;gap:1.1rem}
+#product .origin{color:var(--grey);font-size:.9rem}
+#product h2{font-size:clamp(2.6rem,4vw,3.6rem)}
+#product .pd-price{font-size:1.25rem;font-weight:600}
+#product .pd-price small{font-weight:400;color:var(--grey);font-size:.9rem;margin-left:.4rem}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none}
+.chips li{border:1.5px solid var(--black);border-radius:50%;padding:.35rem .95rem;font-size:.86rem;font-weight:500}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:.35rem 1.25rem;font-size:.92rem;border-top:1px solid var(--rule);padding-top:1rem}
+.spec dt{color:var(--grey)}
+.pd-story{color:var(--grey);font-size:.95rem}
+.pd-buy{display:flex;gap:.75rem;align-items:flex-end;flex-wrap:wrap;border-top:1px solid var(--rule);padding-top:1.25rem}
+.pd-buy .f{min-width:9rem}
+.pd-buy .btn{flex:1;min-width:12rem}
+.pd-note{font-size:.85rem;color:var(--grey)}
+.qty{display:inline-flex;align-items:center;border:1.5px solid var(--black);border-radius:999px;height:2.6rem}
+.qty button{width:2.4rem;height:100%;border:0;background:none;cursor:pointer;font-size:1.1rem;border-radius:999px}
+.qty button:hover{background:var(--foil)}
+.qty output{min-width:1.6rem;text-align:center;font-variant-numeric:tabular-nums;font-weight:500}
+.qty.sm{height:2.1rem}.qty.sm button{width:2rem}
+
+/* cart drawer */
+#cart{margin:0 0 0 auto;width:min(440px,100vw);height:100dvh;max-height:none;max-width:none}
+#cart[open]{display:flex;flex-direction:column}
+@media(prefers-reduced-motion:no-preference){#cart[open]{animation:slide .35s var(--ease)}}
+@keyframes slide{from{transform:translateX(100%)}}
+.c-head{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--rule)}
+.c-head h2{font-size:2.4rem}
+.c-head .x{position:static}
+.meters{padding:1rem 1.5rem;display:grid;gap:.85rem;border-bottom:1px solid var(--rule);background:var(--foil)}
+.meter p{font-size:.88rem;margin-bottom:.35rem}
+.meter .bar{height:.5rem;border-radius:999px;background:var(--foil-2);overflow:hidden}
+.meter .bar i{display:block;height:100%;background:var(--black);border-radius:999px;transition:width .4s var(--ease)}
+.lines{flex:1;overflow-y:auto;list-style:none;padding:0 1.5rem}
+.line{display:grid;grid-template-columns:72px 1fr auto;gap:.4rem 1rem;padding:1.1rem 0;border-bottom:1px solid var(--rule);align-items:start}
+.line .im{width:72px;height:90px;background:#fff;border:1px solid var(--rule);grid-row:1/3;overflow:hidden}
+.line .im img{width:100%;height:100%;object-fit:cover}
+.ph{display:grid;place-items:center;width:100%;height:100%;background:var(--black);color:#fff;font-family:var(--display);font-size:1.1rem;text-align:center;line-height:1;padding:.3rem}
+.line h3{font-size:1.35rem}
+.line .meta{font-size:.82rem;color:var(--grey);display:block}
+.line .ctl{display:flex;align-items:center;gap:.75rem;grid-column:2/-1}
+.line .rm{background:none;border:0;font-size:.82rem;color:var(--grey);text-decoration:underline;cursor:pointer;padding:.4rem 0}
+.line .rm:hover{color:var(--black)}
+.c-empty{padding:3rem 1.5rem;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
+.c-empty p{color:var(--grey);max-width:18rem}
+.c-foot{padding:1.25rem 1.5rem 1.5rem;border-top:1px solid var(--rule);display:grid;gap:.4rem}
+.sum{display:flex;justify-content:space-between;font-size:.95rem;font-variant-numeric:tabular-nums}
+.sum.disc{color:var(--ok)}
+.sum.total{font-weight:600;font-size:1.1rem;padding-top:.5rem;border-top:1px solid var(--rule);margin-top:.3rem}
+.c-foot small{color:var(--grey);font-size:.82rem;margin-bottom:.6rem}
+.c-foot .btn{width:100%}
+
+/* checkout */
+#checkout{width:min(980px,100vw - 2rem);max-width:none;max-height:94vh;margin:auto}
+.co{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+.co-main{padding:2.25rem}
+.co-main h2{font-size:3rem;margin-bottom:1.5rem}
+.co-main fieldset{border:0;margin-bottom:1.75rem}
+.co-main legend{font-family:var(--display);font-size:1.7rem;line-height:1;margin-bottom:.85rem}
+.methods{display:grid;gap:.6rem}
+.method{display:flex;align-items:center;gap:.85rem;border:1.5px solid var(--foil-2);border-radius:12px;padding:.85rem 1rem;cursor:pointer;font-size:.95rem}
+.method:has(input:checked){border-color:var(--black)}
+.method input{width:auto;accent-color:var(--black)}
+.method span{flex:1}
+.method em{font-style:normal;color:var(--grey);font-size:.88rem}
+.pay{border:1.5px dashed var(--grey-2);border-radius:12px;padding:1.1rem 1.2rem;font-size:.9rem;color:var(--grey)}
+.co-side{background:var(--foil);padding:2.25rem 2rem}
+.co-side h3{font-size:1.9rem;margin-bottom:1rem}
+.co-lines{list-style:none;margin-bottom:1.25rem}
+.co-lines li{display:grid;grid-template-columns:52px 1fr auto;gap:.85rem;align-items:center;padding:.55rem 0;font-size:.9rem}
+.co-lines .im{width:52px;height:64px;background:#fff;overflow:hidden;position:relative}
+.co-lines .im img{width:100%;height:100%;object-fit:cover}
+.co-lines .im b{position:absolute;top:2px;right:2px;background:var(--black);color:#fff;font-size:.7rem;min-width:1.2rem;height:1.2rem;border-radius:50%;display:grid;place-items:center}
+.co-lines .meta{display:block;color:var(--grey);font-size:.8rem}
+.co-err{color:var(--err);font-size:.9rem;margin:.5rem 0 1rem;font-weight:500}
+.co-done{padding:3rem 2.5rem;text-align:center;display:grid;justify-items:center;gap:1rem}
+.co-done .oval{width:7rem;height:4.4rem;border-radius:50%;background:var(--black);color:#fff;display:grid;place-items:center;font-family:var(--display);font-size:1.6rem;transform:rotate(-14deg)}
+.co-done h2{font-size:3.4rem}
+.co-done p{color:var(--grey);max-width:30rem}
+
+/* zoom + toast */
+#zoom{max-width:min(92vw,46rem);margin:auto;background:var(--black);color:#fff}
+#zoom img{max-height:70vh;width:auto;margin-inline:auto}
+#zoom .cap{padding:1.1rem 1.4rem 1.4rem}
+#zoom .cap h3{font-size:1.9rem}
+#zoom .cap p{color:var(--grey-2)}
+#toast{position:fixed;left:50%;bottom:1.25rem;transform:translate(-50%,150%);background:var(--black);color:#fff;border-radius:999px;padding:.7rem .7rem .7rem 1.4rem;display:flex;align-items:center;gap:1rem;z-index:200;font-size:.92rem;transition:transform .35s var(--ease);max-width:calc(100vw - 2rem)}
+#toast{visibility:hidden;transition:transform .35s var(--ease),visibility .35s}#toast.show{transform:translate(-50%,0);visibility:visible}
+#toast button{background:#fff;color:var(--black);border:0;border-radius:999px;padding:.45rem 1rem;font-weight:500;cursor:pointer;white-space:nowrap}
+
+@media(max-width:1000px){
+  .workshop .wrap,.story{grid-template-columns:1fr;gap:3rem}
+  .visit .cols{grid-template-columns:1fr 1fr}
+  .visit .map-col{grid-column:1/-1}
+  .reviews{grid-template-columns:1fr}
+  footer .cols{grid-template-columns:1fr 1fr}
+  .co{grid-template-columns:1fr}
+}
+@media(max-width:860px){
+  .hero{grid-template-columns:1fr;padding:2rem 0 4rem;gap:2.5rem}
+  .hero-copy,.ovals{grid-column:1}
+  .ovals{width:min(100%,30rem);justify-self:center}
+  section{padding:4.5rem 0}
+  .head{grid-template-columns:1fr;gap:1rem}
+  .head .lede{justify-self:start}
+  .menu{grid-template-columns:1fr}
+  .deal{border-radius:28px;padding:1.25rem 1.5rem}
+  #product .pd{grid-template-columns:1fr}
+  #product .pd-img{position:static;border-right:0;border-bottom:1px solid var(--rule);aspect-ratio:1/1}
+  .store{aspect-ratio:4/3}
+  .story{margin-top:3.5rem}
+}
+@media(max-width:560px){
+  .form{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr 1fr;gap:.75rem}
+  .card .body{padding:.85rem .8rem 1rem}
+  .card h3{font-size:1.5rem}
+  .card .notes{display:none}
+  .card .buy{flex-direction:column;align-items:flex-start;gap:.5rem}
+  .card .buy .btn{width:100%}
+  .facts{grid-template-columns:1fr 1fr}
+  .visit .cols{grid-template-columns:1fr}
+  footer .cols{grid-template-columns:1fr}
+  .reserve,.co-main,.co-side{padding:1.5rem}
+  #product .pd-info{padding:1.75rem 1.25rem 1.5rem}
+  .tabs{gap:1.4rem}.tabs button{font-size:1.7rem}
+  .wfacts{grid-template-columns:1fr}
+  #product,#checkout{width:100vw;max-width:100vw;max-height:100dvh;height:100dvh}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<p class="announce">Free shipping across Canada on orders over $65, and across the USA over $80.</p>
+
+<nav id="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="images/logo.png" alt="Coffeed" width="600" height="447"></a>
+    <ul id="links">
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#bar">Coffee bar</a></li>
+      <li><a href="#roastery">Roastery</a></li>
+      <li><a href="#workshop">Workshop</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul>
+    <button class="cart-btn" id="cart-open" type="button" aria-haspopup="dialog">Cart <b id="cart-count">0</b><span class="vh"> items</span></button>
+    <button id="burger" aria-expanded="false" aria-controls="sheet" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <div id="sheet">
+      <a href="#shop">Shop</a>
+      <a href="#bar">Coffee bar</a>
+      <a href="#roastery">Roastery</a>
+      <a href="#workshop">Workshop</a>
+      <a href="#visit">Visit</a>
+      <small>3420 Rebecca Street, Oakville. 647-206-7157</small>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+<header class="wrap hero" id="top">
+  <div class="hero-copy">
+    <h1><span>Sweet.</span><span>Vibrant.</span><span>Balanced.</span></h1>
+    <p class="lede">Specialty coffee roasted in house at our roastery and coffee bar on Rebecca Street in Oakville. Whole bean, shipped across Canada and the US.</p>
+    <div class="cta">
+      <a class="btn" href="#shop">Shop beans</a>
+      <a class="btn ghost" href="#bar">See the bar menu</a>
+    </div>
+    <p class="rating"><b>4.9</b><span>on Google, from <a href="https://maps.google.com/?cid=3589123961031788574" rel="noopener" target="_blank">284 reviews</a></span></p>
+  </div>
+  <div class="ovals" aria-hidden="false">
+    <span class="ov ov-a" aria-hidden="true"></span>
+    <div class="ov ov-photo"><img src="images/hero-roasting.webp" alt="Freshly roasted beans pouring from the roaster into the cooling tray at Coffeed" width="567" height="423" fetchpriority="high"></div>
+    <span class="ov ov-b" aria-hidden="true"></span>
+    <span class="ov-label" aria-hidden="true">Roasted on Rebecca Street</span>
+  </div>
+</header>
+
+<!-- Shop -->
+<section id="shop" class="shop" aria-labelledby="shop-h">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="shop-h">On the shelf</h2>
+      <p class="lede">Every coffee here is roasted in small batches at the shop and shipped whole bean, so it is as fresh as possible when you grind it.</p>
+    </div>
+    <div class="deal">
+      <p>Spend $180 on beans, save 10%. Spend $450, save 20%.</p>
+      <small>Applied automatically in your cart.</small>
+    </div>
+    <div class="tools">
+      <div class="filters" role="group" aria-label="Filter products" id="filters"></div>
+      <label class="sort">Sort <select id="sort"><option value="feat">Featured</option><option value="lo">Price, low to high</option><option value="hi">Price, high to low</option></select></label>
+    </div>
+    <ul class="grid" id="grid" aria-live="polite"></ul>
+  </div>
+</section>
+
+<!-- Coffee bar -->
+<section id="bar" aria-labelledby="bar-h">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="bar-h">At the coffee bar</h2>
+      <p class="lede">Every bean on the shelf can be brewed by the cup. Here is what else is on this fall.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Coffee bar menu">
+      <button role="tab" id="tab-fall" aria-selected="true" aria-controls="panel-fall">Fall menu</button>
+      <button role="tab" id="tab-bake" aria-selected="false" aria-controls="panel-bake" tabindex="-1">Bake case</button>
+    </div>
+    <div id="panel-fall" role="tabpanel" aria-labelledby="tab-fall" tabindex="0">
+      <ul class="menu">
+        <li><h3>Pumpkin spice latte</h3><span class="price">$6.50</span><p>Espresso, steamed milk and warm fall spice.</p></li>
+        <li><h3>Gingerbread latte</h3><span class="price">$6.50</span><p>Espresso and steamed milk with ginger, cinnamon and molasses.</p></li>
+        <li><h3>Fall espresso</h3><span class="price">$6.00</span><p>A seasonal shot, pulled from whatever is tasting best this week.</p></li>
+        <li><h3>Fall cortado</h3><span class="price">$8.00</span><p>The seasonal espresso, cut with an equal part of milk.</p></li>
+        <li><h3>Fall pour over, 8 oz</h3><span class="price">$7.00</span><p>Brewed to order on the V60.</p></li>
+        <li><h3>Fall pour over, 12 oz</h3><span class="price">$8.50</span><p>The same brew, for a longer sit.</p></li>
+      </ul>
+    </div>
+    <div id="panel-bake" role="tabpanel" aria-labelledby="tab-bake" tabindex="0" hidden>
+      <ul class="menu">
+        <li class="has-th"><button class="th" type="button" data-src="images/products/amaretti.webp" aria-label="Enlarge photo of Amaretti cookie"><img src="images/products/amaretti.webp" alt="Crackled amaretti cookies dusted with icing sugar" loading="lazy" width="800" height="1000"></button><h3>Amaretti cookie</h3><span class="price">$3.00</span><p>Crisp outside, chewy in the middle. The one to have with an espresso.</p></li>
+        <li class="has-th"><button class="th" type="button" data-src="images/products/whole-brewnie.webp" aria-label="Enlarge photo of Brewnie"><img src="images/products/whole-brewnie.webp" alt="A tray of fudgy coffee brownies" loading="lazy" width="800" height="1000"></button><h3>Brewnie, whole tray</h3><span class="price">$32.00</span><p>Our coffee brownie. Order the whole tray online for pickup.</p></li>
+        <li class="has-th"><button class="th" type="button" data-src="images/products/whole-banana-loaf.webp" aria-label="Enlarge photo of Banana bread"><img src="images/products/whole-banana-loaf.webp" alt="A loaf of banana bread, sliced" loading="lazy" width="800" height="1000"></button><h3>Banana bread, whole loaf</h3><span class="price">$30.00</span><p>Moist and dense. Order the whole loaf online for pickup.</p></li>
+      </ul>
+    </div>
+    <p class="bar-note">Ask the bar what is on espresso today, or bring a bag home and we will grind it for your brewer.</p>
+  </div>
+</section>
+
+<!-- Roastery -->
+<section id="roastery" class="roastery inv" aria-labelledby="roast-h">
+  <figure class="store"><img src="images/storefront.webp" alt="The Coffeed storefront at dusk, signed Roastery, Coffee Bar, Bottle Shop, Store" loading="lazy" width="1800" height="1030"></figure>
+  <div class="wrap">
+    <div class="story">
+      <h2 id="roast-h">The coffee comes first</h2>
+      <div>
+        <p>It really comes down to one thing: the coffee. Everything else flows from it. The community, the experience, the moments people share. When the coffee is great, those moments become more memorable.</p>
+        <p>That is why we source intentionally, roast deliberately and quality-control relentlessly. Not out of habit, but out of care. The drinks, the baked goods, the workshops and the community all exist because the coffee comes first.</p>
+        <p class="sig"><b>Joseph</b><span>Founder and roaster</span></p>
+        <dl class="facts">
+          <div><dt>4.9</dt><dd>Google rating</dd></div>
+          <div><dt>284</dt><dd>Google reviews</dd></div>
+          <div><dt id="bean-count">13</dt><dd>Coffees on the shelf</dd></div>
+        </dl>
+      </div>
+    </div>
+    <ul class="reviews">
+      <li><blockquote>It really feels like a serious coffee place. They roast their own beans in house and even have a roasting machine on site.</blockquote><cite>Siting C.</cite></li>
+      <li><blockquote>Excellent, personable service and equally excellent coffee options. They know their stuff here and are happy to share.</blockquote><cite>Niraj P.</cite></li>
+      <li><blockquote>A wonderful local café with rich, flavourful coffee and unique varieties you do not often find elsewhere.</blockquote><cite>Fleurette</cite></li>
+    </ul>
+    <p class="reviews-src">From Google reviews of Coffeed, 3420 Rebecca Street.</p>
+  </div>
+</section>
+
+<!-- Workshop -->
+<section id="workshop" class="workshop" aria-labelledby="ws-h">
+  <div class="wrap">
+    <div>
+      <h2 id="ws-h">Brewing Better Coffee, Vol. 1</h2>
+      <p class="lede">Stop following recipes. Start building them. A 90-minute, small-group workshop at the roastery, built on side-by-side brewing experiments. No advanced coffee knowledge needed. Come curious.</p>
+      <dl class="wfacts">
+        <div><dt>Length</dt><dd>90 minutes, Saturdays 4:30 to 6 pm</dd></div>
+        <div><dt>Group size</dt><dd>Up to 10 people</dd></div>
+        <div><dt>Price</dt><dd>$99 + HST per seat</dd></div>
+        <div><dt>You take home</dt><dd>100 g each of the two workshop coffees</dd></div>
+      </dl>
+      <ol class="exps">
+        <li><div><b>Strength and extraction</b><span>On the V60, we change grind, ratio and bypass water to taste the difference between how much we extract and how strong the cup is. Brewed with Ethiopia Kokose.</span></div></li>
+        <li><div><b>Water and flavour</b><span>Same coffee, same method, different water, to show how much water composition changes what is in the cup. Brewed with Wilton Benitez Geisha.</span></div></li>
+      </ol>
+    </div>
+
+    <div class="reserve">
+      <h3>Reserve seats</h3>
+      <p>Seats go in your cart. Check out to confirm them.</p>
+      <form class="form" id="ws-form" novalidate>
+        <div class="f full">
+          <label for="ws-session">Session</label>
+          <select id="ws-session" name="session" aria-describedby="ws-session-err">
+            <option value="">Choose a date</option>
+            <option>Saturday, November 7, 2026</option>
+            <option>Saturday, November 21, 2026</option>
+            <option>Saturday, December 5, 2026</option>
+          </select>
+          <span class="err" id="ws-session-err" aria-live="polite"></span>
+        </div>
+        <div class="f">
+          <label for="ws-seats">Seats</label>
+          <select id="ws-seats" name="seats"><option value="1">1 seat</option><option value="2" selected>2 seats</option><option value="3">3 seats</option><option value="4">4 seats</option></select>
+        </div>
+        <div class="f">
+          <label for="ws-name">Name for the list</label>
+          <input id="ws-name" name="name" type="text" autocomplete="name" aria-describedby="ws-name-err">
+          <span class="err" id="ws-name-err" aria-live="polite"></span>
+        </div>
+        <div class="f-act">
+          <button class="btn" type="submit">Add seats to cart</button>
+          <small>Registrations are non-refundable, but you can transfer your seat to someone else.</small>
+        </div>
+      </form>
+      <div class="added" id="ws-added" tabindex="-1">
+        <h4>Seats added</h4>
+        <p id="ws-added-msg"></p>
+        <button class="btn sm" type="button" id="ws-view">View cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Visit -->
+<section id="visit" class="visit" aria-labelledby="visit-h">
+  <div class="wrap">
+    <h2 id="visit-h">Visit the roastery</h2>
+    <div class="cols">
+      <div>
+        <h3>Hours</h3>
+        <p id="status" aria-live="polite"></p>
+        <dl id="hours"></dl>
+        <p class="hours-note">Sample hours, to be confirmed with Coffeed.</p>
+      </div>
+      <div>
+        <h3>Find us</h3>
+        <address class="addr">3420 Rebecca Street<br>Oakville, Ontario L6L 6W2<br><a href="tel:+16472067157">647-206-7157</a><br><a href="mailto:sales@coffeed.ca">sales@coffeed.ca</a></address>
+        <p style="margin-top:1.25rem"><a class="btn sm ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Coffeed&amp;query_place_id=ChIJE86GGm9fK4gRHogkADohzzE" target="_blank" rel="noopener">Get directions</a></p>
+      </div>
+      <div class="map-col">
+        <div class="map"><iframe title="Map showing Coffeed at 3420 Rebecca Street, Oakville" src="https://maps.google.com/maps?q=Coffeed%2C%203420%20Rebecca%20St%2C%20Oakville%2C%20ON&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="inv">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <a class="brand" href="#top"><img src="images/logo.png" alt="Coffeed" width="600" height="447"></a>
+        <p style="margin-top:1.25rem;max-width:26rem">Roastery, coffee bar, bottle shop and store on Rebecca Street in Oakville. Sweet, vibrant, balanced coffee, roasted right.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul><li><a href="#shop" data-filter="beans">Coffee beans</a></li><li><a href="#shop" data-filter="gear">Brew gear</a></li><li><a href="#shop" data-filter="pantry">Pantry and collabs</a></li><li><a href="#shop" data-filter="gifts">Gift cards</a></li></ul>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <ul><li>3420 Rebecca Street</li><li>Oakville, Ontario</li><li><a href="tel:+16472067157">647-206-7157</a></li><li><a href="mailto:sales@coffeed.ca">sales@coffeed.ca</a></li></ul>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <ul><li><a href="https://instagram.com/coffeedshop" target="_blank" rel="noopener">Instagram, @coffeedshop</a></li><li><a href="#workshop">Workshops</a></li></ul>
+      </div>
+    </div>
+    <div class="base">
+      <span>&copy; 2026 <a href="https://www.stohrx.ca/">STOHRX</a>. Sample concept site for Coffeed.</span>
+      <span>Products and prices from coffeed.ca, October 2026.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Product sheet -->
+<dialog id="product" aria-labelledby="pd-name">
+  <button class="x" type="button" data-close aria-label="Close">&times;</button>
+  <div class="pd">
+    <div class="pd-img"><img id="pd-img" src="" alt="" width="800" height="1000"></div>
+    <div class="pd-info">
+      <div>
+        <p class="origin" id="pd-origin"></p>
+        <h2 id="pd-name"></h2>
+      </div>
+      <p class="pd-price" id="pd-price"></p>
+      <ul class="chips" id="pd-notes" aria-label="Tasting notes"></ul>
+      <dl class="spec" id="pd-spec"></dl>
+      <p class="pd-story" id="pd-story"></p>
+      <div class="pd-buy">
+        <div class="f" id="pd-var-wrap" hidden>
+          <label for="pd-var" id="pd-var-label">Option</label>
+          <select id="pd-var"></select>
+        </div>
+        <div class="f">
+          <span class="lbl" id="pd-qty-l">Quantity</span>
+          <div class="qty" role="group" aria-labelledby="pd-qty-l"><button type="button" id="pd-minus" aria-label="Decrease quantity">&minus;</button><output id="pd-qty">1</output><button type="button" id="pd-plus" aria-label="Increase quantity">+</button></div>
+        </div>
+        <button class="btn" type="button" id="pd-add">Add to cart</button>
+      </div>
+      <p class="pd-note" id="pd-note"></p>
+    </div>
+  </div>
+</dialog>
+
+<!-- Cart drawer -->
+<dialog id="cart" aria-labelledby="cart-h">
+  <div class="c-head"><h2 id="cart-h">Your cart</h2><button class="x" type="button" data-close aria-label="Close cart">&times;</button></div>
+  <div class="meters" id="meters"></div>
+  <ul class="lines" id="lines"></ul>
+  <div class="c-empty" id="c-empty" hidden>
+    <p>Your cart is empty. Start with this month's beans.</p>
+    <a class="btn" href="#shop" data-close>Shop beans</a>
+  </div>
+  <div class="c-foot" id="c-foot">
+    <div class="sum"><span>Subtotal</span><span id="c-sub"></span></div>
+    <div class="sum disc" id="c-disc-row" hidden><span id="c-disc-l"></span><span id="c-disc"></span></div>
+    <div class="sum total"><span>Total</span><span id="c-total"></span></div>
+    <small>Shipping and tax are calculated at checkout.</small>
+    <button class="btn" type="button" id="to-checkout">Check out</button>
+  </div>
+</dialog>
+
+<!-- Checkout -->
+<dialog id="checkout" aria-labelledby="co-h">
+  <button class="x" type="button" data-close aria-label="Close checkout">&times;</button>
+  <div class="co" id="co">
+    <form class="co-main" id="co-form" novalidate>
+      <h2 id="co-h">Checkout</h2>
+      <fieldset>
+        <legend>Contact</legend>
+        <div class="form">
+          <div class="f full"><label for="co-email">Email</label><input id="co-email" type="email" autocomplete="email" aria-describedby="co-email-err"><span class="err" id="co-email-err" aria-live="polite"></span></div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Delivery</legend>
+        <div class="methods">
+          <label class="method"><input type="radio" name="method" value="ca" checked><span>Ship within Canada</span><em id="m-ca"></em></label>
+          <label class="method"><input type="radio" name="method" value="us"><span>Ship to the USA</span><em id="m-us"></em></label>
+          <label class="method"><input type="radio" name="method" value="pickup"><span>Pick up at 3420 Rebecca Street</span><em>Free</em></label>
+        </div>
+      </fieldset>
+      <fieldset id="ship-fields">
+        <legend>Shipping address</legend>
+        <div class="form">
+          <div class="f full"><label for="co-name">Full name</label><input id="co-name" autocomplete="name" aria-describedby="co-name-err"><span class="err" id="co-name-err" aria-live="polite"></span></div>
+          <div class="f full"><label for="co-addr">Street address</label><input id="co-addr" autocomplete="street-address" aria-describedby="co-addr-err"><span class="err" id="co-addr-err" aria-live="polite"></span></div>
+          <div class="f"><label for="co-city">City</label><input id="co-city" autocomplete="address-level2" aria-describedby="co-city-err"><span class="err" id="co-city-err" aria-live="polite"></span></div>
+          <div class="f"><label for="co-region" id="co-region-l">Province</label><input id="co-region" autocomplete="address-level1" aria-describedby="co-region-err"><span class="err" id="co-region-err" aria-live="polite"></span></div>
+          <div class="f"><label for="co-postal" id="co-postal-l">Postal code</label><input id="co-postal" autocomplete="postal-code" aria-describedby="co-postal-err"><span class="err" id="co-postal-err" aria-live="polite"></span></div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Payment</legend>
+        <p class="pay">On the live site, card, Apple Pay and Google Pay are taken by Shopify's secure checkout. This sample stops before payment, and no card details are collected.</p>
+      </fieldset>
+      <p class="co-err" id="co-err" role="alert"></p>
+      <button class="btn" type="submit" id="co-place" style="width:100%">Place order</button>
+    </form>
+    <aside class="co-side" aria-labelledby="co-sum-h">
+      <h3 id="co-sum-h">Order summary</h3>
+      <ul class="co-lines" id="co-lines"></ul>
+      <div class="sum"><span>Subtotal</span><span id="co-sub"></span></div>
+      <div class="sum disc" id="co-disc-row" hidden><span id="co-disc-l"></span><span id="co-disc"></span></div>
+      <div class="sum"><span>Shipping</span><span id="co-ship"></span></div>
+      <div class="sum"><span id="co-tax-l">HST (13%)</span><span id="co-tax"></span></div>
+      <div class="sum total"><span>Total</span><span id="co-total"></span></div>
+    </aside>
+  </div>
+  <div class="co-done" id="co-done" hidden tabindex="-1">
+    <span class="oval">Thanks</span>
+    <h2 id="co-done-h"></h2>
+    <p id="co-done-msg"></p>
+    <button class="btn" type="button" data-close>Keep browsing</button>
+  </div>
+</dialog>
+
+<dialog id="zoom" aria-labelledby="zoom-h">
+  <button class="x" type="button" data-close aria-label="Close">&times;</button>
+  <img src="" alt="" width="800" height="1000">
+  <div class="cap"><h3 id="zoom-h"></h3><p></p></div>
+</dialog>
+
+<div id="toast" role="status" aria-live="polite"><span id="toast-msg"></span><button type="button" id="toast-view">View cart</button></div>
+
+<script>
+(function(){
+  var $=function(s,c){return (c||document).querySelector(s)};
+  var $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+  var money=function(n){return '$'+n.toFixed(2)};
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+
+  /* ---------- catalogue (from coffeed.ca, October 2026) ---------- */
+  var PARAISO='Granja Paraiso 92, run by Wilton Benitez, uses an intensive washed process: hand harvesting, size and density sorting, sterilising with ozonated water and UV light, then a thermal shock and an anaerobic fermentation.';
+  var QUEBRADITAS='Quebraditas is a family-run farm in the highlands of Oporapa, Huila. Lots are fermented with yeast inoculation and co-fermented with fruit, with a strong focus on soil health and shade management.';
+  var P=[
+    {id:'coffeed-special-blend',cat:'beans',roast:'espresso',origin:'House blend',name:'Coffeed Special Blend',price:25,size:'250 g',notes:['Fruit-forward','Chocolate','Medium roast'],spec:{Blend:'Brazil Imaculada Barbosa and Ethiopia Kokose',Process:'Natural',Roast:'Medium, built for espresso'},story:'A pre-roast blend designed for a unique cup. Made for espresso, and a great choice if you like a more developed filter coffee.'},
+    {id:'kenya-inoi-kerugoya-aa',cat:'beans',roast:'filter',origin:'Kenya',name:'Inoi Kerugoya AA',price:30,size:'250 g',notes:['Blood orange','Cane sugar','Red currant','Toffee'],spec:{Region:'Kirinyaga',Producers:'Smallholders',Varietal:'Batian, SL-34, Ruiru 11, SL-28',Process:'Washed, 8 to 12 hour ferment',Altitude:'1,650 to 1,800 masl',Harvest:'2025/26'},story:'Kirinyaga sits about 190 km northeast of Nairobi on mineral-rich red volcanic soil. Every cherry is hand-picked by smallholders between December and February.'},
+    {id:'ethiopia-kokose',cat:'beans',roast:'filter',origin:'Ethiopia',name:'Kokose',price:30,size:'250 g',notes:['Blood orange','Dark chocolate','Concord grape','Caramelized apple'],spec:{Region:'Sidama',Varietal:'Landrace',Process:'Natural, special prep',Grade:'1',Altitude:'1,800 to 1,960 masl',Harvest:'2025'},story:'About 500 smallholders in Kokose grow organic, sugar-rich cherries on one- to two-hectare plots, at high elevation in nutrient-rich soil.'},
+    {id:'colombia-diego-bermudez',cat:'beans',roast:'filter',origin:'Colombia',name:'Diego Bermudez',price:37,size:'250 g',notes:['Peach','Lychee','Creamy'],spec:{Farm:'Finca El Paraiso, Cauca',Varietal:'Castillo',Process:'Double anaerobic, thermal shock','Cup score':'91',Altitude:'1,960 masl',Harvest:'2024'},story:'Fermented 36 hours in cherry, then 12 hours out of cherry with microorganism inoculation, and finished with a thermal shock that alternates hot and cold water to lock in flavour.'},
+    {id:'colombia-wilton-benitez-geisha',cat:'beans',roast:'filter',origin:'Colombia',name:'Wilton Benitez Geisha',price:44,notes:['Passion fruit','Pineapple','Honey','Lemon'],spec:{Farm:'Granja Paraiso 92, Piendamó, Cauca',Process:'Washed, thermal shock',Fermentation:'Anaerobic',Altitude:'1,900 masl',Harvest:'2025'},story:PARAISO},
+    {id:'colombia-wilton-benitez-java',cat:'beans',roast:'filter',origin:'Colombia',name:'Wilton Benitez Java',price:44,notes:['Orange creamsicle','Lemonade','Lavender'],spec:{Farm:'Granja Paraiso 92, Piendamó, Cauca',Varietal:'Java P-14',Process:'Washed, thermal shock',Fermentation:'Anaerobic',Altitude:'1,900 masl',Harvest:'2025'},story:PARAISO},
+    {id:'colombia-el-paraiso-92-bourbon',cat:'beans',roast:'filter',origin:'Colombia',name:'Wilton Benitez Red Bourbon',price:30,size:'250 g',notes:['Berries','Orange','Passion fruit','Honey'],spec:{Farm:'El Paraiso 92, Cauca',Varietal:'Red Bourbon',Process:'Washed, thermal shock',Fermentation:'Double anaerobic','Cup score':'88',Altitude:'1,900 masl',Harvest:'2026'},story:PARAISO},
+    {id:'colombia-i-edinson-argote-watermelon-co-ferment',cat:'beans',roast:'filter',origin:'Colombia',name:'Edinson Argote, Watermelon',price:32,size:'250 g',notes:['Sweet watermelon'],spec:{Farm:'Quebraditas, Oporapa, Huila',Varietal:'Caturra',Process:'Washed',Fermentation:'Watermelon co-ferment with yeast',Altitude:'1,600 to 1,850 masl',Harvest:'2025/26'},story:QUEBRADITAS},
+    {id:'colombia-i-edinson-argote-strawberry-co-ferment',cat:'beans',roast:'filter',origin:'Colombia',name:'Edinson Argote, Strawberry',price:32,size:'250 g',notes:['Strawberry'],spec:{Farm:'Quebraditas, Oporapa, Huila',Varietal:'Caturra',Process:'Washed',Fermentation:'Strawberry co-ferment with yeast',Altitude:'1,600 to 1,850 masl',Harvest:'2025/26'},story:QUEBRADITAS},
+    {id:'brazil-i-imaculada-barbosa',cat:'beans',roast:'filter',origin:'Brazil',name:'Imaculada Barbosa',price:24,size:'250 g',notes:['Dark chocolate','Red fruit','Caramel'],spec:{Region:'Cerrado Mineiro',Farm:'Bravinhos',Varietal:'Yellow Catuai',Process:'Natural',Altitude:'1,100 masl',Harvest:'2025/26'},story:'The Barbosa family has farmed in Brazil since the 1900s, with a mission to grow the Cerrado Mineiro region sustainably through exceptional coffee.'},
+    {id:'brazil-i-sucuri-farm',cat:'beans',roast:'espresso',origin:'Brazil',name:'Sucuri Farm',price:19,size:'250 g',notes:[],spec:{Farm:'Sucuri',Process:'Natural',Harvest:'2025'},story:'Our everyday espresso. Natural process, roasted for milk drinks and straight shots alike.'},
+    {id:'mexico-i-esmeralda-ea-decaf',cat:'beans',roast:'espresso',origin:'Mexico, decaf',name:'Esmeralda',price:24,size:'250 g',notes:['Caramel chocolate','Orange cream','Vanilla'],spec:{Region:'Oaxaca',Varietal:'Field blend',Process:'Natural, ethyl acetate decaf',Harvest:'2024/25'},story:'Decaffeinated with ethyl acetate, a natural process that keeps the sweetness intact.'},
+    {id:'burundi-longmilescoffee',cat:'beans',roast:'filter',origin:'Burundi',name:'Long Miles Coffee',price:30,size:'250 g',soldOut:true,notes:['Citrus','Caramel','Plum'],spec:{Region:'Gaharo Hill, Gitega',Producers:'814 farmers',Varietal:'Bourbon',Process:'Natural',Harvest:'2025'},story:'Cherries are delivered by 814 farmers to the Long Miles station, floated and hand-sorted for ripeness on arrival.'},
+
+    {id:'timemore-chestnut-c3s',cat:'gear',origin:'Hand grinder',name:'Timemore Chestnut C3s Pro',price:135,story:'Stepless adjustment, a folding handle and the upgraded S2C 660 burr set for fast, consistent grinding.'},
+    {id:'nuttii-goosey-hand-coffee-grinder',cat:'gear',origin:'Hand grinder',name:'NUTTII Goosey',price:59.95,story:'24 clicks of adjustment for AeroPress, pour over, moka pot and Clever. Stainless steel burrs for a sweet, clean cup.'},
+    {id:'aeropress',cat:'gear',origin:'Brewer',name:'AeroPress, clear',price:70,story:'The travel-proof brewer. Fast, forgiving and endlessly tweakable.'},
+    {id:'kalita-wave-stainless-steel-dripper-1-2-cups',cat:'gear',origin:'Dripper',name:'Kalita Wave, stainless',price:51,story:'A flat-bottom dripper that makes even extraction easy. Brews one to two cups.'},
+    {id:'hario-v60-suiren-dripper',cat:'gear',origin:'Dripper',name:'Hario V60 Suiren',price:47,story:'The V60 without walls. An open, all-flow design for more control over extraction.'},
+    {id:'hario-v60-02-dripper-white',cat:'gear',origin:'Dripper',name:'Hario V60-02, clear',price:18,story:'The classic cone dripper, size 02, for one to four cups.'},
+    {id:'hario-v60-01-dripper-plastic',cat:'gear',origin:'Dripper',name:'Hario V60-01, white',price:16,story:'The classic cone dripper, size 01, for one to two cups.'},
+    {id:'timemore-coffee-server',cat:'gear',origin:'Server',name:'Timemore coffee server',price:22,story:'A glass server to brew into and pour from.'},
+    {id:'hario-v60-02-filters-100-pack',cat:'gear',origin:'Filters',name:'Hario V60-02 filters, 100',price:14.5},
+    {id:'v60-01-100-pack',cat:'gear',origin:'Filters',name:'Hario V60-01 filters, 100',price:13.5},
+    {id:'aeropress-micro-filters-white-350-pack',cat:'gear',origin:'Filters',name:'AeroPress micro-filters, 350',price:13},
+    {id:'timemore-black-mirror-basic-2',cat:'gear',origin:'Scale',name:'Timemore Black Mirror Basic 2',price:86.5,soldOut:true,story:'Auto-timer, grams or ounces, and flow-rate monitoring.'},
+    {id:'hario-mugen-switch-immersion-dripper-200ml',cat:'gear',origin:'Dripper',name:'Hario Mugen Switch',price:39,soldOut:true,story:'Switch between pour over and immersion halfway through a brew.'},
+
+    {id:'coffeed-x-tijuana-toms-hot-sauce-v4',cat:'pantry',origin:"Collab with Tijuana Tom's",name:'Hot sauce, V4',price:12,notes:['Heat 6/10'],story:'Applewood-smoked jalapeño, guajillo and morita peppers with a cold brew of Brazil Deyvid and Ethiopia Yaye.'},
+    {id:'coffeed-x-tijuana-toms-hot-sauce-v3',cat:'pantry',origin:"Collab with Tijuana Tom's",name:'Ghost and Reaper hot sauce',price:12,notes:['Heat 7/10'],story:'Ghost and Reaper peppers balanced by cold brew coffee. Fruity, chocolatey, and hot without knocking you over.'},
+    {id:'jamison-savage-geisha-cascara-tea',cat:'pantry',origin:'Jamison Savage, Panama',name:'Geisha cascara tea',price:17,size:'100 g',notes:['Cherry compote','Hibiscus','Blood orange'],story:'Tea made from dried natural Geisha coffee cherries. Sweet, aromatic and complex.'},
+    {id:'wildflower-honey',cat:'pantry',origin:'Rosewood Estates, Niagara',name:'Wildflower honey, 1 kg',price:20,story:'Natural, unpasteurised honey from a multi-generational beekeeping family in Niagara.'},
+    {id:'dryk-barista-oat-milk',cat:'pantry',origin:'Barista milk',name:'Dryk oat milk',price:7,story:'The oat milk we use at the bar, for the same latte at home.'},
+    {id:'pacific-foods-barista-almond-milk',cat:'pantry',origin:'Barista milk',name:'Pacific almond milk',price:7,story:'The almond milk we use at the bar.'},
+    {id:'whole-brewnie',cat:'pantry',origin:'Bake case, pickup only',name:'Brewnie, whole tray',price:32,pickup:true,story:'Our coffee brownie, by the whole tray. Pickup only.'},
+    {id:'whole-banana-loaf',cat:'pantry',origin:'Bake case, pickup only',name:'Banana bread, whole loaf',price:30,pickup:true,story:'The whole loaf. Pickup only.'},
+    {id:'coffeed-rub',cat:'pantry',origin:'Made in house',name:'Coffeed Rub',price:10.75,soldOut:true,story:'Guatemala dark roast and Colombia Bourbon with ancho, chipotle, guajillo and árbol chilli.'},
+    {id:'coffee-scented-candle',cat:'pantry',origin:'Candle',name:'Coffee scented candle',price:23,soldOut:true,variants:['Espresso','Coffee caramel'],story:'Espresso, or coffee caramel.'},
+
+    {id:'gift-card',cat:'gifts',origin:'Gift card',name:'Coffeed gift card',price:10,variants:[['$10',10],['$25',25],['$50',50],['$100',100]],digital:true,story:'Sent by email, and good for beans, gear and drinks at the bar.'},
+
+    {id:'workshop',cat:'workshop',hidden:true,origin:'Workshop',name:'Brewing Better Coffee, Vol. 1',price:99,digital:true}
+  ];
+  var byId={};P.forEach(function(p){byId[p.id]=p});
+  var img=function(p){return p.id==='workshop'?'':'images/products/'+p.id+'.webp'};
+  var CATS=[['beans','Coffee beans'],['gear','Brew gear'],['pantry','Pantry and collabs'],['gifts','Gift cards']];
+
+  /* ---------- store rules (placeholders where Coffeed's real rates are unknown) ---------- */
+  var FREE_CA=65,FREE_US=80,SHIP_CA=12,SHIP_US=18,HST=.13;
+  var beanDiscount=function(beans){return beans>=450?.2:beans>=180?.1:0};
+
+  /* ---------- cart state ---------- */
+  var KEY='coffeed-cart-v1',cart=[];
+  try{cart=JSON.parse(localStorage.getItem(KEY))||[]}catch(e){cart=[]}
+  cart=cart.filter(function(l){return byId[l.id]});
+  var save=function(){try{localStorage.setItem(KEY,JSON.stringify(cart))}catch(e){}};
+  var unit=function(l){var p=byId[l.id];if(p.variants&&Array.isArray(p.variants[0])){var v=p.variants.filter(function(v){return v[0]===l.variant})[0];return v?v[1]:p.price}return p.price};
+  var totals=function(){
+    var sub=0,beans=0,ship=0,taxable=0;
+    cart.forEach(function(l){var p=byId[l.id],t=unit(l)*l.qty;sub+=t;if(p.cat==='beans')beans+=t;if(!p.digital)ship+=t;if(p.id!=='gift-card')taxable+=t});
+    var rate=beanDiscount(beans),disc=Math.round(beans*rate*100)/100;
+    return {sub:sub,beans:beans,rate:rate,disc:disc,total:sub-disc,shippable:ship-disc,taxable:taxable-disc,count:cart.reduce(function(n,l){return n+l.qty},0)};
+  };
+  var add=function(id,variant,qty,meta){
+    var key=id+'|'+(variant||'')+'|'+(meta||'');
+    var l=cart.filter(function(l){return l.key===key})[0];
+    if(l)l.qty=Math.min(99,l.qty+qty);else cart.push({key:key,id:id,variant:variant||'',meta:meta||'',qty:qty});
+    save();renderCart();
+    var b=$('#cart-open');b.classList.remove('bump');void b.offsetWidth;b.classList.add('bump');
+  };
+
+  /* ---------- dialogs ---------- */
+  var opener=null;
+  var openDlg=function(d){opener=document.activeElement;if(!d.open)d.showModal()};
+  $$('dialog').forEach(function(d){
+    d.addEventListener('click',function(e){if(e.target===d||e.target.closest('[data-close]'))d.close()});
+    d.addEventListener('close',function(){document.body.style.overflow='';if(opener&&document.contains(opener)&&!$('dialog[open]'))opener.focus()});
+  });
+
+  /* ---------- shop grid ---------- */
+  var filter='beans',sortBy='feat';
+  var fwrap=$('#filters');
+  fwrap.innerHTML=CATS.map(function(c){
+    var n=P.filter(function(p){return p.cat===c[0]}).length;
+    return '<button type="button" data-cat="'+c[0]+'" aria-pressed="'+(c[0]===filter)+'">'+c[1]+'<span>'+n+'</span></button>';
+  }).join('');
+  var setFilter=function(c){filter=c;$$('button',fwrap).forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.cat===c))});renderGrid()};
+  fwrap.addEventListener('click',function(e){var b=e.target.closest('button');if(b)setFilter(b.dataset.cat)});
+  $$('[data-filter]').forEach(function(a){a.addEventListener('click',function(){setFilter(a.dataset.filter)})});
+  $('#sort').addEventListener('change',function(e){sortBy=e.target.value;renderGrid()});
+  $('#bean-count').textContent=P.filter(function(p){return p.cat==='beans'&&!p.soldOut}).length;
+
+  var renderGrid=function(){
+    var list=P.filter(function(p){return p.cat===filter&&!p.hidden});
+    list=list.slice().sort(function(a,b){
+      if(!!a.soldOut!==!!b.soldOut)return a.soldOut?1:-1;
+      return sortBy==='lo'?a.price-b.price:sortBy==='hi'?b.price-a.price:0;
+    });
+    $('#grid').innerHTML=list.length?list.map(function(p){
+      var from=p.variants&&Array.isArray(p.variants[0])?'From ':'';
+      var notes=(p.notes&&p.notes.length)?p.notes.join(', '):(p.size||'');
+      var size=p.size&&p.notes&&p.notes.length?' <span class="vh">'+p.size+'</span>':'';
+      return '<li class="card'+(p.soldOut?' out':'')+'">'+
+        '<button class="pic" type="button" data-open="'+p.id+'" aria-label="View '+esc(p.name)+'"><img src="'+img(p)+'" alt="" loading="lazy" width="800" height="1000">'+(p.soldOut?'<span class="badge">Sold out</span>':p.pickup?'<span class="badge">Pickup</span>':'')+'</button>'+
+        '<div class="body"><span class="origin">'+esc(p.origin)+'</span><h3><button type="button" data-open="'+p.id+'">'+esc(p.name)+'</button></h3>'+
+        (notes?'<p class="notes">'+esc(notes)+size+'</p>':'')+
+        '<div class="buy"><span class="price">'+from+money(p.price)+'</span>'+
+        (p.soldOut?'<button class="btn sm" type="button" disabled>Sold out</button>':
+          (p.variants?'<button class="btn sm" type="button" data-open="'+p.id+'">Choose</button>':'<button class="btn sm" type="button" data-add="'+p.id+'" aria-label="Add '+esc(p.name)+' to cart">Add</button>'))+
+        '</div></div></li>';
+    }).join(''):'<li class="empty-grid">Nothing here right now.</li>';
+  };
+  $('#grid').addEventListener('click',function(e){
+    var o=e.target.closest('[data-open]'),a=e.target.closest('[data-add]');
+    if(a){var p=byId[a.dataset.add];add(p.id,'',1);toast(p.name+' added to your cart.')}
+    else if(o)openProduct(o.dataset.open);
+  });
+
+  /* ---------- product sheet ---------- */
+  var pd=$('#product'),pdQty=1,pdId=null;
+  var openProduct=function(id){
+    var p=byId[id];pdId=id;pdQty=1;$('#pd-qty').textContent='1';
+    $('#pd-img').src=img(p);$('#pd-img').alt=p.name;
+    $('#pd-origin').textContent=p.origin;$('#pd-name').textContent=p.name;
+    var from=p.variants&&Array.isArray(p.variants[0]);
+    $('#pd-price').innerHTML=(from?'From ':'')+money(p.price)+(p.size?'<small>'+p.size+'</small>':'');
+    $('#pd-notes').innerHTML=(p.notes||[]).map(function(n){return '<li>'+esc(n)+'</li>'}).join('');
+    $('#pd-notes').hidden=!(p.notes&&p.notes.length);
+    var spec=p.spec||{};
+    $('#pd-spec').innerHTML=Object.keys(spec).map(function(k){return '<dt>'+esc(k)+'</dt><dd>'+esc(spec[k])+'</dd>'}).join('');
+    $('#pd-spec').hidden=!Object.keys(spec).length;
+    $('#pd-story').textContent=p.story||'';$('#pd-story').hidden=!p.story;
+    var vw=$('#pd-var-wrap');
+    if(p.variants){vw.hidden=false;$('#pd-var-label').textContent=from?'Amount':'Scent';
+      $('#pd-var').innerHTML=p.variants.map(function(v){var n=Array.isArray(v)?v[0]:v;return '<option>'+esc(n)+'</option>'}).join('')}
+    else vw.hidden=true;
+    var addB=$('#pd-add');addB.disabled=!!p.soldOut;addB.textContent=p.soldOut?'Sold out':'Add to cart';
+    $('#pd-note').textContent=p.cat==='beans'?'Shipped whole bean. Visit the shop and we will grind it for your brewer.':p.pickup?'Pickup only, at 3420 Rebecca Street.':p.digital?'Delivered by email.':'';
+    openDlg(pd);pd.scrollTop=0;
+  };
+  $('#pd-minus').addEventListener('click',function(){pdQty=Math.max(1,pdQty-1);$('#pd-qty').textContent=pdQty});
+  $('#pd-plus').addEventListener('click',function(){pdQty=Math.min(20,pdQty+1);$('#pd-qty').textContent=pdQty});
+  $('#pd-var').addEventListener('change',function(){var p=byId[pdId];if(Array.isArray(p.variants[0])){var v=p.variants[this.selectedIndex];$('#pd-price').textContent=money(v[1])}});
+  $('#pd-add').addEventListener('click',function(){
+    var p=byId[pdId];add(p.id,p.variants?$('#pd-var').value:'',pdQty);
+    pd.close();openCart();
+  });
+
+  /* ---------- cart drawer ---------- */
+  var cartD=$('#cart');
+  var openCart=function(){renderCart();openDlg(cartD)};
+  $('#cart-open').addEventListener('click',openCart);
+  var thumb=function(p){return p.id==='workshop'?'<span class="ph">Work-<br>shop</span>':'<img src="'+img(p)+'" alt="" width="800" height="1000">'};
+  var meter=function(label,now,goal){return '<div class="meter"><p>'+label+'</p><div class="bar"><i style="width:'+Math.min(100,now/goal*100)+'%"></i></div></div>'};
+  var renderCart=function(){
+    var t=totals();
+    $('#cart-count').textContent=t.count;
+    var empty=!cart.length;
+    $('#c-empty').hidden=!empty;$('#c-foot').hidden=empty;$('#meters').hidden=empty;$('#lines').hidden=empty;
+    if(empty)return;
+    var m='';
+    if(t.shippable>0)m+=meter(t.shippable>=FREE_CA?'Free shipping across Canada unlocked.':'You are '+money(FREE_CA-t.shippable)+' away from free shipping in Canada.',t.shippable,FREE_CA);
+    m+=meter(t.beans>=450?'20% off beans unlocked.':t.beans>=180?'10% off beans. Spend '+money(450-t.beans)+' more on beans for 20%.':'Spend '+money(180-t.beans)+' more on beans to save 10%.',t.beans,t.beans>=180?450:180);
+    $('#meters').innerHTML=m;
+    $('#lines').innerHTML=cart.map(function(l,i){
+      var p=byId[l.id];var meta=[p.size,l.variant,l.meta,p.pickup?'Pickup only':''].filter(Boolean).join(', ');
+      return '<li class="line"><div class="im">'+thumb(p)+'</div><div><h3>'+esc(p.name)+'</h3>'+(meta?'<span class="meta">'+esc(meta)+'</span>':'')+'</div><span class="price">'+money(unit(l)*l.qty)+'</span>'+
+        '<div class="ctl"><div class="qty sm" role="group" aria-label="Quantity of '+esc(p.name)+'"><button type="button" data-dec="'+i+'" aria-label="Decrease quantity">&minus;</button><output>'+l.qty+'</output><button type="button" data-inc="'+i+'" aria-label="Increase quantity">+</button></div><button class="rm" type="button" data-rm="'+i+'">Remove</button></div></li>';
+    }).join('');
+    $('#c-sub').textContent=money(t.sub);
+    $('#c-disc-row').hidden=!t.disc;$('#c-disc-l').textContent='Bean discount ('+Math.round(t.rate*100)+'%)';$('#c-disc').textContent='−'+money(t.disc);
+    $('#c-total').textContent=money(t.total);
+  };
+  $('#lines').addEventListener('click',function(e){
+    var b=e.target.closest('button');if(!b)return;
+    var i=+(b.dataset.inc||b.dataset.dec||b.dataset.rm);
+    if(b.dataset.inc)cart[i].qty=Math.min(99,cart[i].qty+1);
+    else if(b.dataset.dec){cart[i].qty--;if(!cart[i].qty)cart.splice(i,1)}
+    else if(b.dataset.rm)cart.splice(i,1);
+    else return;
+    save();renderCart();
+    var again=$('#lines [data-'+(b.dataset.inc?'inc':'dec')+'="'+i+'"]')||$('#c-empty .btn')||$('#cart .x');if(again)again.focus();
+  });
+  $('#c-empty .btn').addEventListener('click',function(){setFilter('beans')});
+
+  /* ---------- toast ---------- */
+  var tt;
+  var toast=function(msg){$('#toast-msg').textContent=msg;var t=$('#toast');t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},3800)};
+  $('#toast-view').addEventListener('click',function(){$('#toast').classList.remove('show');openCart()});
+
+  /* ---------- checkout ---------- */
+  var co=$('#checkout');
+  var method=function(){return $('input[name="method"]:checked').value};
+  var renderCheckout=function(){
+    var t=totals(),m=method(),hasShip=t.shippable>0;
+    var ship=!hasShip||m==='pickup'?0:m==='ca'?(t.shippable>=FREE_CA?0:SHIP_CA):(t.shippable>=FREE_US?0:SHIP_US);
+    var tax=m==='us'?0:Math.round(t.taxable*HST*100)/100;
+    $('#m-ca').textContent=!hasShip?'Nothing to ship':t.shippable>=FREE_CA?'Free':money(SHIP_CA);
+    $('#m-us').textContent=!hasShip?'Nothing to ship':t.shippable>=FREE_US?'Free':money(SHIP_US);
+    $('#ship-fields').hidden=m==='pickup'||!hasShip;
+    $('#co-region-l').textContent=m==='us'?'State':'Province';$('#co-postal-l').textContent=m==='us'?'ZIP code':'Postal code';
+    $('#co-lines').innerHTML=cart.map(function(l){var p=byId[l.id];var meta=[l.variant,l.meta].filter(Boolean).join(', ');
+      return '<li><div class="im">'+thumb(p)+'<b>'+l.qty+'</b></div><span>'+esc(p.name)+(meta?'<span class="meta">'+esc(meta)+'</span>':'')+'</span><span>'+money(unit(l)*l.qty)+'</span></li>'}).join('');
+    $('#co-sub').textContent=money(t.sub);
+    $('#co-disc-row').hidden=!t.disc;$('#co-disc-l').textContent='Bean discount ('+Math.round(t.rate*100)+'%)';$('#co-disc').textContent='−'+money(t.disc);
+    $('#co-ship').textContent=ship?money(ship):'Free';
+    $('#co-tax-l').textContent=m==='us'?'Tax':'HST (13%)';$('#co-tax').textContent=m==='us'?'Not charged':money(tax);
+    var total=t.total+ship+tax;$('#co-total').textContent=money(total);
+    $('#co-place').textContent='Place order, '+money(total);
+    var pick=cart.filter(function(l){return byId[l.id].pickup});
+    $('#co-err').textContent=m!=='pickup'&&pick.length?pick.map(function(l){return byId[l.id].name}).join(' and ')+(pick.length>1?' are':' is')+' pickup only. Choose pickup, or remove '+(pick.length>1?'them':'it')+' from your cart.':'';
+    return total;
+  };
+  $$('input[name="method"]').forEach(function(r){r.addEventListener('change',renderCheckout)});
+  $('#to-checkout').addEventListener('click',function(){
+    cartD.close();$('#co').hidden=false;$('#co-done').hidden=true;renderCheckout();openDlg(co);co.scrollTop=0;$('#co-email').focus();
+  });
+  var ferr=function(id,msg){var el=$('#'+id),e=$('#'+id+'-err');e.textContent=msg||'';el.setAttribute('aria-invalid',msg?'true':'false');return !msg};
+  $('#co-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var total=renderCheckout();if($('#co-err').textContent){$('input[name="method"][value="pickup"]').focus();return}
+    var ok=[ferr('co-email',/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('#co-email').value.trim())?'':'Enter an email address so we can send your receipt.')];
+    if(!$('#ship-fields').hidden){
+      [['co-name','Enter the name for the parcel.'],['co-addr','Enter a street address.'],['co-city','Enter a city.'],['co-region','Enter a '+(method()==='us'?'state':'province')+'.'],['co-postal','Enter a '+(method()==='us'?'ZIP':'postal')+' code.']].forEach(function(f){ok.push(ferr(f[0],$('#'+f[0]).value.trim()?'':f[1]))});
+    }
+    var bad=$$('#co-form [aria-invalid="true"]').filter(function(el){return !el.closest('[hidden]')});
+    if(ok.indexOf(false)>-1){if(bad[0])bad[0].focus();return}
+    var no='CF-'+(1040+Math.floor(Math.random()*900));
+    var m=method();
+    $('#co-done-h').textContent='Order '+no+' placed';
+    $('#co-done-msg').textContent='Total '+money(total)+'. A receipt is on its way to '+$('#co-email').value.trim()+'. '+(m==='pickup'?'We will email you when your order is ready to pick up at 3420 Rebecca Street.':'Beans are roasted and shipped within a few days, and we will email tracking when it leaves the shop.')+' This is a sample order, so nothing was charged.';
+    cart=[];save();renderCart();
+    $('#co').hidden=true;var d=$('#co-done');d.hidden=false;d.focus();
+  });
+
+  /* ---------- workshop ---------- */
+  $('#ws-form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var a=ferr('ws-session',$('#ws-session').value?'':'Choose a session date.');
+    var b=ferr('ws-name',$('#ws-name').value.trim()?'':'Enter the name to put on the guest list.');
+    if(!a){$('#ws-session').focus();return}if(!b){$('#ws-name').focus();return}
+    var seats=+$('#ws-seats').value,s=$('#ws-session').value;
+    add('workshop','',seats,s.replace(/^Saturday, /,'')+', 4:30 pm, for '+$('#ws-name').value.trim());
+    $('#ws-added-msg').textContent=seats+(seats===1?' seat':' seats')+' for '+s+', under '+$('#ws-name').value.trim()+'. Check out to confirm them.';
+    $('#ws-form').style.display='none';var d=$('#ws-added');d.style.display='block';d.focus();
+  });
+  $('#ws-view').addEventListener('click',openCart);
+
+  /* ---------- nav ---------- */
+  var nav=$('#nav'),burger=$('#burger');
+  var onScroll=function(){nav.classList.toggle('scrolled',window.scrollY>40)};
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  var setMenu=function(open){nav.classList.toggle('open',open);burger.setAttribute('aria-expanded',String(open));burger.setAttribute('aria-label',open?'Close menu':'Open menu');document.body.style.overflow=open?'hidden':''};
+  burger.addEventListener('click',function(){setMenu(!nav.classList.contains('open'))});
+  $$('#sheet a').forEach(function(a){a.addEventListener('click',function(){setMenu(false)})});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&nav.classList.contains('open')){setMenu(false);burger.focus()}});
+
+  /* ---------- bar tabs ---------- */
+  var tabs=$$('[role="tab"]');
+  var select=function(tab,focus){tabs.forEach(function(t){var on=t===tab;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!on});if(focus)tab.focus()};
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){select(t)});
+    t.addEventListener('keydown',function(e){var j=null;if(e.key==='ArrowRight')j=(i+1)%tabs.length;else if(e.key==='ArrowLeft')j=(i-1+tabs.length)%tabs.length;else if(e.key==='Home')j=0;else if(e.key==='End')j=tabs.length-1;if(j!==null){e.preventDefault();select(tabs[j],true)}});
+  });
+
+  /* ---------- zoom ---------- */
+  var zoom=$('#zoom'),zimg=$('#zoom img');
+  $$('.th').forEach(function(b){b.addEventListener('click',function(){
+    var li=b.parentNode;zimg.src=b.dataset.src;zimg.alt=b.querySelector('img').alt;
+    $('#zoom-h').textContent=li.querySelector('h3').textContent;$('#zoom .cap p').textContent=li.querySelector('p').textContent;openDlg(zoom);
+  })});
+  zoom.addEventListener('close',function(){zimg.src=''});
+
+  /* ---------- hours (SAMPLE: replace with Coffeed's real hours) ---------- */
+  var DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  var HOURS=[[7,17],[7,17],[7,17],[7,17],[7,17],[8,17],[8,16]];
+  var h12=function(h){return (h>12?h-12:h)+(h>=12?' pm':' am')};
+  $('#hours').innerHTML=DAYS.map(function(d,i){return '<dt>'+d+'</dt><dd>'+h12(HOURS[i][0])+' to '+h12(HOURS[i][1])+'</dd>'}).join('');
+  var now=new Date(),di=(now.getDay()+6)%7,tm=now.getHours()+now.getMinutes()/60,hr=HOURS[di];
+  $$('#hours dt')[di].className=$$('#hours dd')[di].className='today';
+  var st=$('#status');
+  if(tm>=hr[0]&&tm<hr[1]){st.textContent='Open now, until '+h12(hr[1]);st.className='open'}
+  else st.textContent=tm<hr[0]?'Closed, opens today at '+h12(hr[0]):'Closed, opens tomorrow at '+h12(HOURS[(di+1)%7][0]);
+
+  renderGrid();renderCart();
+})();
+</script>
+</body>
+</html>
